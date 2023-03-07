@@ -2,4 +2,23 @@
  * Typography & Text styles
  */
 
+:root {
+	--nav-active: #ffffff;
+}
 
+body {
+	background: rgb(65, 65, 65);
+	background: linear-gradient(90deg, rgba(65, 65, 65, 1) 0%, rgba(0, 0, 0, 1) 100%);
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+.nav-active {
+	color: var(--nav-active);
+	text-shadow: 0 0 18px rgba(255, 255, 255, 1);
+	-webkit-transition: color 0.3s linear, text-shadow 0.3s linear;
+	-ms-transition: color 0.3s linear, text-shadow 0.3s linear;
+	transition: color 0.3s linear, text-shadow 0.3s linear;
+}

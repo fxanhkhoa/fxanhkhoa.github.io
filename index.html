@@ -11,13 +11,13 @@
 
 		<!-- Stylesheets -->
 		<!-- Reset default styles and add support for google fonts -->
+		<link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
 		<link
-			href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
 			rel="stylesheet"
 			type="text/css"
 		/>
-		<link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
-		<script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+		<script src="https://cdn.tailwindcss.com"></script>
 		<script>
 			tailwind.config = {
 				theme: {
@@ -32,19 +32,29 @@
 
 		<!-- Custom styles -->
 		<link href="style.css" rel="stylesheet" type="text/css" />
-
-		<!-- jQuery -->
-		<script
-			src="https://code.jquery.com/jquery-3.4.1.min.js"
-			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			crossorigin="anonymous"
-		></script>
-
-		<!-- Want to add Bootstrap? -->
+		<link href="animation/animation.css" rel="stylesheet" type="text/css" />
 	</head>
 
 	<body>
-		<h1>Hello Fxanhkhoa</h1>
+		<nav class="flex flex-row justify-center">
+			<div class="bg-gray-400 w-2/4 rounded-b-3xl">
+				<div class="flex flex-row justify-between gap-2">
+					<div class="flex flex-row justify-around grow">
+						<a
+							class="bg-transparent text-shadow-drop-center-hover rounded-full my-auto px-2 py-1 clickable"
+							id="home-nav"
+							onclick="navClick('home-nav')"
+						>
+							<i class="fa-solid fa-house text-2xl"></i>
+						</a>
+					</div>
+					<div>
+						<img class="h-12 w-auto" src="/images/logo.png" />
+					</div>
+					<div class="flex flex-row justify-around grow"></div>
+				</div>
+			</div>
+		</nav>
 		<!-- <header></header>
 		
 		<footer>Footer region</footer> -->
