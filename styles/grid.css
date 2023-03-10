@@ -1,0 +1,9 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(10px, 50px) auto 50px;
+}
+
+.grid-item {
+    /* background-color: rgba(164, 10, 10, 0.8); */
+}
