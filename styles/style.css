@@ -29,3 +29,14 @@ body {
 	-ms-transition: color 0.3s linear, text-shadow 0.3s linear;
 	transition: color 0.3s linear, text-shadow 0.3s linear;
 }
+
+#header {
+	position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 9997;
+    transition: all 0.5s;
+    padding: 15px;
+    overflow-y: auto;
+}
