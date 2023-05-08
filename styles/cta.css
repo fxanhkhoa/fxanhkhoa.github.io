@@ -1,7 +1,6 @@
 .cta {
 	position: relative;
-	margin: auto;
-	padding: 19px 22px;
+	padding: 22px 22px;
 	transition: all 0.2s ease;
 }
 .cta:before {
@@ -11,9 +10,9 @@
 	left: 0;
 	display: block;
 	border-radius: 28px;
-	background: rgba(255, 171, 157, 0.5);
-	width: 40px;
-	height: 40px;
+	background: #e4e4e4;
+	width: 42px;
+	height: 42px;
 	transition: all 0.3s ease;
 }
 .cta span,
@@ -25,13 +24,52 @@ i {
 	text-transform: uppercase;
 	vertical-align: middle;
 }
+
+.cta:hover span {
+	display: unset;
+}
+
+.cta:hover i {
+	color: #fff !important;
+}
+
 .cta:hover:before {
 	width: 100%;
-	background: #ffab9d;
-}
-.cta:hover svg {
-	transform: translateX(0);
+	background: #0563bb !important;
+	display: block;
 }
 .cta:active {
 	transform: scale(0.96);
+}
+
+.cta-active {
+	width: 100%;
+	background: #0563bb;
+	position: relative;
+	padding: 22px 22px;
+	display: flex;
+	height: 42px;
+}
+
+.cta-active::before {
+	content: unset;
+	position: unset;
+	top: unset;
+	left: unset;
+	display: unset;
+	border-radius: unset;
+	background: unset;
+	width: 42px;
+}
+
+.cta-active span {
+	display: block;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.cta-active i {
+	color: #fff !important;
+	margin-top: auto;
+	margin-bottom: auto;
 }

@@ -35,36 +35,77 @@
 		<link href="styles/grid.css" rel="stylesheet" type="text/css" />
 		<link href="styles/cta.css" rel="stylesheet" type="text/css" />
 		<link href="animation/animation.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 	</head>
 
 	<body>
 		<header id="header" class="flex flex-col justify-center">
-			<a
-				class="bg-transparent rounded-full my-auto px-2 py-1 clickable cta"
-				id="home-na"
-				onclick="navClick('home-nav')"
-			>
-				<i class="fa-solid fa-house text-xl"></i>
-				<span class="ml-2">Home</span>
-			</a>
+			<nav class="flex flex-col justify-center gap-2">
+				<a
+					class="rounded-full my-auto pl-3 pt-2 pb-2 clickable cta text-sky-600"
+					id="home-nav"
+					href="#home"
+					onclick="navClick('home-nav')"
+				>
+					<i class="fa-solid fa-house"></i>
+					<span class="ml-2 text-white hidden">Home</span>
+				</a>
+				<a
+					class="rounded-full my-auto pl-3 pt-2 pb-2 clickable cta text-sky-600"
+					id="about-nav"
+					onclick="navClick('about-nav')"
+				>
+					<i class="fa-solid fa-user"></i>
+					<span class="ml-2 text-white hidden">About</span>
+				</a>
+				<a
+					class="rounded-full my-auto pl-3 pt-2 pb-2 clickable cta text-sky-600"
+					id="resume-nav"
+					onclick="navClick('resume-nav')"
+				>
+					<i class="fa-solid fa-file"></i>
+					<span class="ml-2 text-white hidden">Resume</span>
+				</a>
+				<a
+					class="rounded-full my-auto pl-3 pt-2 pb-2 clickable cta text-sky-600"
+					id="portfolio-nav"
+					onclick="navClick('portfolio-nav')"
+				>
+					<i class="fa-solid fa-book"></i>
+					<span class="ml-2 text-white hidden">Portfolio</span>
+				</a>
+				<a
+					class="rounded-full my-auto pl-3 pt-2 pb-2 clickable cta text-sky-600"
+					id="service-nav"
+					onclick="navClick('service-nav')"
+				>
+					<i class="fa-solid fa-server"></i>
+					<span class="ml-2 text-white hidden">Service</span>
+				</a>
+				<a
+					class="rounded-full my-auto pl-3 pt-2 pb-2 clickable cta text-sky-600"
+					id="contact-nav"
+					onclick="navClick('contact-nav')"
+				>
+					<i class="fa-solid fa-envelope"></i>
+					<span class="ml-2 text-white hidden">Contact</span>
+				</a>
+			</nav>
 		</header>
-		<div class="grid-container h-full">
-			
-			<main class="grid-item">
-				<header class="grid grid-cols-12 gap-4">
-					<div class="col-span-7 py-28 px-14">
-						<span class="flex font-semibold text-zinc-300">Hi, I'm Khoa Bui (Kevin)</span>
-						<span class="flex font-bold text-4xl mt-3 tracking-wide">
-							I enjoy developing web application and creating things.
-						</span>
-					</div>
-					<div class="col-span-5 pt-20">
-						<img src="images/developer.png" class="object-contain" />
-					</div>
-				</header>
-			</main>
-			<footer class="grid-item">ss</footer>
-		</div>
+
+		<section id="home" class="flex flex-col justify-center">
+			<div class="container" data-aos="zoom-in" data-aos-delay="100">
+				<h1>Kevin Bui</h1>
+				<p>I'm <span class="typed" data-typed-items="Designer, Developer, Freelancer, Photographer"></span></p>
+				<div class="social-links">
+					<a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+					<a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+					<a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+					<a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+					<a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+				</div>
+			</div>
+		</section>
 
 		<!-- Load additional JS scripts here -->
 		<script
@@ -72,6 +113,11 @@
 			integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 			crossorigin="anonymous"
 		></script>
+		<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+		<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+		<script>
+			AOS.init();
+		</script>
 		<script type="text/javascript" src="script.js"></script>
 	</body>
 </html>
