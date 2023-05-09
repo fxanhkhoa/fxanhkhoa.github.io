@@ -10,7 +10,7 @@
 	left: 0;
 	display: block;
 	border-radius: 28px;
-	background: #e4e4e4;
+	background: #f3f3f3;
 	width: 42px;
 	height: 42px;
 	transition: all 0.3s ease;
@@ -27,6 +27,8 @@ i {
 
 .cta:hover span {
 	display: unset;
+	margin-top: auto;
+	margin-bottom: auto;
 }
 
 .cta:hover i {
@@ -44,7 +46,6 @@ i {
 
 .cta-active {
 	width: 100%;
-	background: #0563bb;
 	position: relative;
 	padding: 22px 22px;
 	display: flex;
@@ -52,20 +53,15 @@ i {
 }
 
 .cta-active::before {
-	content: unset;
-	position: unset;
-	top: unset;
-	left: unset;
-	display: unset;
-	border-radius: unset;
-	background: unset;
-	width: 42px;
-}
-
-.cta-active span {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
 	display: block;
-	margin-top: auto;
-	margin-bottom: auto;
+	border-radius: 28px;
+	background: #0563bb;
+	width: 42px;
+	height: 42px;
 }
 
 .cta-active i {

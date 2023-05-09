@@ -1,5 +1,14 @@
 let activeNav = "home-nav";
 
+const select = (el, all = false) => {
+	el = el.trim();
+	if (all) {
+		return [...document.querySelectorAll(el)];
+	} else {
+		return document.querySelector(el);
+	}
+};
+
 document.addEventListener("DOMContentLoaded", () => {
 	navClick("home-nav");
 	var typed = new Typed("#element", {
@@ -23,3 +32,24 @@ function navClick(name) {
 		location.href = "#";
 	}
 }
+
+let navbarLinks = [...document.querySelectorAll(".cta")];
+const navbarLinksActive = () => {
+	let position = window.scrollY + 200;
+	navbarLinks.forEach((navbarLink) => {
+		if (!navbarLink.hash) return;
+		let section = select(navbarLink.hash);
+		if (!section) return;
+		if (position >= section.offsetTop && position <= section.offsetTop + section.offsetHeight) {
+			navbarLink.classList.add("cta-active");
+		} else {
+			navbarLink.classList.remove("cta-active");
+		}
+	});
+};
+
+const onscroll = (el, listener) => {
+	el.addEventListener("scroll", listener);
+};
+
+onscroll(document, navbarLinksActive);

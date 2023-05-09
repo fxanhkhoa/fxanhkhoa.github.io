@@ -3,11 +3,11 @@
 	<head>
 		<!-- Page setup -->
 		<meta charset="utf-8" />
-		<title>Your title here</title>
+		<title>fxanhkhoa</title>
 		<meta name="description" content="A brief description of your site for search engines" />
 		<meta name="author" content="Information about the author here" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/png" href="favicon.png" />
+		<link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
 
 		<!-- Stylesheets -->
 		<!-- Reset default styles and add support for google fonts -->
@@ -39,7 +39,7 @@
 	</head>
 
 	<body>
-		<header id="header" class="flex flex-col justify-center md:visible sm:invisible">
+		<header id="header" class="flex flex-col justify-center invisible lg:visible">
 			<nav class="flex flex-col justify-center gap-2">
 				<a
 					class="rounded-full my-auto pl-3 pt-2 pb-2 clickable cta text-sky-600"
@@ -53,6 +53,7 @@
 				<a
 					class="rounded-full my-auto pl-3 pt-2 pb-2 clickable cta text-sky-600"
 					id="about-nav"
+					href="#about"
 					onclick="navClick('about-nav')"
 				>
 					<i class="fa-solid fa-user"></i>
@@ -94,18 +95,228 @@
 		</header>
 
 		<section id="home" class="flex flex-col justify-center">
-			<div class="container sm:text-center" data-aos="zoom-in" data-aos-delay="100">
+			<div class="text-center lg:text-start xl:text-start" data-aos="zoom-in" data-aos-delay="100">
 				<h1>Kevin Bui</h1>
 				<p>I'm <span id="element" class="typed text-sky-700"></span></p>
-				<div class="mt-3 flex justify-center gap-4">
-					<a target="_blank" rel="noopener noreferrer" href="#" class="twitter hover:text-sky-500 duration-300"><i class="fa-brands fa-twitter text-xl"></i></a>
-					<a target="_blank" rel="noopener noreferrer" href="#" class="facebook hover:text-sky-500 duration-300"><i class="fa-brands fa-facebook text-xl"></i></a>
-					<a target="_blank" rel="noopener noreferrer" href="https://github.com/fxanhkhoa" class="github hover:text-sky-500 duration-300"><i class="fa-brands fa-github text-xl"></i></i></a>
-					<a target="_blank" rel="noopener noreferrer" href="#" class="google-plus hover:text-sky-500 duration-300"><i class="fa-brands fa-skype text-xl"></i></a>
-					<a target="_blank" rel="noopener noreferrer" href="#" class="linkedin hover:text-sky-500 duration-300"><i class="fa-brands fa-linkedin text-xl"></i></a>
+				<div class="mt-3 flex justify-center lg:justify-start gap-5 text-zinc-500">
+					<a
+						target="_blank"
+						rel="noopener noreferrer"
+						href="#"
+						class="twitter hover:text-sky-500 duration-300"
+						><i class="fa-brands fa-twitter text-xl"></i
+					></a>
+					<a
+						target="_blank"
+						rel="noopener noreferrer"
+						href="#"
+						class="facebook hover:text-sky-500 duration-300"
+						><i class="fa-brands fa-facebook text-xl"></i
+					></a>
+					<a
+						target="_blank"
+						rel="noopener noreferrer"
+						href="https://github.com/fxanhkhoa"
+						class="github hover:text-sky-500 duration-300"
+						><i class="fa-brands fa-github text-xl"></i
+					></a>
+					<a
+						target="_blank"
+						rel="noopener noreferrer"
+						href="https://www.linkedin.com/in/khoa-bui-anh-698ab2173"
+						class="linkedin hover:text-sky-500 duration-300"
+						><i class="fa-brands fa-linkedin text-xl"></i
+					></a>
 				</div>
 			</div>
 		</section>
+
+		<main id="main">
+			<section id="about" class="about">
+				<div class="" data-aos="fade-up">
+					<div class="section-title">
+						<h2>About</h2>
+						<p>
+							Enthusiastic engineering college graduate with freelance experience. Completed several
+							client projects, including small consulting, product and research jobs. Seeking to further
+							career by growing with the team as a Software Developer.
+						</p>
+					</div>
+
+					<div class="grid grid-cols-12 gap-5">
+						<div class="col-span-12 lg:col-span-4">
+							<img src="images/avatar.jpg" class="rounded-full" alt="" />
+						</div>
+						<div class="col-span-12 lg:col-span-8 lg:pt-0 content p-3 lg:p-0">
+							<h3>Fullstack Developer</h3>
+							<p class="italic">
+								More than 5 years experience being a Fullstack developer and a Freelancer
+							</p>
+							<div class="grid grid-cols-12 mt-2">
+								<div class="col-span-12 lg:col-span-6">
+									<ul>
+										<li>
+											<i class="fa-solid fa-chevron-right mr-2 text-sky-700"></i>
+											<strong>Birthday:</strong> <span class="ml-2">03 Feb 1996</span>
+										</li>
+										<li>
+											<i class="fa-solid fa-chevron-right mr-2 text-sky-700"></i>
+											<strong>Website:</strong>
+											<a class="ml-2" href="https://fxanhkhoa.github.io">Fxanhkhoa</a>
+										</li>
+										<li>
+											<i class="fa-solid fa-chevron-right mr-2 text-sky-700"></i>
+											<strong>Phone:</strong> <span class="ml-2">+84 772912970</span>
+										</li>
+										<li>
+											<i class="fa-solid fa-chevron-right mr-2 text-sky-700"></i>
+											<strong>City:</strong> <span class="ml-2">Ho Chi Minh, Viet Nam</span>
+										</li>
+									</ul>
+								</div>
+								<div class="col-span-12 lg:col-span-6">
+									<ul>
+										<li>
+											<i class="fa-solid fa-chevron-right mr-2 text-sky-700"></i>
+											<strong>Age:</strong> <span class="ml-2">27</span>
+										</li>
+										<li>
+											<i class="fa-solid fa-chevron-right mr-2 text-sky-700"></i>
+											<strong>Degree:</strong> <span class="ml-2">Engineering degree</span>
+										</li>
+										<li>
+											<i class="fa-solid fa-chevron-right mr-2 text-sky-700"></i>
+											<strong>Email:</strong> <span class="ml-2">fxanhkhoa@gmail.com</span>
+										</li>
+										<li>
+											<i class="fa-solid fa-chevron-right mr-2 text-sky-700"></i>
+											<strong>Freelance:</strong> <span class="ml-2">Available</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<p>
+								I'm passionate about building full cycle system including Front-end, Back-end and
+								infrastructures. Making client happy and providing best quality are the most important
+								objective.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="facts" class="facts">
+				<div class="container" data-aos="fade-up">
+					<div class="section-title">
+						<h2>Summary</h2>
+						<p>All things that I achieved</p>
+					</div>
+
+					<div class="grid grid-cols-12">
+						<div class="col-span-6">&bull; More than 5 years experiences in Front-end development</div>
+						<div class="col-span-6">&bull; More than 5 years experiences in Front-end development</div>
+						<div class="col-span-6">&bull; More than 5 years experiences in Back-end development</div>
+						<div class="col-span-6">&bull; Good experience in Angular 2+, RxJS, ngRx, Akita</div>
+						<div class="col-span-6">&bull; Good experience in BE development (NodeJS, NestJS)</div>
+						<div class="col-span-6">
+							&bull; Good experience in material library (Bootstrap, Angular Material, Ant design)
+						</div>
+						<div class="col-span-6">&bull; Good experience in creating API</div>
+						<div class="col-span-6">&bull; Have experience in ReactJS, NextJS, Redux</div>
+						<div class="col-span-6">&bull; Have experience in GraphQL</div>
+						<div class="col-span-6">&bull; Have experience in microservice (RabbitMQ, GRPC)</div>
+						<div class="col-span-6">&bull; Have experience in Docker</div>
+						<div class="col-span-6">
+							&bull; Have experience in Azure Cloud services (Cosmos DB, App Service, AKS, Azure Function,
+							Azure storage, Key Vault)
+						</div>
+						<div class="col-span-6">&bull; Have experience in AWS (Lambda, SNS, S3, EC2, Dynamo DB)</div>
+						<div class="col-span-6">&bull; Good experience in Agile and SCRUM</div>
+						<div class="col-span-6">&bull; Good experience in Source Version Control (Git)</div>
+						<div class="col-span-6">
+							&bull; Good experience in Action and Runner of github, gitlab to automatically deploy
+						</div>
+						<div class="col-span-6">&bull; Good experience in Bitbucket pipeline</div>
+						<div class="col-span-6">&bull; Have experience in CI/CD (Github, Circle CI)</div>
+						<div class="col-span-6">&bull; Good experience in freelance job, remote job</div>
+						<div class="col-span-6">&bull; Good experience in problem solving</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="facts" class="facts">
+				<div class="container" data-aos="fade-up">
+					<div class="section-title">
+						<h2>Facts</h2>
+						<p>Statistic of client, project and hours of support that I have worked.</p>
+					</div>
+
+					<div class="grid grid-cols-12">
+						<div class="lg:col-span-4 md:col-span-6">
+							<div class="count-box">
+								<i class="fa-regular fa-face-smile"></i>
+								<span
+									data-purecounter-start="0"
+									data-purecounter-end="10"
+									data-purecounter-duration="1"
+									class="purecounter"
+								></span>
+								<p>Happy Clients</p>
+							</div>
+						</div>
+
+						<div class="lg:col-span-4 md:col-span-6 mt-5 lg:mt-0">
+							<div class="count-box">
+								<i class="fa-solid fa-book"></i>
+								<span
+									data-purecounter-start="0"
+									data-purecounter-end="14"
+									data-purecounter-duration="1"
+									class="purecounter"
+								></span>
+								<p>Projects</p>
+							</div>
+						</div>
+
+						<div class="lg:col-span-4 md:col-span-6 mt-5 lg:mt-0">
+							<div class="count-box">
+								<i class="fa-solid fa-headset"></i>
+								<span
+									data-purecounter-start="0"
+									data-purecounter-end="800"
+									data-purecounter-duration="1"
+									class="purecounter"
+								></span>
+								<p>Hours Of Support</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="skills" class="skills section-bg">
+				<div class="container" data-aos="fade-up">
+					<div class="section-title">
+						<h2>Skills</h2>
+						<p>Skills accumulated over years.</p>
+					</div>
+
+					<div class="grid grid-cols-12">
+						<div class="col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex gap-4">
+									<div class="flex gap-2">
+										<img src="/images/icons/angular.png" class="icon-image" />
+										<span>Angular</span>
+									</div>
+									<span></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
 
 		<!-- Load additional JS scripts here -->
 		<script
@@ -117,6 +328,10 @@
 		<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
 		<script>
 			AOS.init();
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.js"></script>
+		<script>
+			new PureCounter();
 		</script>
 		<script type="text/javascript" src="script.js"></script>
 	</body>
