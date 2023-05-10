@@ -61,7 +61,35 @@
 				</a>
 				<a
 					class="rounded-full my-auto pl-3 pt-2 pb-2 clickable cta text-sky-600"
+					id="summary-nav"
+					href="#summary"
+					onclick="navClick('summary-nav')"
+				>
+					<i class="fa-solid fa-object-group"></i>
+					<span class="ml-2 text-white hidden">Summary</span>
+				</a>
+				<a
+					class="rounded-full my-auto pl-3 pt-2 pb-2 clickable cta text-sky-600"
+					id="facts-nav"
+					href="#facts"
+					onclick="navClick('facts-nav')"
+				>
+					<i class="fa-solid fa-lightbulb"></i>
+					<span class="ml-2 text-white hidden">Facts</span>
+				</a>
+				<a
+					class="rounded-full my-auto pl-3 pt-2 pb-2 clickable cta text-sky-600"
+					id="skills-nav"
+					href="#skills"
+					onclick="navClick('skills-nav')"
+				>
+					<i class="fa-solid fa-brain"></i>
+					<span class="ml-2 text-white hidden">Skills</span>
+				</a>
+				<a
+					class="rounded-full my-auto pl-3 pt-2 pb-2 clickable cta text-sky-600"
 					id="resume-nav"
+					href="#resume"
 					onclick="navClick('resume-nav')"
 				>
 					<i class="fa-solid fa-file"></i>
@@ -205,7 +233,7 @@
 				</div>
 			</section>
 
-			<section id="facts" class="facts">
+			<section id="summary" class="summary">
 				<div class="container" data-aos="fade-up">
 					<div class="section-title">
 						<h2>Summary</h2>
@@ -350,16 +378,267 @@
 						<h2>Skills</h2>
 						<p>Skills accumulated over years.</p>
 					</div>
-
+					<div class="flex px-5">
+						<h1 class="text-xl font-bold text-slate-500">Front-end</h1>
+					</div>
 					<div class="grid grid-cols-12 p-3">
-						<div class="col-span-4">
+						<div class="col-span-6 lg:col-span-4">
 							<div class="rounded shadow-lg p-3">
-								<div class="flex gap-4">
-									<div class="flex gap-2">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
 										<img src="/images/icons/angular.png" class="icon-image" />
-										<span>Angular</span>
+										<span class="font-semibold">Angular</span>
 									</div>
-									<span></span>
+									<span class="text-center">5 years</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/nextjs.png" class="icon-image" />
+										<span class="font-semibold">NextJS</span>
+									</div>
+									<span class="text-center">3 years</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/reactjs.png" class="icon-image" />
+										<span class="font-semibold">ReactJS</span>
+									</div>
+									<span class="text-center">4 years</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="flex px-5">
+						<h1 class="text-xl font-bold text-slate-500">Back-end</h1>
+					</div>
+					<div class="grid grid-cols-12 p-3">
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/nestjs.png" class="icon-image" />
+										<span class="font-semibold">NestJS</span>
+									</div>
+									<span class="text-center">5 years</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/nodejs.png" class="icon-image" style="width: 36px" />
+										<span class="font-semibold">NodeJS</span>
+									</div>
+									<span class="text-center">5 years</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/golang.png" class="icon-image" />
+										<span class="font-semibold">Golang</span>
+									</div>
+									<span class="text-center">1 years</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="flex px-5">
+						<h1 class="text-xl font-bold text-slate-500">State Management Libraries</h1>
+					</div>
+					<div class="grid grid-cols-12 p-3">
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/rxjs.png" class="icon-image" />
+										<span class="font-semibold">RXJS</span>
+									</div>
+									<span class="text-center">5 years</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/ngrx.png" class="icon-image" />
+										<span class="font-semibold">NGRX</span>
+									</div>
+									<span class="text-center">3 years</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/redux.png" class="icon-image" />
+										<span class="font-semibold">Redux</span>
+									</div>
+									<span class="text-center">3 years</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/akita.svg" class="icon-image" />
+										<span class="font-semibold">Akita</span>
+									</div>
+									<span class="text-center">2 years</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="flex px-5">
+						<h1 class="text-xl font-bold text-slate-500">Material libraries</h1>
+					</div>
+					<div class="grid grid-cols-12 p-3">
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/angular-material.svg" class="icon-image" />
+										<span class="font-semibold">Angular material</span>
+									</div>
+									<span class="text-center">5 years</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/boostrap.png" class="icon-image" />
+										<span class="font-semibold">Bootstrap</span>
+									</div>
+									<span class="text-center">5 years</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/tailwind.png" class="icon-image" />
+										<span class="font-semibold">Tailwind</span>
+									</div>
+									<span class="text-center">2 years</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/ant-design.svg" class="icon-image" />
+										<span class="font-semibold">Ant Design</span>
+									</div>
+									<span class="text-center">2 years</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/Material-UI.png" class="icon-image" />
+										<span class="font-semibold">Material UI</span>
+									</div>
+									<span class="text-center">2 years</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="flex px-5">
+						<h1 class="text-xl font-bold text-slate-500">Others</h1>
+					</div>
+					<div class="grid grid-cols-12 p-3">
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/graphql.png" class="icon-image" />
+										<span class="font-semibold">GraphQL</span>
+									</div>
+									<span class="text-center">2 years</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/rabbitmq.png" class="icon-image" />
+										<img src="/images/icons/grpc.png" class="icon-image" />
+										<span class="font-semibold">Microservices (RabbitMQ, GRPC)</span>
+									</div>
+									<span class="text-center">2 years</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/azure.png" class="icon-image" />
+										<span class="font-semibold">Azure</span>
+									</div>
+									<span class="text-center">&lt; 1 year</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-span-6 lg:col-span-4">
+							<div class="rounded shadow-lg p-3">
+								<div class="flex flex-col">
+									<div class="flex justify-center gap-2">
+										<img src="/images/icons/aws.png" class="icon-image" />
+										<span class="font-semibold">AWS</span>
+									</div>
+									<span class="text-center">&lt; 1 year</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="resume" class="resume">
+				<div class="container" data-aos="fade-up">
+					<div class="section-title">
+						<h2>Resume</h2>
+						<p>My resume</p>
+					</div>
+
+					<div class="grid grid-cols-12">
+						<div class="col-span-12 lg:col-span-6 pl-2">
+							<h3 class="resume-title">Experience</h3>
+							<div class="resume-item">
+								<h4>Fullstack Developer</h4>
+								<div class="flex">
+									<i class="fa-regular fa-calendar mt-2"></i>
+									<h5>March 2022 - Present</h5>
+								</div>
+								<p><em>Bloom, Ho Chi Minh, Viet Nam </em></p>
+								<div class="p-2 shadow-md">
+									<span class="font-bold">The Dolce Diet</span>
 								</div>
 							</div>
 						</div>
