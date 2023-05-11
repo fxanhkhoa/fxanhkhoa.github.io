@@ -18,7 +18,7 @@
 			type="text/css"
 		/>
 		<link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
-		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="vendor/tailwind/tailwind.js"></script>
 		<script>
 			tailwind.config = {
 				theme: {
@@ -36,7 +36,7 @@
 		<link href="styles/grid.css" rel="stylesheet" type="text/css" />
 		<link href="styles/cta.css" rel="stylesheet" type="text/css" />
 		<link href="animation/animation.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+		<link rel="stylesheet" href="vendor/aos/aos.css" />
 	</head>
 
 	<body>
@@ -1662,22 +1662,21 @@
 							picture can not be shown here.
 						</p>
 					</div>
+
+					<div class="row">
+						<div class="column"></div>
+					</div>
 				</div>
 			</section>
 		</main>
 
 		<!-- Load additional JS scripts here -->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-			crossorigin="anonymous"
-		></script>
-		<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-		<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+		<script src="vendor/aos/aos.js"></script>
 		<script>
 			AOS.init();
 		</script>
-		<script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.js"></script>
+		<script src="vendor/typed/typed.umd.js"></script>
+		<script src="vendor/pure-counter/purecounter_vanilla.js"></script>
 		<script>
 			new PureCounter();
 		</script>
