@@ -17,6 +17,7 @@
 			rel="stylesheet"
 			type="text/css"
 		/>
+		<link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
 		<script src="https://cdn.tailwindcss.com"></script>
 		<script>
 			tailwind.config = {
@@ -628,115 +629,1038 @@
 					</div>
 
 					<div class="grid grid-cols-12">
-						<div class="col-span-12 lg:col-span-6 pl-2">
+						<div class="col-span-12 pl-2">
 							<h3 class="resume-title">Experience</h3>
-							<div class="resume-item">
-								<h4>Fullstack Developer</h4>
-								<div class="flex">
-									<i class="fa-regular fa-calendar mt-2"></i>
-									<h5>March 2022 - Present</h5>
+							<div class="grid grid-cols-12">
+								<div class="col-span-12 lg:col-span-6">
+									<div class="resume-item">
+										<h4>Fullstack Developer at Bloom</h4>
+										<div class="flex">
+											<i class="fa-regular fa-calendar mt-2"></i>
+											<h5>March 2022 - Present</h5>
+										</div>
+										<p><em>Bloom, Ho Chi Minh, Viet Nam </em></p>
+										<div class="p-2 shadow-md">
+											<span class="font-bold flex">The Dolce Diet</span>
+											<span class="flex font-semibold mt-2 text-slate-500"
+												>Project description</span
+											>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Client is from the USA. they want to rebuild a website for their
+													diet program.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>The
+													features of this website: to generate a professional plan with
+													detail of exercise plan and menu plan based on user's inputted
+													information (weight, height, experience in exercise, ...).
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Maintain old system which is written in Drupal, PHP, AngularJS.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>The
+													challenges of this project is the data structure. First of all, it
+													is the migration of data collected from Drupal (node styled). The
+													second is to manage every single user with programs (one user has
+													some programs and all have to be stored for history purpose).
+												</li>
+											</ul>
+											<span class="flex font-semibold mt-4 text-slate-500">Summary</span>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Application with more than 10000 users and ~1000 users online at
+													the sae time.
+												</li>
+											</ul>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">Team size:</span>
+												<span>7</span>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">Project technologies:</span>
+												<span>NextJS (Typescript), NestJS (Typescript), MongoDB</span>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500"
+													>Other minor technologies:</span
+												>
+												<span
+													>bull, event queue, socket, guard, schedule (cron job), serve
+													static, Swagger, with Jest for unit testing</span
+												>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">My position:</span>
+												<span>FullStack Developer, Technical Architect for Back-end</span>
+											</div>
+
+											<span class="flex font-semibold mt-4 text-slate-500"
+												>My responsibilities:</span
+											>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Choose solution and tech to be implemented.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Build the architecture of Back End and Database (the whole BE).
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Implement complex features for FE and BE.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Deployment, Backup, Build cron job.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Write the code based on detailed design and Functional/Requirement
+													Specifications.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Incident and bug fixing.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Upgrade version of PHP/Drupal to pass Braintree policies (Which I
+													just started to learn).
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Review other members' code and guide them to code on some features.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Created a RESTful API that allowed for seamless integration with
+													other applications.
+												</li>
+											</ul>
+										</div>
+									</div>
 								</div>
-								<p><em>Bloom, Ho Chi Minh, Viet Nam </em></p>
-								<div class="p-2 shadow-md">
-									<span class="font-bold flex">The Dolce Diet</span>
-									<span class="flex font-semibold mt-2 text-slate-500">Project description</span>
-									<ul class="list-none">
-										<li>
-											<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>Client is
-											from the USA. they want to rebuild a website for their diet program.
-										</li>
-										<li>
-											<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>The features
-											of this website: to generate a professional plan with detail of exercise
-											plan and menu plan based on user's inputted information (weight, height,
-											experience in exercise, ...).
-										</li>
-										<li>
-											<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>Maintain old
-											system which is written in Drupal, PHP, AngularJS.
-										</li>
-										<li>
-											<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>The
-											challenges of this project is the data structure. First of all, it is the
-											migration of data collected from Drupal (node styled). The second is to
-											manage every single user with programs (one user has some programs and all
-											have to be stored for history purpose).
-										</li>
-									</ul>
-									<span class="flex font-semibold mt-4 text-slate-500">Summary</span>
-									<ul class="list-none">
-										<li>
-											<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>Application
-											with more than 10000 users and ~1000 users online at the sae time.
-										</li>
-									</ul>
 
-									<div class="flex mt-4 gap-2">
-										<span class="font-semibold text-slate-500">Team size:</span>
-										<span>7</span>
+								<div class="col-span-12 lg:col-span-6">
+									<div class="resume-item">
+										<h4>Fullstack Developer at NashTech</h4>
+										<div class="flex">
+											<i class="fa-regular fa-calendar mt-2"></i>
+											<h5>JUNE 2020 - NOV 2021</h5>
+										</div>
+										<p><em>NASHTECH, Ho Chi Minh, Viet Nam</em></p>
+										<div class="p-2 shadow-md">
+											<span class="font-bold flex">CNC Machine Software</span>
+											<span class="flex font-semibold mt-2 text-slate-500"
+												>Project description</span
+											>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Client is from Germany working in domain Manufactoring. In this
+													project, they provide customer a software which controls the CNC
+													Machine and some other features out of this machine function.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>My
+													task in this project is to build a page to remote other computer
+													(RDP, VNC, SSH), all function need to work on touch screen.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>The
+													architecture is Micro front-end.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>The
+													challenges of this project is the gesture of touch screen, and the
+													working of touch screen to control other computer which is harder to
+													do with a mouse.
+												</li>
+											</ul>
+											<span class="flex font-semibold mt-4 text-slate-500">Summary</span>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Application for individual machine to run local.
+												</li>
+											</ul>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">Team size:</span>
+												<span>5</span>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">Project technologies:</span>
+												<span>Angular 9, Electron, Golang, Micro Frontend</span>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">My position:</span>
+												<span>Frontend Developer (Angular and Electron)</span>
+											</div>
+
+											<span class="flex font-semibold mt-4 text-slate-500"
+												>My responsibilities:</span
+											>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Write the code based on detailed design and Functional/Requirement
+													Specifications.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Build architecture of the app.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Support Deployment.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Incident and bug fixing.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Support other member with technical.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>Be
+													mentor of a Junior Front-end member.
+												</li>
+											</ul>
+										</div>
+
+										<div class="p-2 shadow-md mt-3">
+											<span class="font-bold flex">Smart Manufacturing Management</span>
+											<span class="flex font-semibold mt-2 text-slate-500"
+												>Project description</span
+											>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Client is from Germany working in domain Manufacturing. In this
+													project, they provide customer a system to monitor there production
+													lines with a big amount of machine.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Customer can view the production status (complete, on going) near
+													real time, and these applications are deployed to IPC.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>The
+													challenges of this project is the structure of data to show in Front
+													end (which is hierarchy has 4 levels of children).
+												</li>
+											</ul>
+											<span class="flex font-semibold mt-4 text-slate-500">Summary</span>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Application with more than 100 active users.
+												</li>
+											</ul>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">Team size:</span>
+												<span>10</span>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">Project technologies:</span>
+												<span>Angular 11, Java and SQL</span>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">My position:</span>
+												<span>Frontend Developer (Angular)</span>
+											</div>
+
+											<span class="flex font-semibold mt-4 text-slate-500"
+												>My responsibilities:</span
+											>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Write the code based on detailed design and Functional/Requirement
+													Specifications.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Build architecture of some module.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Collect requirement from client and suggest solution about UI/UX
+													and workflow to client.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Incident and bug fixing.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Support other member with technical.
+												</li>
+											</ul>
+										</div>
+
+										<div class="p-2 shadow-md mt-3">
+											<span class="font-bold flex">Wealth Management</span>
+											<span class="flex font-semibold mt-2 text-slate-500"
+												>Project description</span
+											>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Client is from Italy. They are a finance company which provide
+													wealth management solution for their customer, and my ODC is a
+													vendor. and there customer comes from USA.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>This
+													is a wealth management website which is implemented from Finantix's
+													product and it is customized to match customer's requirement.
+													Features of this web: wealth management, wire transfer management.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>The
+													challenges of this project is performance issues and integration of
+													JBPM (Java Business Process Management) into application.
+												</li>
+											</ul>
+											<span class="flex font-semibold mt-4 text-slate-500">Summary</span>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Application with 10M+ users.
+												</li>
+											</ul>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">Team size:</span>
+												<span>14</span>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">Project technologies:</span>
+												<span>Angular 11, Java and SQL</span>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">My position:</span>
+												<span>Front-end Developer (Angular)</span>
+											</div>
+
+											<span class="flex font-semibold mt-4 text-slate-500"
+												>My responsibilities:</span
+											>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Write the code based on detailed design and Functional/Requirement
+													Specifications.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Build architecture of some module.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Collect requirement from client and suggest solution about UI/UX
+													and workflow to client.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Incident and bug fixing.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Support other member with technical.
+												</li>
+											</ul>
+										</div>
 									</div>
+								</div>
 
-									<div class="flex mt-4 gap-2">
-										<span class="font-semibold text-slate-500">Project technologies:</span>
-										<span>NextJS (Typescript), NestJS (Typescript), MongoDB</span>
+								<div class="col-span-12 lg:col-span-6">
+									<div class="resume-item">
+										<h4>Fullstack Developer at Global Cybersoft</h4>
+										<div class="flex">
+											<i class="fa-regular fa-calendar mt-2"></i>
+											<h5>Feb 2019 - Jun 2020</h5>
+										</div>
+										<p><em>Global Cybersoft, Ho Chi Minh, Viet Nam </em></p>
+										<div class="p-2 shadow-md">
+											<span class="font-bold flex">Vidole</span>
+											<span class="flex font-semibold mt-2 text-slate-500"
+												>Project description</span
+											>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>The
+													client of this project is from France, they are an art, comic design
+													company and they want to sell their designed products.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>This
+													is an e-commerce website. The objective of this project is to
+													develop an e-commerce store which product is self-created books
+													(customer can create their own characters and own stories). All
+													created books will be verified and be printed automatically and then
+													be shipped with 3rd party shipping company. Customers also can
+													manage their orders and track their goods.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>The
+													challenges of this project are to build the characters styling,
+													stories generating system and the automatic printing service through
+													server.
+												</li>
+											</ul>
+											<span class="flex font-semibold mt-4 text-slate-500">Summary</span>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Application with more than 1000 users and 100 users online at the
+													sae time.
+												</li>
+											</ul>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">Team size:</span>
+												<span>3</span>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">Project technologies:</span>
+												<span>Angular 9, NestJS, MongoDB</span>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">My position:</span>
+												<span>Fullstack developer, Team lead</span>
+											</div>
+
+											<span class="flex font-semibold mt-4 text-slate-500"
+												>My responsibilities:</span
+											>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Write the code based on detailed design and Functional/Requirement
+													Specifications.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Build architecture of some module.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Collect requirement from client and suggest solution about UI/UX
+													and workflow to client.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Incident and bug fixing.
+												</li>
+											</ul>
+										</div>
+
+										<div class="p-2 shadow-md mt-3">
+											<span class="font-bold flex">Polymate</span>
+											<span class="flex font-semibold mt-2 text-slate-500"
+												>Project description</span
+											>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>The
+													client is from France. They are and multimedia company and they want
+													to make a social network call 'Polymate'.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>This
+													project is a social network application could be call 'small
+													facebook'. User can post image, video, like/unlike, block/unblock,
+													give heart to other user. A heart is convert to 0.02$ and will be
+													paid through PayPal.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>The
+													challenges of this project are implementing micro service for chat
+													and load balancing.
+												</li>
+											</ul>
+											<span class="flex font-semibold mt-4 text-slate-500">Summary</span>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Application with 1M+ users.
+												</li>
+											</ul>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">Team size:</span>
+												<span>4</span>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">Project technologies:</span>
+												<span>React Native, NestJS, MongoDB</span>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">My position:</span>
+												<span>Back-end Developer</span>
+											</div>
+
+											<span class="flex font-semibold mt-4 text-slate-500"
+												>My responsibilities:</span
+											>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Write code based on detailed designs and Functional/Requirement
+													Specifications.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Incident, bug fixing, deploy and maintain server on Google cloud.
+												</li>
+											</ul>
+										</div>
+
+										<div class="p-2 shadow-md mt-3">
+											<span class="font-bold flex">MeatChef E-commerce</span>
+											<span class="flex font-semibold mt-2 text-slate-500"
+												>Project description</span
+											>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Client of this project is from Viet Nam, they are food company and
+													want to build an online store with company's activities management.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>This
+													project contains e-commerce website and admin website. Almost
+													features of store website are buying/commenting/voting product,
+													order managing, goods tracking and live streaming. In the admin
+													website, admin can manage products they sell, manage orders and
+													shipping system, manage employees, analysis data in week and month.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>There are some challenges in this project such as: data analysis,
+													live streaming solution and employees management.
+												</li>
+											</ul>
+											<span class="flex font-semibold mt-4 text-slate-500">Summary</span>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Application with 10000+ users.
+												</li>
+											</ul>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">Team size:</span>
+												<span>4</span>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">Project technologies:</span>
+												<span>Angular 8, NodeJS, MongoDB</span>
+											</div>
+
+											<div class="flex mt-4 gap-2">
+												<span class="font-semibold text-slate-500">My position:</span>
+												<span>Fullstack Developer</span>
+											</div>
+
+											<span class="flex font-semibold mt-4 text-slate-500"
+												>My responsibilities:</span
+											>
+											<ul class="list-none">
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Write code based on detailed designs and Functional/Requirement
+													Specifications.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Collecting requirement and suggest solution for UI/UX and workflow
+													of modules.
+												</li>
+												<li>
+													<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i
+													>Incident and bug fixing.
+												</li>
+											</ul>
+										</div>
 									</div>
-
-									<div class="flex mt-4 gap-2">
-										<span class="font-semibold text-slate-500">Other minor technologies:</span>
-										<span
-											>bull, event queue, socket, guard, schedule (cron job), serve static,
-											Swagger, with Jest for unit testing</span
-										>
-									</div>
-
-									<div class="flex mt-4 gap-2">
-										<span class="font-semibold text-slate-500">My position:</span>
-										<span>FullStack Developer, Technical Architect for Back-end</span>
-									</div>
-
-									<span class="flex font-semibold mt-4 text-slate-500">My responsibilities:</span>
-									<ul class="list-none">
-										<li>
-											<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>Choose
-											solution and tech to be implemented.
-										</li>
-										<li>
-											<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>Build the
-											architecture of Back End and Database (the whole BE).
-										</li>
-										<li>
-											<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>Implement
-											complex features for FE and BE.
-										</li>
-										<li>
-											<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>Deployment,
-											Backup, Build cron job.
-										</li>
-										<li>
-											<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>Write the
-											code based on detailed design and Functional/Requirement Specifications.
-										</li>
-										<li>
-											<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>Incident and
-											bug fixing.
-										</li>
-										<li>
-											<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>Upgrade
-											version of PHP/Drupal to pass Braintree policies (Which I just started to
-											learn).
-										</li>
-										<li>
-											<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>Review other
-											members' code and guide them to code on some features.
-										</li>
-										<li>
-											<i class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"></i>Created a
-											RESTful API that allowed for seamless integration with other applications.
-										</li>
-									</ul>
 								</div>
 							</div>
 						</div>
+
+						<div class="col-span-12 pl-2">
+							<div class="grid grid-cols-12">
+								<div class="col-span-12">
+									<h3 class="resume-title">Freelancer Experience</h3>
+									<div class="grid grid-cols-12">
+										<div class="col-span-12 lg:col-span-6">
+											<div class="resume-item">
+												<h4>Fullstack Developer</h4>
+												<div class="flex">
+													<i class="fa-regular fa-calendar mt-2"></i>
+													<h5>March 2022 - March 2023</h5>
+												</div>
+
+												<div class="p-2 shadow-md mt-3">
+													<span class="font-bold flex">Smart farm</span>
+													<span class="flex font-semibold mt-2 text-slate-500"
+														>Project description</span
+													>
+													<ul class="list-none">
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Client is from the USA. they want to build a bio safety
+															evaluation website for there smart farm (this is the first
+															step for a huge program).
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>The features of this website: to build sets of questions,
+															user will answer all of it then a report is generated and
+															they can compare between reports and come to the conclusion
+															with actions for their farms. all reports can be exported to
+															excel file.
+														</li>
+													</ul>
+													<span class="flex font-semibold mt-4 text-slate-500">Summary</span>
+													<ul class="list-none">
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i>
+															Application with more than 200 active users, 100 online
+															users at the same time and plan to be scaled up in a short
+															time.
+														</li>
+													</ul>
+
+													<div class="flex mt-4 gap-2">
+														<span class="font-semibold text-slate-500">Team size:</span>
+														<span>3 (2 developers and 1 tester)</span>
+													</div>
+
+													<div class="flex mt-4 gap-2">
+														<span class="font-semibold text-slate-500"
+															>Project technologies:</span
+														>
+														<span
+															>FullStack Developer, Technical architect from the beginning
+															for both FE and BE</span
+														>
+													</div>
+
+													<div class="flex mt-4 gap-2">
+														<span class="font-semibold text-slate-500">My position:</span>
+														<span>Fullstack Developer</span>
+													</div>
+
+													<span class="flex font-semibold mt-4 text-slate-500"
+														>My responsibilities:</span
+													>
+													<ul class="list-none">
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Provide client some smart solutions for their marketing
+															problems.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Choose solution and tech to be implemented.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Build the architecture of Back End, Front End and Database.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Deployment, Backup, Build cron job.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Build CI/CD with VPS and github pipeline.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Write the code based on detailed design and
+															Functional/Requirement Specifications.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Incident and bug fixing.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Review other members' code and guide them to code on some
+															features.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Deliver to customer with defined timeline.
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-span-12 lg:col-span-6">
+											<div class="resume-item">
+												<h4>Fullstack Developer</h4>
+												<div class="flex">
+													<i class="fa-regular fa-calendar mt-2"></i>
+													<h5>Jan 2022 - March 2022</h5>
+												</div>
+
+												<div class="p-2 shadow-md mt-3">
+													<span class="font-bold flex">Orders Management</span>
+													<span class="flex font-semibold mt-2 text-slate-500"
+														>Project description</span
+													>
+													<ul class="list-none">
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Client is from Vietnam. they want to build a website to
+															manage orders, customers, products to provide best customer
+															care service.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>The features of this website: Products management,
+															Customers management, multiple departments with multiple
+															roles, orders management, delivery management. Besides,
+															there are report, cron job to analyze customer (new, old,
+															...). The process or raising order is harder than other CRM
+															software.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>The challenges of this project is the roles and multiple
+															department, which means department A can not see anything of
+															department B if not taking part in. Beside that, in each
+															department there are roles such as: leader, sale president,
+															warehouse, ... These challenges are hard for both FE and BE.
+														</li>
+													</ul>
+													<span class="flex font-semibold mt-4 text-slate-500">Summary</span>
+													<ul class="list-none">
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i>
+															Application with more than 20 active users.
+														</li>
+													</ul>
+
+													<div class="flex mt-4 gap-2">
+														<span class="font-semibold text-slate-500">Team size:</span>
+														<span>2 (1 developers and 1 tester)</span>
+													</div>
+
+													<div class="flex mt-4 gap-2">
+														<span class="font-semibold text-slate-500"
+															>Project technologies:</span
+														>
+														<span
+															>Angular 13 (Typescript), NestJS (Typescript), MongoDB</span
+														>
+													</div>
+
+													<div class="flex mt-4 gap-2">
+														<span class="font-semibold text-slate-500">My position:</span>
+														<span>FullStack Developer, Technical architect</span>
+													</div>
+
+													<span class="flex font-semibold mt-4 text-slate-500"
+														>My responsibilities:</span
+													>
+													<ul class="list-none">
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Choose the solution to be implemented.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Build the architecture of Front End, Back End and Database
+															(the whole app).
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Deployment, Backup, Build cron job.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Build CI/CD with VPS and github Action.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Write the code based on detailed design and
+															Functional/Requirement Specifications.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Collect requirement from client and suggest solution about
+															UI/UX and workflow to client.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Incident and bug fixing.
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-span-12 lg:col-span-6">
+											<div class="resume-item">
+												<h4>Fullstack Developer</h4>
+												<div class="flex">
+													<i class="fa-regular fa-calendar mt-2"></i>
+													<h5>May 2021 - Jan 2022</h5>
+												</div>
+
+												<div class="p-2 shadow-md mt-3">
+													<span class="font-bold flex">Animal Farm Management</span>
+													<span class="flex font-semibold mt-2 text-slate-500"
+														>Project description</span
+													>
+													<ul class="list-none">
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Client is from animal food company supplier in Vietnam.
+															they want to build a website to manage expense and avenue of
+															money when buying supplier and selling animal (pig).
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>The features of this website: warehouse management, which
+															manages importation and exportation of animal feed,
+															medicine, equipment. Stall management, which manages pigs,
+															with pretty flexible workflow of many types of pig. Report
+															module, which calculate by day or by month the expense and
+															avenue to provide the overview and detail of their business.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>The challenges of this project is the database structure
+															because the business is not quite clear so I must follow
+															their business to build the best solution.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Some features: email notification, data chart
+															visualization, pigs management, feeding, selling, importing.
+														</li>
+													</ul>
+													<span class="flex font-semibold mt-4 text-slate-500">Summary</span>
+													<ul class="list-none">
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i>
+															Application with more than 100 active users.
+														</li>
+													</ul>
+
+													<div class="flex mt-4 gap-2">
+														<span class="font-semibold text-slate-500">Team size:</span>
+														<span>3 (2 developers and 1 tester)</span>
+													</div>
+
+													<div class="flex mt-4 gap-2">
+														<span class="font-semibold text-slate-500"
+															>Project technologies:</span
+														>
+														<span
+															>Angular 11 (Typescript), NestJS (Typescript), MongoDB</span
+														>
+													</div>
+
+													<div class="flex mt-4 gap-2">
+														<span class="font-semibold text-slate-500">My position:</span>
+														<span>FullStack Developer, Technical architect</span>
+													</div>
+
+													<span class="flex font-semibold mt-4 text-slate-500"
+														>My responsibilities:</span
+													>
+													<ul class="list-none">
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Choose the solution to be implemented.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Build the architecture of Front End, Back End and Database
+															(the whole app).
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Deployment, Backup, Build cron job.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Build CI/CD with VPS and github Action.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Write the code based on detailed design and
+															Functional/Requirement Specifications.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Collect requirement from client and suggest solution about
+															UI/UX and workflow to client.
+														</li>
+														<li>
+															<i
+																class="fa-solid fa-circle-dot text-xs text-sky-500 mr-2"
+															></i
+															>Incident and bug fixing.
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-span-12 pl-2">
+							<div class="grid grid-cols-12">
+								<div class="col-span-12">
+									<h3 class="resume-title">Education</h3>
+									<div class="grid grid-cols-12">
+										<div class="col-span-12 lg:col-span-6">
+											<div class="resume-item">
+												<h4>Bachelor of Engineering</h4>
+												<div class="flex">
+													<i class="fa-regular fa-calendar mt-2"></i>
+													<h5>2015 - 2019</h5>
+												</div>
+												<p>
+													<em>University of Information Technology Ho Chi Minh, Viet Nam </em>
+												</p>
+												<div class="p-2 shadow-md">Major: Computer engineering</div>
+											</div>
+										</div>
+										<div class="col-span-12 lg:col-span-6">
+											<div class="resume-item">
+												<h4>Highschool diploma</h4>
+												<div class="flex">
+													<i class="fa-regular fa-calendar mt-2"></i>
+													<h5>2011 - 2014</h5>
+												</div>
+												<p>
+													<em>Highschool for the Gifted Ho Chi Minh, Viet Nam </em>
+												</p>
+												<div class="p-2 shadow-md">Class: Information Technology</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="portfolio" class="portfolio section-bg">
+				<div class="container" data-aos="fade-up">
+					<div class="section-title">
+						<h2>Portfolio</h2>
+						<p>
+							These are some pictures of projects I have worked. Due to security policies, some projects's
+							picture can not be shown here.
+						</p>
 					</div>
 				</div>
 			</section>
@@ -757,6 +1681,7 @@
 		<script>
 			new PureCounter();
 		</script>
+		<script src="/glightbox/js/glightbox.min.js"></script>
 		<script type="text/javascript" src="script.js"></script>
 	</body>
 </html>
