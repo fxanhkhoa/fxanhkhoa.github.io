@@ -118,15 +118,7 @@
 								class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
 								onclick="navClick('about-nav')"
 							>
-								<i class="fa-solid fa-house w-4 h-4 mr-2"></i>
-								About
-							</a>
-							<a
-								href="#about"
-								class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
-								onclick="navClick('about-nav')"
-							>
-								<i class="fa-solid fa-house w-4 h-4 mr-2"></i>
+								<i class="fa-solid fa-user w-4 h-4 mr-2"></i>
 								About
 							</a>
 							<a
@@ -134,7 +126,7 @@
 								class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
 								onclick="navClick('summary-nav')"
 							>
-								<i class="fa-solid fa-house w-4 h-4 mr-2"></i>
+								<i class="fa-solid fa-object-group w-4 h-4 mr-2"></i>
 								Summary
 							</a>
 							<a
@@ -142,7 +134,7 @@
 								class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
 								onclick="navClick('facts-nav')"
 							>
-								<i class="fa-solid fa-house w-4 h-4 mr-2"></i>
+								<i class="fa-solid fa-lightbulb w-4 h-4 mr-2"></i>
 								Facts
 							</a>
 							<a
@@ -150,7 +142,7 @@
 								class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
 								onclick="navClick('facts-nav')"
 							>
-								<i class="fa-solid fa-house w-4 h-4 mr-2"></i>
+								<i class="fa-solid fa-brain w-4 h-4 mr-2"></i>
 								Skills
 							</a>
 							<a
@@ -158,7 +150,7 @@
 								class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
 								onclick="navClick('facts-nav')"
 							>
-								<i class="fa-solid fa-house w-4 h-4 mr-2"></i>
+								<i class="fa-solid fa-file w-4 h-4 mr-2"></i>
 								Resume
 							</a>
 							<a
@@ -166,7 +158,7 @@
 								class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
 								onclick="navClick('services-nav')"
 							>
-								<i class="fa-solid fa-house w-4 h-4 mr-2"></i>
+								<i class="fa-solid fa-server w-4 h-4 mr-2"></i>
 								Services
 							</a>
 							<a
@@ -174,7 +166,7 @@
 								class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
 								onclick="navClick('contact-nav')"
 							>
-								<i class="fa-solid fa-house w-4 h-4 mr-2"></i>
+								<i class="fa-solid fa-envelope w-4 h-4 mr-2"></i>
 								Contact
 							</a>
 						</nav>
@@ -1985,69 +1977,138 @@
 
 			<section id="contact" class="contact">
 				<div class="container" data-aos="fade-up">
-		  
-				  <div class="section-title">
-					<h2>Contact</h2>
-				  </div>
-		  
-				  <div class="row mt-1">
-		  
-					<div class="col-lg-4">
-					  <div class="info">
-						<div class="address">
-						  <i class="bi bi-geo-alt"></i>
-						  <h4>Location:</h4>
-						  <p>A108 Adam Street, New York, NY 535022</p>
-						</div>
-		  
-						<div class="email">
-						  <i class="bi bi-envelope"></i>
-						  <h4>Email:</h4>
-						  <p>info@example.com</p>
-						</div>
-		  
-						<div class="phone">
-						  <i class="bi bi-phone"></i>
-						  <h4>Call:</h4>
-						  <p>+1 5589 55488 55s</p>
-						</div>
-		  
-					  </div>
-		  
+					<div class="section-title">
+						<h2>Contact</h2>
 					</div>
-		  
-					<div class="col-lg-8 mt-5 mt-lg-0">
-		  
-					  <form  method="post" role="form" class="php-email-form">
-						<div class="row">
-						  <div class="col-md-6 form-group">
-							<input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-						  </div>
-						  <div class="col-md-6 form-group mt-3 mt-md-0">
-							<input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-						  </div>
+
+					<div class="grid grid-cols-12 mt-1">
+						<div class="col-span-12 lg:col-span-4 px-3">
+							<div class="info">
+								<div class="address">
+									<i class="fa-solid fa-location-dot"></i>
+									<h4>Location:</h4>
+									<p>Tan Binh, Ho Chi Minh city, Viet Nam</p>
+								</div>
+
+								<div class="email">
+									<i class="fa-solid fa-envelope"></i>
+									<h4>Email:</h4>
+									<p>fxanhkhoa@gmail.com</p>
+								</div>
+
+								<div class="phone">
+									<i class="fa-solid fa-phone"></i>
+									<h4>Call:</h4>
+									<p>+84772912970</p>
+								</div>
+							</div>
 						</div>
-						<div class="form-group mt-3">
-						  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+
+						<div class="col-span-12 lg:col-span-8 mt-5 lg:mt-0">
+							<form id="myForm" class="php-email-form">
+								<div class="grid grid-cols-12 gap-2">
+									<div class="col-span-12 md:col-span-6 form-group px-3">
+										<input
+											type="text"
+											name="from_name"
+											class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+											id="from_name"
+											placeholder="Your Name"
+											required
+										/>
+									</div>
+									<div class="col-span-12 md:col-span-6 mt-3 md:mt-0 px-3">
+										<input
+											type="email"
+											class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+											name="email"
+											id="email"
+											placeholder="Your Email"
+											required
+										/>
+									</div>
+								</div>
+								<div class="w-full px-3 mt-3">
+									<input
+										type="text"
+										class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+										name="subject"
+										id="subject"
+										placeholder="Subject"
+										required
+									/>
+								</div>
+								<div class="w-full px-3 mt-3">
+									<textarea
+										class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+										name="message"
+										rows="5"
+										placeholder="Message"
+										required
+									></textarea>
+								</div>
+								<div class="text-center">
+									<button type="submit">
+										<i id="loading-spinner" class="fa-solid fa-spinner h-5 w-5 mr-3 hidden"></i>
+										<span>Send Message</span>
+									</button>
+								</div>
+								<div id="fail-message" class="text-red-500 hidden">
+									Some thing wrong, please try again later!
+								</div>
+								<div id="success-message" class="text-green-500 hidden">
+									Your message has been sent. Thank you!
+								</div>
+							</form>
 						</div>
-						<div class="form-group mt-3">
-						  <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-						</div>
-						<div class="my-3">
-						  <div class="loading">Loading</div>
-						  <div class="error-message"></div>
-						  <div class="sent-message">Your message has been sent. Thank you!</div>
-						</div>
-						<div class="text-center"><button type="submit">Send Message</button></div>
-					  </form>
-		  
 					</div>
-		  
-				  </div>
-		  
 				</div>
-			  </section>
+			</section>
 		</main>
+
+		<footer id="footer">
+			<div class="container">
+				<h3>Kevin Bui</h3>
+				<p>
+					Develop, develop more, develop until die.
+				</p>
+				<div class="social-links">
+					<a
+						target="_blank"
+						rel="noopener noreferrer"
+						href="#"
+						class="twitter hover:text-sky-500 duration-300"
+						><i class="fa-brands fa-twitter text-xl"></i
+					></a>
+					<a
+						target="_blank"
+						rel="noopener noreferrer"
+						href="#"
+						class="facebook hover:text-sky-500 duration-300"
+						><i class="fa-brands fa-facebook text-xl"></i
+					></a>
+					<a
+						target="_blank"
+						rel="noopener noreferrer"
+						href="https://github.com/fxanhkhoa"
+						class="github hover:text-sky-500 duration-300"
+						><i class="fa-brands fa-github text-xl"></i
+					></a>
+					<a
+						target="_blank"
+						rel="noopener noreferrer"
+						href="https://www.linkedin.com/in/khoa-bui-anh-698ab2173"
+						class="linkedin hover:text-sky-500 duration-300"
+						><i class="fa-brands fa-linkedin text-xl"></i
+					></a>
+				</div>
+				<div class="copyright">
+					&copy; Copyright <strong><span>Kevin Bui</span></strong
+					>. All Rights Reserved
+					<span id="year"></span>
+				</div>
+			</div>
+		</footer>
 
 		<!-- Load additional JS scripts here -->
 		<script src="vendor/aos/aos.js"></script>
@@ -2070,6 +2131,12 @@
 					isSidebarOpen: false,
 				};
 			};
+		</script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+		<script type="text/javascript">
+			(function () {
+				emailjs.init("v97mjOJU0VaG6C-Yw");
+			})();
 		</script>
 		<script type="text/javascript" src="script.js"></script>
 	</body>

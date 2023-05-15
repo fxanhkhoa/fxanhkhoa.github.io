@@ -53,3 +53,30 @@ const onscroll = (el, listener) => {
 };
 
 onscroll(document, navbarLinksActive);
+document.getElementById("myForm").addEventListener("submit", function (event) {
+	document.getElementById("loading-spinner").classList.add("animate-spin");
+	document.getElementById("loading-spinner").classList.remove("hidden");
+	event.preventDefault();
+	const serviceID = "service_9xr359p";
+	const templateID = "template_jmu7iyp";
+
+	// send the email here
+	emailjs.sendForm(serviceID, templateID, this).then(
+		(response) => {
+			console.log("SUCCESS!", response.status, response.text);
+			document.getElementById("loading-spinner").classList.remove("animate-spin");
+			document.getElementById("loading-spinner").classList.add("hidden");
+			document.getElementById("fail-message").classList.add("hidden");
+			document.getElementById("success-message").classList.remove("hidden");
+		},
+		(error) => {
+			console.log("FAILED...", error);
+			document.getElementById("loading-spinner").classList.remove("animate-spin");
+			document.getElementById("loading-spinner").classList.add("hidden");
+			document.getElementById("fail-message").classList.remove("hidden");
+			document.getElementById("success-message").classList.add("hidden");
+		}
+	);
+});
+
+document.getElementById("year").innerHTML = new Date().getFullYear();
