@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Thiệp mời lễ rửa tội | đầy tháng</title>
+        <meta name="author" content="Dratini Technology" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Thiệp mời đầy tháng Bùi Đan Thư" />
+        <meta name="copyright" content="Dratini Technology" />
+        <meta name="robots" content="index,follow" />
+        <meta name="coverage" content="Worldwide" />
+        <meta name="distribution" content="Global" />
+        <meta name="rating" content="General" />
+        <meta name="revisit-after" content="7 days" />
+
+        <meta name="og:title" content="Thiệp mời đầy tháng Bùi Đan Thư" />
+        <meta name="og:type" content="invitation" />
+        <meta name="og:url" content="Thiệp mời đầy tháng Bùi Đan Thư" />
+        <meta
+            name="og:image"
+            content="https://fxanhkhoa.github.io/invitation/fullmonth/cover-bo.jpg" />
+        <meta name="og:description" content="Thiệp mời đầy tháng Bùi Đan Thư" />
+        <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+
+        <!-- Stylesheets -->
+        <!-- Reset default styles and add support for google fonts -->
+        <link
+            href="https://fonts.googleapis.com/css?family=Roboto"
+            rel="stylesheet"
+            type="text/css" />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+            rel="stylesheet"
+            type="text/css" />
+        <script src="/vendor/tailwind/tailwind.js"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            clifford: '#da373d',
+                        },
+                    },
+                },
+            };
+        </script>
+
+        <!-- Custom styles -->
+        <link href="/styles/grid.css" rel="stylesheet" type="text/css" />
+        <link href="/styles/cta.css" rel="stylesheet" type="text/css" />
+        <link
+            href="/animation/animation.css"
+            rel="stylesheet"
+            type="text/css" />
+        <link rel="stylesheet" href="/vendor/aos/aos.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+            rel="stylesheet" />
+    </head>
+    <body class="w-full h-screen from-pink-300 to-purple-300 bg-gradient-to-br">
+        <div
+            class="h-full w-full flex flex-col gap-5 justify-center items-center">
+            <h1 id="thank" class="text-4xl font-bold text-purple-800"></h1>
+            <form class="w-full max-w-md p-5 rounded-lg" id="myForm">
+                <div class="grid grid-cols-12 gap-5">
+                    <div class="col-span-12">
+                        <label
+                            for="wish"
+                            class="block mb-2 text-sm font-medium text-pink-700">
+                            Lời chúc cho Bơ
+                        </label>
+                        <textarea
+                            name="message"
+                            type="text"
+                            id="message"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            placeholder="Lời chúc cho Bơ"
+                            required></textarea>
+                    </div>
+                    <div class="col-span-12">
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input
+                                id="toggle"
+                                name="toggle"
+                                onchange="toggleChange()"
+                                type="checkbox"
+                                value=""
+                                class="sr-only peer" />
+                            <div
+                                class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            <span
+                                id="canGo"
+                                class="ms-3 text-sm font-medium text-gray-900">
+                                Toggle me
+                            </span>
+                        </label>
+                    </div>
+                    <div class="col-span-12">
+                        <button
+                            type="submit"
+                            class="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group">
+                            <span
+                                class="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease"></span>
+                            <span
+                                class="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease"></span>
+                            <span
+                                class="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full ease"></span>
+                            <span
+                                class="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full ease"></span>
+                            <span
+                                class="absolute inset-0 w-full h-full duration-300 delay-300 bg-gray-900 opacity-0 group-hover:opacity-100"></span>
+                            <span
+                                class="relative transition-colors duration-300 delay-200 group-hover:text-white ease">
+                                Gửi lời chúc cho Bơ
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <input
+                    type="text"
+                    name="from_name"
+                    class="opacity-0"
+                    id="from_name"
+                    placeholder="Your Name"
+                    required />
+                <input
+                    type="text"
+                    class="opacity-0"
+                    name="email"
+                    id="email"
+                    placeholder="Your Email"
+                    required />
+                <input
+                    type="text"
+                    class="opacity-0"
+                    name="subject"
+                    id="subject"
+                    placeholder="Subject"
+                    value="Lời chúc"
+                    required />
+            </form>
+        </div>
+        <script
+            type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+        <script type="text/javascript">
+            (function () {
+                emailjs.init('v97mjOJU0VaG6C-Yw');
+            })();
+        </script>
+        <script type="text/javascript" src="script.js"></script>
+    </body>
+</html>

@@ -16,7 +16,9 @@
         <meta name="og:title" content="Thiệp mời đầy tháng Bùi Đan Thư" />
         <meta name="og:type" content="invitation" />
         <meta name="og:url" content="Thiệp mời đầy tháng Bùi Đan Thư" />
-        <meta name="og:image" content="./cover-bo.jpeg" />
+        <meta
+            name="og:image"
+            content="https://fxanhkhoa.github.io/invitation/fullmonth/cover-bo.jpg" />
         <meta name="og:description" content="Thiệp mời đầy tháng Bùi Đan Thư" />
         <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
 
@@ -58,7 +60,7 @@
             href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
             rel="stylesheet" />
     </head>
-    <body class="w-full h-[100vh]" onload="play()">
+    <body class="w-full h-screen">
         <div>
             <div class="wave"></div>
             <div class="wave"></div>
@@ -70,16 +72,16 @@
                 class="max-w-sm shadow-lg drop-shadow-lg bg-color from-pink-300 to-pink-200 bg-gradient-to-br p-5 rounded-lg bg-cover bg-center"
                 style="background-image: url('./baby-background.jpeg')">
                 <div
-                    class="flex flex-col justify-center items-center h-full w-full backdrop-blur rounded-lg">
+                    class="flex flex-col justify-center items-center h-full w-full backdrop-blur-[2px] rounded-lg">
                     <div
                         class="flex justify-around w-full pt-5"
                         data-aos="fade-right">
                         <div class="flex flex-col text-[#B70404]">
-                            <i class="fa-regular fa-clock mx-auto"></i>
+                            <i class="fa-regular fa-clock mx-auto text-3xl"></i>
                             <span class="font-bold text-xl">11:00</span>
                         </div>
                         <div class="flex flex-col text-[#B70404]">
-                            <i class="fa-regular fa-calendar mx-auto"></i>
+                            <i class="fa-regular fa-calendar mx-auto text-3xl"></i>
                             <span class="font-bold text-xl">03/03/2024</span>
                         </div>
                     </div>
@@ -88,30 +90,33 @@
                             Bùi Đan Thư
                         </h1>
                         <img
-                            src="https://firebasestorage.googleapis.com/v0/b/what-to-eat-90d3e.appspot.com/o/avocado.png?alt=media&token=99069bee-da28-4ab8-bcd9-a7521ea704af"
+                            src="https://png.pngtree.com/png-clipart/20230619/original/pngtree-avocado-fruit-vector-cartoon-png-image_9192061.png"
                             class="h-10 w-10 object-cover my-auto" />
                     </div>
+                    <h5 class="text-gray-600" data-aos="fade-left">
+                        (Ba mẹ gọi con là BƠ)
+                    </h5>
                     <h2 class="mt-5 text-2xl" data-aos="fade-right">
-                        ĐẦY THÁNG
+                        LỄ RỬA TỘI
                     </h2>
                     <h5 class="text-gray-600" data-aos="fade-left">
-                        (Lễ rửa tội)
+                        (Đầy Tháng)
                     </h5>
                     <h4 class="text-xl mt-5" data-aos="fade-right">
-                        Trân trọng kính mời
+                        Kính mời
                     </h4>
-                    <h4
-                        data-aos="fade-left"
+                    <div
+                        data-aos="fade-up"
                         class="font-bold text-pink-500 capitalize text-2xl"
                         id="invitationName">
                         ddd
-                    </h4>
+                    </div>
 
                     <div class="mt-5 flex justify-center gap-2">
                         <i
                             data-aos="fade-right"
                             class="fa-solid fa-location-dot my-auto text-[#F79327]"></i>
-                        <span data-aos="fade-right">
+                        <span data-aos="fade-right" class="font-semibold">
                             69 Phan Huy Ích, Phường 15, Quận Tân Bình, Thành Phố
                             Hồ Chí Minh
                         </span>
@@ -128,20 +133,23 @@
                     </div>
                     <div
                         class="flex-1 w-full flex flex-col justify-end items-center gap-5 mt-10">
-                        <div class="text-center" data-aos="fade-up">
-                            <span>Sự hiện diện của</span>
+                        <div class="text-center">
+                            <span data-aos="fade-up">Sự hiện diện của</span>
                             <span
+                                data-aos="fade-up"
                                 id="invitationName-1"
                                 class="font-bold text-pink-500 capitalize">
                                 xxx
                             </span>
-                            <span>
-                                là lời chúc tốt nhất dành cho bé và là vinh dự
-                                của gia đình chúng tôi
+                            <span data-aos="fade-up">
+                                là lời chúc tốt nhất dành cho con và ba mẹ.
                             </span>
                         </div>
                         <div>
                             <button
+                                onclick="goToFeedback()"
+                                target="_blank"
+                                data-aos="fade-up"
                                 class="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group">
                                 <span
                                     class="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease"></span>
@@ -155,7 +163,7 @@
                                     class="absolute inset-0 w-full h-full duration-300 delay-300 bg-gray-900 opacity-0 group-hover:opacity-100"></span>
                                 <span
                                     class="relative transition-colors duration-300 delay-200 group-hover:text-white ease">
-                                    Tham dự
+                                    Gửi lời chúc cho Bơ
                                 </span>
                             </button>
                         </div>
@@ -176,6 +184,7 @@
         <script>
             AOS.init();
         </script>
+        <script src="/vendor/typed/typed.umd.js"></script>
         <script type="text/javascript" src="fullmonth.js"></script>
     </body>
 </html>
