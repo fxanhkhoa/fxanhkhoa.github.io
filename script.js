@@ -80,3 +80,22 @@ document.getElementById("myForm").addEventListener("submit", function (event) {
 });
 
 document.getElementById("year").innerHTML = new Date().getFullYear();
+
+let currentProjectID = '';
+
+const showProjectDetail = (id) => {
+	console.log(currentProjectID)
+	const currentProject = document.getElementById(currentProjectID);
+	if (currentProject) {
+		currentProject.classList.remove("h-fit");
+		currentProject.classList.remove("p-5");
+	}
+
+	const project = document.getElementById(id);
+	if (project) {
+		currentProjectID = id;
+		project.classList.add("h-fit");
+		project.classList.remove("p-5");
+	}
+
+}
