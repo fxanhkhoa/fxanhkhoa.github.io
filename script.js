@@ -80,3 +80,30 @@ document.getElementById("myForm").addEventListener("submit", function (event) {
 });
 
 document.getElementById("year").innerHTML = new Date().getFullYear();
+
+let currentProjectID = '';
+
+const showProjectDetail = (id) => {
+	const currentProject = document.getElementById(currentProjectID);
+	if (currentProject) {
+		currentProject.classList.remove("max-h-screen");
+		currentProject.classList.remove("p-5");
+	}
+
+	const currentProjectBtn = document.getElementById(currentProjectID + "-btn");
+	if (currentProjectBtn) {
+		currentProjectBtn.classList.remove("!bg-gray-300");
+	}
+
+	const project = document.getElementById(id);
+	if (project) {
+		currentProjectID = id;
+		project.classList.add("max-h-screen");
+		project.classList.add("p-5");
+	}
+
+	const activeBtn = document.getElementById(id + "-btn");
+	if (activeBtn) {
+		activeBtn.classList.add("!bg-gray-300");
+	}
+}
