@@ -31,6 +31,14 @@ function navClick(name) {
 	if (name === "home-nav") {
 		location.href = "#";
 	}
+
+	// Google Analytics event tracking for navigation
+	if (typeof gtag === 'function') {
+		gtag('event', 'navigation_click', {
+			'event_category': 'Navigation',
+			'event_label': name
+		});
+	}
 }
 
 let navbarLinks = [...document.querySelectorAll(".cta")];
@@ -68,6 +76,14 @@ document.getElementById("myForm").addEventListener("submit", function (event) {
 			document.getElementById("loading-spinner").classList.add("hidden");
 			document.getElementById("fail-message").classList.add("hidden");
 			document.getElementById("success-message").classList.remove("hidden");
+
+				// Google Analytics event tracking for successful contact form submission
+				if (typeof gtag === 'function') {
+					gtag('event', 'contact_form_submit', {
+						'event_category': 'Contact',
+						'event_label': 'success'
+					});
+				}
 		},
 		(error) => {
 			console.log("FAILED...", error);
@@ -75,12 +91,85 @@ document.getElementById("myForm").addEventListener("submit", function (event) {
 			document.getElementById("loading-spinner").classList.add("hidden");
 			document.getElementById("fail-message").classList.remove("hidden");
 			document.getElementById("success-message").classList.add("hidden");
+
+				// Google Analytics event tracking for failed contact form submission
+				if (typeof gtag === 'function') {
+					gtag('event', 'contact_form_submit', {
+						'event_category': 'Contact',
+						'event_label': 'fail'
+					});
+				}
 		}
 	);
 });
 
 document.getElementById("year").innerHTML = new Date().getFullYear();
 
+// Track CV download clicks
+document.addEventListener("DOMContentLoaded", () => {
+	// Select all CV download links (by href pattern)
+	const cvLinks = document.querySelectorAll('a[href$=".pdf"], a[href*="cv" i]');
+	cvLinks.forEach(link => {
+		// Only track if it's a CV file
+		if (link.href.match(/cv|khoa-bui|bui-anh-khoa/i)) {
+			link.addEventListener('click', function () {
+				if (typeof gtag === 'function') {
+					gtag('event', 'download_cv', {
+						'event_category': 'CV',
+						'event_label': link.getAttribute('href') || link.href
+					});
+				}
+			});
+		}
+	});
+
+		// Track section views and duration with Intersection Observer
+		const sectionIds = [
+			'home', 'about', 'summary', 'facts', 'skills', 'resume', 'services', 'contact'
+		];
+		const sectionViewTimes = {};
+		const sectionActive = {};
+		const observer = new window.IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				const id = entry.target.id;
+				if (!id) return;
+				if (entry.isIntersecting) {
+					// Section enters viewport
+					if (!sectionActive[id]) {
+						sectionViewTimes[id] = Date.now();
+						sectionActive[id] = true;
+						// Optionally, send a view event here (already implemented previously)
+						if (typeof gtag === 'function') {
+							gtag('event', 'view_section', {
+								'event_category': 'Section',
+								'event_label': id
+							});
+						}
+					}
+				} else {
+					// Section leaves viewport
+					if (sectionActive[id] && sectionViewTimes[id]) {
+						const duration = Math.round((Date.now() - sectionViewTimes[id]) / 1000); // seconds
+						sectionActive[id] = false;
+						if (typeof gtag === 'function') {
+							gtag('event', 'section_view_duration', {
+								'event_category': 'Section',
+								'event_label': id,
+								'value': duration
+							});
+						}
+					}
+				}
+			});
+		}, { threshold: 0.5 }); // 50% visible
+
+		sectionIds.forEach(id => {
+			const el = document.getElementById(id);
+			if (el) {
+				observer.observe(el);
+			}
+		});
+});
 let currentProjectID = '';
 
 const showProjectDetail = (id) => {
