@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Mời Sinh Nhật Đan Thư</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <div class="music-control" id="musicControl" title="Phát Nhạc">
+        <span class="icon">🎵</span>
+    </div>
+    <audio id="bgMusic" loop>
+        <!-- Placeholder music - replace with your own file if needed -->
+        <source src="./happy-birthday-334876.mp3" type="audio/mp3">
+    </audio>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="image-container">
+                        <!-- Placeholder image for Dan Thu -->
+                        <img src="./bo-birthday.jpg" alt="Dan Thu" class="profile-pic">
+                    </div>
+                    <div class="content">
+                        <!-- <h3 class="sub-title">Thân mời</h3> -->
+                        <h1 class="title">Sinh Nhật<br>Bơ - Đan Thư</h1>
+                        <div class="divider"></div>
+                        <p class="details">
+                            Thân mời những người con thương<br>
+                            Đến buổi tiệc mừng con lên 2 tuổi!
+                        </p>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="icon">📅</span>
+                                <p>21 Tháng 12, 2025</p>
+                            </div>
+                            <div class="info-item">
+                                <span class="icon">⏰</span>
+                                <p>11:00</p>
+                            </div>
+                            <div class="info-item">
+                                <span class="icon">📍</span>
+                                <p>Manwah Hồng Bàng<br>TTTM The Garden Mall, 190 Đ. Hồng Bàng, Phường 12, Quận 5</p>
+                            </div>
+                        </div>
+                        <button class="rsvp-btn" onclick="confettiEffect()">Tôi sẽ đến!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
