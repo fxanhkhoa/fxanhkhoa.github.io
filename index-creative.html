@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin Bui | Creative Developer</title>
+    <link rel="stylesheet" href="styles/creative.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
+    <!-- Background Glows -->
+    <div class="glow-bg glow-1"></div>
+    <div class="glow-bg glow-2"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo">KEVIN<span class="gradient-text">BUI</span></a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#work">Work</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <h3>Hello, I'm</h3>
+                <h1>Creative <br><span class="gradient-text">Developer</span> & <br>UI/UX Designer</h1>
+                <p>I craft stunning digital experiences that merge art with code. Specializing in building exceptional websites, applications, and everything in between.</p>
+                <div class="cta-group">
+                    <a href="#work" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-outline">Contact Me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="grid-3" style="grid-template-columns: 1fr 1fr; align-items: center;">
+                <div data-aos="fade-right">
+                    <h2 style="font-size: 3rem; margin-bottom: 2rem;">About <span class="gradient-text">Me</span></h2>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                        I am Kevin Bui, a passionate developer based in Ho Chi Minh, Viet Nam. With a background in both design and engineering, I bring a unique perspective to every project.
+                    </p>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem;">
+                        My journey started with a curiosity for how things work on the web, which led me to master HTML, CSS, JavaScript, and modern frameworks. I believe in clean code, pixel-perfect design, and user-centric experiences.
+                    </p>
+                    
+                    <div class="skills-container">
+                        <h4>Tech Stack</h4>
+                        <div style="margin-top: 1rem;">
+                            <span class="skill-tag">Angular</span>
+                            <span class="skill-tag">Next.js</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">Kubernetes</span>
+                            <span class="skill-tag">Azure</span>
+                            <span class="skill-tag">AWS</span>
+                            <span class="skill-tag">Tailwind CSS</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card" data-aos="fade-left" style="text-align: center;">
+                    <div style="width: 100%; height: 400px; background: #222; border-radius: 10px; overflow: hidden; position: relative;">
+                        <img src="images/profile-img.jpg" alt="Kevin Bui" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(to top, #0a0a0a, transparent);"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-around; margin-top: 2rem;">
+                        <div>
+                            <h3 class="gradient-text" style="font-size: 2.5rem;">12+</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-muted);">Happy Clients</p>
+                        </div>
+                        <div>
+                            <h3 class="gradient-text" style="font-size: 2.5rem;">20+</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-muted);">Projects Done</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <h2 data-aos="fade-up">My <span class="gradient-text">Services</span></h2>
+            <div class="grid-3">
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fa-solid fa-code service-icon"></i>
+                    <h3>Web Development</h3>
+                    <p style="color: var(--text-muted); margin-top: 1rem;">Building fast, responsive, and scalable websites using modern technologies like React, Next.js, and Node.js.</p>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fa-solid fa-pen-ruler service-icon"></i>
+                    <h3>UI/UX Design</h3>
+                    <p style="color: var(--text-muted); margin-top: 1rem;">Designing intuitive and beautiful user interfaces that provide seamless user experiences.</p>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fa-solid fa-mobile-screen service-icon"></i>
+                    <h3>Mobile Apps</h3>
+                    <p style="color: var(--text-muted); margin-top: 1rem;">Creating cross-platform mobile applications that look and feel native on both iOS and Android.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="grid-3" style="grid-template-columns: 1fr 1fr;">
+                <div data-aos="fade-right">
+                    <h2>Let's Work <br><span class="gradient-text">Together</span></h2>
+                    <p style="color: var(--text-muted); margin: 1.5rem 0;">
+                        Have a project in mind? I'd love to hear about it. Send me a message and let's create something amazing together.
+                    </p>
+                    <div style="margin-top: 2rem;">
+                        <div style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                            <i class="fa-solid fa-envelope" style="color: var(--accent-primary);"></i>
+                            <span>fxanhkhoa@gmail.com</span>
+                        </div>
+                        <div style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                            <i class="fa-solid fa-location-dot" style="color: var(--accent-primary);"></i>
+                            <span>Ho Chi Minh, Viet Nam</span>
+                        </div>
+                        <div style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                            <i class="fa-solid fa-phone" style="color: var(--accent-primary);"></i>
+                            <span>+84 772912970</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card" data-aos="fade-left">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; border: none;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Kevin Bui. All rights reserved.</p>
+            <div style="margin-top: 1rem; font-size: 1.2rem;">
+                <a href="#" style="color: var(--text-muted); margin: 0 10px;"><i class="fa-brands fa-github"></i></a>
+                <a href="#" style="color: var(--text-muted); margin: 0 10px;"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" style="color: var(--text-muted); margin: 0 10px;"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Custom Cursor Logic
+        const cursorDot = document.querySelector('[data-cursor-dot]');
+        const cursorOutline = document.querySelector('[data-cursor-outline]');
+
+        window.addEventListener('mousemove', function(e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Add some lag to the outline for smooth effect
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Add hover effect to links for cursor
+        const links = document.querySelectorAll('a, button, input, textarea');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursorOutline.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            });
+            link.addEventListener('mouseleave', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorOutline.style.backgroundColor = 'transparent';
+            });
+        });
+    </script>
+</body>
+</html>
