@@ -75,6 +75,13 @@ body {
     text-decoration: none;
 }
 
+.nav-logo {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+    margin-right: 0.5rem;
+}
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -341,7 +348,7 @@ section {
     position: absolute;
     top: -10px;
     left: -10px;
-    width: 100%;
+    width: auto;
     height: 100%;
     background: var(--gradient-primary);
     border-radius: 20px;
@@ -353,6 +360,7 @@ section {
     height: auto;
     display: block;
     border-radius: 20px;
+    object-fit: cover;
 }
 
 .about-text h3 {
@@ -479,14 +487,17 @@ section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
+    justify-items: center;
 }
 
 .project-card {
     background: white;
+    padding: 1rem;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: var(--shadow-md);
     transition: var(--transition);
+    max-width: 400px;
 }
 
 .project-card:hover {
@@ -501,7 +512,7 @@ section {
 }
 
 .project-image img {
-    width: 100%;
+    width: auto;
     height: 100%;
     object-fit: cover;
     transition: var(--transition);
@@ -717,7 +728,6 @@ section {
 
 .project-card {
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-    padding: 1.75rem;
     border-radius: 15px;
     border: 2px solid #e2e8f0;
     transition: var(--transition);
@@ -1151,7 +1161,8 @@ section {
 }
 
 @keyframes scrollDown {
-    0%, 100% {
+    0%,
+    100% {
         opacity: 0;
         transform: translateY(0);
     }
@@ -1313,4 +1324,12 @@ section {
     .skills-grid {
         grid-template-columns: 1fr;
     }
+}
+
+.p-3 {
+    padding: 1rem;
+}
+
+.p-0 {
+    padding: 0;
 }
