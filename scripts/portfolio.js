@@ -60,11 +60,10 @@ if (typeof Typed !== 'undefined') {
     const typed = new Typed('#typed-text', {
         strings: [
             'Full Stack Developer',
-            'Angular Expert',
+            'Angular Developer',
             'React Developer',
-            'Cloud Architect',
-            'Microservices Specialist',
-            'DevOps Engineer'
+            'Golang Developer',
+            'Freelance Developer',
         ],
         typeSpeed: 50,
         backSpeed: 30,
