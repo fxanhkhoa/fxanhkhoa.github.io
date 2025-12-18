@@ -26,6 +26,10 @@
     box-sizing: border-box;
 }
 
+.hidden {
+    display: none !important;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -1332,4 +1336,8 @@ section {
 
 .p-0 {
     padding: 0;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
 }

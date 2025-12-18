@@ -141,24 +141,101 @@ document.querySelectorAll('.stat').forEach(stat => {
 });
 
 // ===========================
-// Form Submission
+// Form Submission with EmailJS
 // ===========================
 const contactForm = document.querySelector('.contact-form');
 
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(contactForm);
-    const data = Object.fromEntries(formData);
-    
-    // Here you would typically send the data to a server
-    console.log('Form submitted:', data);
-    
-    // Show success message (you can customize this)
-    alert('Thank you for your message! I will get back to you soon.');
-    contactForm.reset();
-});
+if (contactForm) {
+    contactForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const submitText = document.getElementById('submit-text');
+        const successMessage = document.getElementById('success-message');
+        const failMessage = document.getElementById('fail-message');
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        
+        // Show loading state
+        if (loadingSpinner) {
+            loadingSpinner.classList.remove('fa-paper-plane');
+            loadingSpinner.classList.add('fa-spinner', 'fa-spin');
+        }
+        if (submitText) {
+            submitText.textContent = 'Sending...';
+        }
+        if (submitButton) {
+            submitButton.disabled = true;
+        }
+        
+        // Hide previous messages
+        if (successMessage) successMessage.style.display = 'none';
+        if (failMessage) failMessage.style.display = 'none';
+        
+        const serviceID = 'service_9xr359p';
+        const templateID = 'template_jmu7iyp';
+        
+        // Send the email using EmailJS
+        emailjs.sendForm(serviceID, templateID, this).then(
+            (response) => {
+                console.log('SUCCESS!', response.status, response.text);
+                
+                // Reset loading state
+                if (loadingSpinner) {
+                    loadingSpinner.classList.remove('fa-spinner', 'fa-spin');
+                    loadingSpinner.classList.add('fa-paper-plane');
+                }
+                if (submitText) {
+                    submitText.textContent = 'Send Message';
+                }
+                if (submitButton) {
+                    submitButton.disabled = false;
+                }
+                
+                // Show success message
+                if (successMessage) successMessage.style.display = 'block';
+                if (failMessage) failMessage.style.display = 'none';
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Google Analytics event tracking
+                if (typeof gtag === 'function') {
+                    gtag('event', 'contact_form_submit', {
+                        'event_category': 'Contact',
+                        'event_label': 'success'
+                    });
+                }
+            },
+            (error) => {
+                console.log('FAILED...', error);
+                
+                // Reset loading state
+                if (loadingSpinner) {
+                    loadingSpinner.classList.remove('fa-spinner', 'fa-spin');
+                    loadingSpinner.classList.add('fa-paper-plane');
+                }
+                if (submitText) {
+                    submitText.textContent = 'Send Message';
+                }
+                if (submitButton) {
+                    submitButton.disabled = false;
+                }
+                
+                // Show error message
+                if (failMessage) failMessage.style.display = 'block';
+                if (successMessage) successMessage.style.display = 'none';
+                
+                // Google Analytics event tracking
+                if (typeof gtag === 'function') {
+                    gtag('event', 'contact_form_submit', {
+                        'event_category': 'Contact',
+                        'event_label': 'fail'
+                    });
+                }
+            }
+        );
+    });
+}
 
 // ===========================
 // Active Navigation Link
