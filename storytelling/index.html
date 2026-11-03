@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0; url=alphabet/">
+  <title>Redirecting to Alphabet Odyssey...</title>
+  <script>
+    // Intelligent auto-redirect based on browser language
+    const userLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    if (userLang.startsWith('vi')) {
+      window.location.replace('alphabet/vi/');
+    } else {
+      window.location.replace('alphabet/en/');
+    }
+  </script>
+</head>
+<body style="background:#0a0518; color:#fff; font-family:sans-serif; text-align:center; padding-top:20vh;">
+  <p>Loading Alphabet Odyssey... <a href="alphabet/" style="color:#ffd32a;">Click here if not redirected automatically</a>.</p>
+</body>
+</html>
