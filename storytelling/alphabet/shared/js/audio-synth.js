@@ -1,9 +1,13 @@
 /**
  * Shared Audio Synthesis & Voice Narration Engine
- * Built using native Web Audio API and dual-tier Voice Narration:
- * Tier 1: Web Speech API (with strict BCP-47 language tag validation to prevent cross-language misattribution)
- * Tier 2: High-fidelity natural cloud audio TTS fallback (guaranteeing authentic native pronunciation
- *         even when OS lacks installed Vietnamese voice packs).
+ *
+ * For Vietnamese (vi):
+ * Uses Google Translate's official native Vietnamese TTS audio service as the PRIMARY voice engine
+ * to guarantee natural, authentic Vietnamese pronunciation (dấu sắc, huyền, hỏi, ngã, nặng)
+ * without relying on quirky or missing system voices.
+ *
+ * For English (en):
+ * Uses native Web Speech API with fallback to cloud TTS.
  */
 
 class SoundEngine {
@@ -12,8 +16,8 @@ class SoundEngine {
     this.isMuted = false;
     this.masterGain = null;
     this.speechSynth = typeof window !== 'undefined' ? window.speechSynthesis : null;
+    this.currentAudio = null;
     this.cachedVoices = [];
-    this.currentTTSAudio = null;
 
     // Check localStorage preference
     const savedMute = localStorage.getItem('alphabet_odyssey_muted');
@@ -49,25 +53,6 @@ class SoundEngine {
     this.cachedVoices = this.speechSynth.getVoices() || [];
   }
 
-  /**
-   * Strictly find a genuine Vietnamese voice by BCP-47 language code (vi / vi-VN / vi_VN)
-   * Avoids loose substring matches that inadvertently pick Chinese voices (e.g. 'mainland').
-   */
-  getVietnameseVoice() {
-    if (!this.speechSynth) return null;
-    const voices = this.speechSynth.getVoices();
-    const list = (voices && voices.length > 0) ? voices : this.cachedVoices;
-
-    return list.find(v => {
-      const lang = (v.lang || '').toLowerCase().replace('_', '-');
-      // Strictly match Vietnamese language code
-      return lang === 'vi' || lang.startsWith('vi-');
-    }) || null;
-  }
-
-  /**
-   * Strictly find an English voice
-   */
   getEnglishVoice() {
     if (!this.speechSynth) return null;
     const voices = this.speechSynth.getVoices();
@@ -91,15 +76,24 @@ class SoundEngine {
       this.masterGain.gain.setValueAtTime(this.isMuted ? 0 : 0.35, this.audioCtx.currentTime);
     }
     if (this.isMuted) {
-      if (this.speechSynth) {
-        this.speechSynth.cancel();
-      }
-      if (this.currentTTSAudio) {
-        this.currentTTSAudio.pause();
-        this.currentTTSAudio = null;
-      }
+      this.stopAllAudio();
     }
     return this.isMuted;
+  }
+
+  stopAllAudio() {
+    if (this.currentAudio) {
+      try {
+        this.currentAudio.pause();
+        this.currentAudio.currentTime = 0;
+      } catch (e) {}
+      this.currentAudio = null;
+    }
+    if (this.speechSynth) {
+      try {
+        this.speechSynth.cancel();
+      } catch (e) {}
+    }
   }
 
   /**
@@ -208,40 +202,22 @@ class SoundEngine {
   }
 
   /**
-   * Speak phonetic sound or educational phrase with robust multi-language & fallback support
+   * Main speech narration function
+   * For Vietnamese: ALWAYS uses Google Translate native TTS audio service!
+   * For English: Uses native SpeechSynthesis with cloud fallback.
    */
   speak(text, lang = 'en') {
     if (this.isMuted) return;
 
-    // Stop any ongoing speech or TTS audio
-    if (this.speechSynth) {
-      this.speechSynth.cancel();
-    }
-    if (this.currentTTSAudio) {
-      this.currentTTSAudio.pause();
-      this.currentTTSAudio = null;
-    }
+    this.stopAllAudio();
 
     const isVi = lang.startsWith('vi');
 
     if (isVi) {
-      const viVoice = this.getVietnameseVoice();
-
-      // If browser/OS has a verified Vietnamese voice installed (like Linh vi_VN), use SpeechSynthesis
-      if (viVoice) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.voice = viVoice;
-        utterance.lang = 'vi-VN';
-        utterance.rate = 0.92;
-        utterance.pitch = 1.0;
-        this.speechSynth.speak(utterance);
-        return;
-      }
-
-      // If NO Vietnamese voice is installed locally, play authentic Vietnamese pronunciation via Google TTS audio stream
-      this.playCloudTTS(text, 'vi');
+      // Primary: Google Translate Vietnamese Audio Service
+      this.playGoogleTTS(text, 'vi');
     } else {
-      // English pronunciation
+      // English: SpeechSynthesis or fallback
       const enVoice = this.getEnglishVoice();
       if (this.speechSynth) {
         const utterance = new SpeechSynthesisUtterance(text);
@@ -253,35 +229,46 @@ class SoundEngine {
         utterance.pitch = 1.05;
         this.speechSynth.speak(utterance);
       } else {
-        this.playCloudTTS(text, 'en');
+        this.playGoogleTTS(text, 'en');
       }
     }
   }
 
   /**
-   * Authentic native pronunciation audio stream
+   * Google Translate Natural Audio TTS
+   * Streams high quality human audio in Vietnamese or English
    */
-  playCloudTTS(text, lang = 'vi') {
+  playGoogleTTS(text, lang = 'vi') {
     if (this.isMuted) return;
 
-    // Sanitize punctuation for clean query
-    const cleanText = text.replace(/[/\\#,+()$~%.'":*?<>{}]/g, ' ').replace(/\s+/g, ' ').trim();
-    if (!cleanText) return;
+    // Clean text: strip special phonetic notation like /a/ or extra symbols
+    let clean = text
+      .replace(/\/.*?\//g, '')
+      .replace(/[\/\\#,+()$~%.'":*?<>{}]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
 
-    const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&client=tw-ob&q=${encodeURIComponent(cleanText)}`;
+    if (!clean) clean = text;
+
+    // Encode URI for Google Translate TTS endpoint
+    const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&client=tw-ob&q=${encodeURIComponent(clean)}`;
+
     const audio = new Audio(url);
-    this.currentTTSAudio = audio;
-    audio.volume = 0.9;
+    this.currentAudio = audio;
+    audio.volume = 0.95;
 
-    audio.play().catch(err => {
-      console.warn('Cloud TTS playback notice:', err);
-      // Last-ditch SpeechSynthesis fallback
-      if (this.speechSynth) {
-        const fallbackUtterance = new SpeechSynthesisUtterance(cleanText);
-        fallbackUtterance.lang = lang === 'vi' ? 'vi-VN' : 'en-US';
-        this.speechSynth.speak(fallbackUtterance);
-      }
-    });
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(err => {
+        console.warn('Google TTS audio playback note:', err);
+        // Only if network audio is blocked, attempt fallback
+        if (this.speechSynth) {
+          const fallbackUtterance = new SpeechSynthesisUtterance(clean);
+          fallbackUtterance.lang = lang === 'vi' ? 'vi-VN' : 'en-US';
+          this.speechSynth.speak(fallbackUtterance);
+        }
+      });
+    }
   }
 }
 
