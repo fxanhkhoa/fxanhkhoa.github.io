@@ -22,7 +22,7 @@ class ProfileApp {
     this.tourToggleBtn = document.getElementById('tour-toggle-btn');
     this.scrubberItems = document.querySelectorAll('.scrub-item');
     this.headerNavLinks = document.querySelectorAll('.header-nav-link');
-    this.chapters = document.querySelectorAll('.story-chapter');
+    this.chapters = document.querySelectorAll('.story-stage');
     this.topHeader = document.querySelector('.top-header');
     this.hamburger = document.querySelector('.hamburger');
     this.navMenu = document.querySelector('.header-nav-menu');
@@ -144,7 +144,16 @@ class ProfileApp {
       this.playChapterTone(newIndex);
     }
 
-    // 4. Update Scrubber Rail & Nav Links
+    // 4. Update Story Stages Active Class
+    this.chapters.forEach((chapter, idx) => {
+      if (idx === this.currentChapterIndex) {
+        chapter.classList.add('active');
+      } else {
+        chapter.classList.remove('active');
+      }
+    });
+
+    // 5. Update Scrubber Rail & Nav Links
     this.scrubberItems.forEach((item, idx) => {
       if (idx === this.currentChapterIndex) {
         item.classList.add('active');
@@ -264,29 +273,29 @@ class ProfileApp {
   // -------------------------------------------------------------
   setupCompanyTabs() {
     // Company selection pills (ST Engineering, Bloom, NashTech, Hitachi)
-    document.querySelectorAll('.company-pill-btn').forEach(btn => {
+    document.querySelectorAll('.company-tab-btn').forEach(btn => {
       btn.addEventListener('click', function () {
         const targetCompany = this.getAttribute('data-company');
 
-        document.querySelectorAll('.company-pill-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.company-tab-btn').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
 
-        document.querySelectorAll('.company-pane').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.company-section-pane').forEach(p => p.classList.remove('active'));
         const pane = document.getElementById(targetCompany);
         if (pane) pane.classList.add('active');
       });
     });
 
     // Sub-project tabs within each company
-    document.querySelectorAll('.subtab-btn').forEach(btn => {
+    document.querySelectorAll('.subtab-pill').forEach(btn => {
       btn.addEventListener('click', function () {
-        const pane = this.closest('.company-pane');
+        const pane = this.closest('.company-section-pane');
         const targetSub = this.getAttribute('data-sub');
 
-        pane.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
+        pane.querySelectorAll('.subtab-pill').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
 
-        pane.querySelectorAll('.subtab-content').forEach(c => c.classList.remove('active'));
+        pane.querySelectorAll('.project-dossier-card').forEach(c => c.classList.remove('active'));
         const content = pane.querySelector(`#${targetSub}`);
         if (content) content.classList.add('active');
       });

@@ -1,12 +1,6 @@
 /* ==========================================================================
-   Kevin Bui - 3D Interactive Scrollytelling Portfolio Stylesheet
-   Designed in the signature Alphabet Odyssey 3D WebGL aesthetic:
-   - Fullscreen 3D WebGL canvas with interactive mouse drag & wobble
-   - Atmospheric celestial gradients & twinkling starfield
-   - Glassmorphic narrative story cards positioned alongside 3D models
-   - Header with Auto Tour and Web Audio Sound Synth controls
-   - Chapter Scrubber HUD Rail
-   - Executive Project Dossier tabs & EmailJS contact form
+   Kevin Bui - Redesigned 3D Scrollytelling Portfolio Stylesheet
+   Modern Cyber-Editorial & Cinematic 3D WebGL Spatial Experience
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
@@ -16,9 +10,9 @@
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --bg-dark: #070612;
-  --bg-card: rgba(13, 16, 30, 0.78);
-  --bg-card-hover: rgba(18, 24, 45, 0.88);
+  --bg-dark: #060812;
+  --bg-card: rgba(12, 17, 30, 0.82);
+  --bg-card-hover: rgba(16, 24, 44, 0.92);
   --border-glass: rgba(255, 255, 255, 0.1);
   --border-glow: rgba(0, 240, 255, 0.4);
 
@@ -33,14 +27,14 @@
   --emerald-neon: #10b981;
 
   --gradient-brand: linear-gradient(135deg, #00f0ff 0%, #8b5cf6 60%, #ec4899 100%);
-  --radius-card: 24px;
+  --radius-card: 20px;
   --radius-pill: 9999px;
 
-  --shadow-glass: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-glass: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
   --shadow-glow: 0 0 30px rgba(0, 240, 255, 0.25);
 
   --transition-fast: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ==========================================================================
@@ -73,19 +67,19 @@ body {
   color: #fff;
 }
 
-/* Custom Scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #06050e;
+  background: #060812;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e2238;
+  background: #1e293b;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--purple-neon);
+  background: var(--cyan-neon);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -114,7 +108,7 @@ a {
 }
 
 /* ==========================================================================
-   3D WebGL Background Canvas & Backdrop
+   3D Canvas Layer & Cosmic Backdrop
    ========================================================================== */
 #webgl-container {
   position: fixed;
@@ -125,7 +119,6 @@ a {
   z-index: 1;
   pointer-events: auto;
   cursor: grab;
-  transition: opacity 0.5s ease;
 }
 
 #webgl-container:active {
@@ -136,24 +129,21 @@ a {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background: radial-gradient(circle at 65% 35%, #160d33 0%, #09061c 55%, #04030a 100%);
+  background: radial-gradient(circle at 50% 30%, #111a33 0%, #060814 60%, #03040a 100%);
   opacity: 0.95;
   pointer-events: none;
-  transition: background 1s ease;
 }
 
-/* ==========================================================================
-   Top Scroll Progress Bar
-   ========================================================================== */
+/* Top Scroll Progress Line */
 .scroll-progress-bar {
   position: fixed;
   top: 0;
   left: 0;
-  height: 4px;
+  height: 3px;
   width: 0%;
   z-index: 100;
   background: linear-gradient(90deg, #00f0ff, #8b5cf6, #ec4899, #ffd166);
-  box-shadow: 0 0 14px rgba(0, 240, 255, 0.7);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.8);
   transition: width 0.08s ease-out;
 }
 
@@ -165,7 +155,7 @@ a {
   top: 0;
   left: 0;
   width: 100%;
-  height: 72px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -173,13 +163,13 @@ a {
   z-index: 50;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  background: rgba(9, 7, 22, 0.7);
+  background: rgba(6, 8, 18, 0.72);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   transition: var(--transition-smooth);
 }
 
 .top-header.scrolled {
-  background: rgba(7, 5, 18, 0.9);
+  background: rgba(5, 7, 15, 0.92);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -196,7 +186,7 @@ a {
 }
 
 .nav-logo {
-  height: 38px;
+  height: 36px;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 2px 8px rgba(0, 240, 255, 0.4));
@@ -213,7 +203,7 @@ a {
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 1.5rem;
+  gap: 1.4rem;
 }
 
 .header-nav-link {
@@ -243,7 +233,6 @@ a {
   width: 100%;
 }
 
-/* Header Action Controls */
 .header-controls {
   display: flex;
   align-items: center;
@@ -258,8 +247,8 @@ a {
   font-size: 0.82rem;
   font-weight: 600;
   color: #fff;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--radius-pill);
   padding: 0.45rem 0.95rem;
   cursor: pointer;
@@ -268,16 +257,16 @@ a {
 }
 
 .ctrl-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.16);
   border-color: rgba(0, 240, 255, 0.4);
   transform: translateY(-1px);
 }
 
 .ctrl-btn.active {
-  background: rgba(0, 240, 255, 0.18);
+  background: rgba(0, 240, 255, 0.2);
   border-color: var(--cyan-neon);
   color: var(--cyan-neon);
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
 }
 
 .hamburger {
@@ -312,7 +301,7 @@ a {
 }
 
 /* ==========================================================================
-   Alphabet-Style Scrubber Rail (Right Fixed HUD)
+   Chapter Scrubber Rail (Right Fixed HUD)
    ========================================================================== */
 .story-scrubber-rail {
   position: fixed;
@@ -323,7 +312,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.9rem;
+  gap: 0.85rem;
 }
 
 .scrub-item {
@@ -341,7 +330,7 @@ a {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-muted);
-  background: rgba(14, 18, 32, 0.92);
+  background: rgba(12, 17, 30, 0.94);
   padding: 0.25rem 0.65rem;
   border-radius: 6px;
   border: 1px solid var(--border-glass);
@@ -357,12 +346,12 @@ a {
   height: 32px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--text-muted);
   transition: var(--transition-fast);
@@ -402,7 +391,7 @@ a {
 }
 
 /* ==========================================================================
-   Main Scrollytelling Scrollable Container & Chapters
+   Main Scrollytelling Track & Stages
    ========================================================================== */
 .story-scroll-container {
   position: relative;
@@ -411,30 +400,50 @@ a {
   pointer-events: none;
 }
 
-.story-chapter {
-  min-height: 100vh;
+.story-stage {
+  min-height: 120vh;
   display: flex;
   align-items: center;
-  padding: 6.5rem 2rem 5rem;
+  padding: 6rem 5%;
   position: relative;
 }
 
-/* Story Glass Card (Placed on Left to let 3D Scene shine on Right) */
+/* Stage Alignment Classes */
+.stage-center {
+  justify-content: center;
+}
+
+.stage-left {
+  justify-content: flex-start;
+}
+
+.stage-right {
+  justify-content: flex-end;
+}
+
+/* Story Card Base */
 .story-card {
   pointer-events: auto;
   width: 100%;
-  max-width: 580px;
-  margin-left: 5vw;
   background: var(--bg-card);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-card);
-  padding: 2.4rem;
+  padding: 2.5rem;
   box-shadow: var(--shadow-glass);
   position: relative;
   overflow: hidden;
-  transition: var(--transition-smooth);
+  opacity: 0.35;
+  transform: translateY(25px);
+  transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.story-stage.active .story-card {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: rgba(0, 240, 255, 0.35);
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.75), 0 0 35px rgba(0, 240, 255, 0.15);
 }
 
 .story-card::before {
@@ -447,14 +456,8 @@ a {
   background: var(--gradient-brand);
 }
 
-.story-card:hover {
-  border-color: rgba(0, 240, 255, 0.35);
-  background: var(--bg-card-hover);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 240, 255, 0.15);
-}
-
-/* Chapter Badge Marker */
-.chapter-badge-marker {
+/* Chapter Badges */
+.stage-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -471,24 +474,24 @@ a {
   margin-bottom: 1.25rem;
 }
 
-.card-title {
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
+.stage-title {
+  font-size: clamp(2rem, 3.8vw, 3rem);
   line-height: 1.15;
   margin-bottom: 0.85rem;
 }
 
-.card-subtitle {
-  font-size: 1.05rem;
+.stage-subtitle {
+  font-size: 1.1rem;
   color: var(--cyan-neon);
   font-weight: 600;
   margin-bottom: 1.25rem;
 }
 
-.card-narrative {
-  font-size: 0.98rem;
+.stage-desc {
+  font-size: 1rem;
   line-height: 1.7;
   color: var(--text-muted);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
 }
 
 /* 3D Interaction Hint Pill */
@@ -501,9 +504,9 @@ a {
   color: var(--cyan-neon);
   background: rgba(0, 240, 255, 0.08);
   border: 1px dashed rgba(0, 240, 255, 0.3);
-  padding: 0.4rem 0.85rem;
+  padding: 0.45rem 0.95rem;
   border-radius: 8px;
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
 }
 
 /* Buttons */
@@ -512,10 +515,10 @@ a {
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  padding: 0.75rem 1.4rem;
+  padding: 0.8rem 1.6rem;
   border-radius: 10px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   cursor: pointer;
   transition: var(--transition-fast);
   border: none;
@@ -563,7 +566,7 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 0.85rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
 }
 
 /* Social links row */
@@ -574,8 +577,8 @@ a {
 }
 
 .social-btn {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-glass);
@@ -583,7 +586,7 @@ a {
   align-items: center;
   justify-content: center;
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: 1.05rem;
   transition: var(--transition-fast);
 }
 
@@ -596,372 +599,505 @@ a {
 }
 
 /* ==========================================================================
-   Chapter 00 Specifics (Hero / Prologue)
+   Stage 00 Specifics (Hero / Prologue - Full Center Stage)
    ========================================================================== */
-.hero-avatar-row {
+.hero-card {
+  max-width: 780px;
+  text-align: center;
+}
+
+.hero-avatar-center {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
   margin-bottom: 1.5rem;
 }
 
-.avatar-sphere {
-  width: 64px;
-  height: 64px;
+.avatar-ring-glow {
+  position: relative;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  border: 2px solid var(--cyan-neon);
-  padding: 2px;
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+  padding: 3px;
+  background: var(--gradient-brand);
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+  margin-bottom: 0.75rem;
 }
 
-.avatar-sphere img {
+.avatar-ring-glow img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid #060812;
 }
 
-.hero-stats-chips {
+.telemetry-strip-chips {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
-.stat-chip {
+.telemetry-chip {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-glass);
-  border-radius: 10px;
-  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  padding: 0.85rem 0.5rem;
+  text-align: center;
 }
 
-.stat-chip-val {
+.telemetry-val {
   font-family: var(--font-heading);
-  font-size: 1.35rem;
+  font-size: 1.65rem;
   font-weight: 800;
   color: var(--text-main);
   line-height: 1.1;
 }
 
-.stat-chip-lbl {
+.telemetry-label {
   font-size: 0.72rem;
   text-transform: uppercase;
   color: var(--text-dim);
   letter-spacing: 0.05em;
+  margin-top: 0.2rem;
 }
 
 /* ==========================================================================
-   Chapter 01 Specifics (Origin & Pillars)
+   Stage 01 Specifics (Origin & Pillars - Left Aligned)
    ========================================================================== */
-.origin-pillar-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  margin-bottom: 1.5rem;
+.origin-card {
+  max-width: 660px;
 }
 
-.origin-pillar-item {
+.pillar-grid {
   display: flex;
-  gap: 0.85rem;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.pillar-box {
+  display: flex;
+  gap: 1rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-glass);
   border-radius: 12px;
-  padding: 0.85rem 1rem;
+  padding: 1rem 1.25rem;
 }
 
-.pillar-icon-box {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+.pillar-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
   background: rgba(0, 240, 255, 0.12);
   color: var(--cyan-neon);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: 1.15rem;
   flex-shrink: 0;
 }
 
-.origin-pillar-item h5 {
-  font-size: 0.95rem;
-  margin-bottom: 0.2rem;
+.pillar-box h5 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
 }
 
-.origin-pillar-item p {
-  font-size: 0.85rem;
+.pillar-box p {
+  font-size: 0.88rem;
   line-height: 1.5;
 }
 
 /* ==========================================================================
-   Chapter 02 Specifics (Arsenal Tech Clusters)
+   Stage 02 Specifics (Arsenal - Right Aligned)
    ========================================================================== */
-.arsenal-cluster {
-  margin-bottom: 1.25rem;
+.arsenal-card {
+  max-width: 680px;
 }
 
-.cluster-title {
+.arsenal-category-group {
+  margin-bottom: 1.4rem;
+}
+
+.category-label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   color: var(--cyan-neon);
   letter-spacing: 0.08em;
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.65rem;
 }
 
-.tag-cloud {
+.tech-tag-cloud {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.45rem;
+  gap: 0.5rem;
 }
 
-.tech-chip {
+.tag-item {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.4rem;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-glass);
-  padding: 0.25rem 0.65rem;
-  border-radius: 6px;
-  font-size: 0.78rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
   color: var(--text-main);
   transition: var(--transition-fast);
 }
 
-.tech-chip img {
-  width: 13px;
-  height: 13px;
+.tag-item img {
+  width: 14px;
+  height: 14px;
   object-fit: contain;
 }
 
-.tech-chip:hover {
-  background: rgba(0, 240, 255, 0.12);
-  border-color: rgba(0, 240, 255, 0.35);
+.tag-item:hover {
+  background: rgba(0, 240, 255, 0.14);
+  border-color: rgba(0, 240, 255, 0.4);
   color: var(--cyan-neon);
+  transform: translateY(-1px);
 }
 
 /* ==========================================================================
-   Chapter 03 Specifics (Masterpieces)
+   Stage 03 Specifics (Masterpieces - Wide Centered Showcase)
    ========================================================================== */
-.masterpiece-showcase-row {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  margin-bottom: 1.5rem;
+.masterpieces-stage-card {
+  max-width: 1100px;
 }
 
-.masterpiece-mini-card {
+.showcase-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.showcase-item {
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid var(--border-glass);
-  border-radius: 14px;
-  padding: 1.15rem;
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
   transition: var(--transition-fast);
 }
 
-.masterpiece-mini-card:hover {
-  border-color: rgba(255, 209, 102, 0.4);
-  background: rgba(255, 209, 102, 0.03);
+.showcase-item:hover {
+  border-color: rgba(0, 240, 255, 0.4);
+  background: rgba(0, 240, 255, 0.03);
+  transform: translateY(-4px);
 }
 
-.mini-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-}
-
-.mini-card-header h4 {
-  font-size: 1.05rem;
-  color: #fff;
-}
-
-.mini-card-badge {
+.showcase-badge-pill {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  padding: 0.2rem 0.55rem;
+  font-size: 0.72rem;
+  padding: 0.25rem 0.65rem;
   border-radius: var(--radius-pill);
-  background: rgba(0, 240, 255, 0.1);
+  background: rgba(0, 240, 255, 0.12);
   color: var(--cyan-neon);
   border: 1px solid rgba(0, 240, 255, 0.3);
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  width: fit-content;
 }
 
-.masterpiece-mini-card p {
-  font-size: 0.88rem;
-  line-height: 1.5;
-  margin-bottom: 0.75rem;
+.showcase-item h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0.6rem;
+}
+
+.showcase-item p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
 }
 
 /* ==========================================================================
-   Chapter 04 Specifics (Career Odyssey Dossier Tabs)
+   Stage 04 Specifics (Odyssey - Executive Dossier Container)
    ========================================================================== */
-.company-select-nav {
-  display: flex;
-  gap: 0.5rem;
-  overflow-x: auto;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1.25rem;
+.odyssey-stage-card {
+  max-width: 1050px;
 }
 
-.company-pill-btn {
+.company-tabs-nav {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.company-tab-btn {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-glass);
   color: var(--text-muted);
-  padding: 0.4rem 0.85rem;
+  padding: 0.55rem 1.15rem;
   border-radius: var(--radius-pill);
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
   transition: var(--transition-fast);
 }
 
-.company-pill-btn.active {
+.company-tab-btn.active {
   background: rgba(0, 240, 255, 0.18);
   border-color: var(--cyan-neon);
   color: var(--cyan-neon);
-  box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
 }
 
-.company-pane {
+.company-section-pane {
   display: none;
-  animation: fadeInDossier 0.3s ease-out;
+  animation: fadeInPane 0.35s ease-out;
 }
 
-.company-pane.active {
+.company-section-pane.active {
   display: block;
 }
 
-@keyframes fadeInDossier {
-  from { opacity: 0; transform: translateY(6px); }
+@keyframes fadeInPane {
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.company-dossier-box {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border-glass);
-  border-radius: 12px;
-  padding: 1rem;
-  margin-bottom: 1rem;
+.dossier-company-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-glass);
 }
 
-.dossier-subtabs {
+.company-logo-frame {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+  flex-shrink: 0;
+}
+
+.company-logo-frame img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.project-subtabs-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 0.85rem;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
 }
 
-.subtab-btn {
-  font-size: 0.75rem;
-  padding: 0.3rem 0.65rem;
+.subtab-pill {
+  font-size: 0.78rem;
+  padding: 0.35rem 0.8rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-glass);
-  border-radius: 6px;
+  border-radius: 8px;
   color: var(--text-muted);
   cursor: pointer;
   transition: var(--transition-fast);
 }
 
-.subtab-btn.active {
+.subtab-pill.active {
   background: rgba(139, 92, 246, 0.2);
   border-color: var(--purple-neon);
   color: #fff;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.25);
 }
 
-.subtab-content {
+.project-dossier-card {
   display: none;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  border-radius: 14px;
+  padding: 1.5rem;
 }
-.subtab-content.active {
+
+.project-dossier-card.active {
   display: block;
 }
 
-.dossier-item {
-  font-size: 0.85rem;
-  margin-bottom: 0.4rem;
-  color: var(--text-muted);
+.dossier-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
 }
-.dossier-item strong {
-  color: var(--text-main);
+
+.dossier-box h5 {
+  font-size: 0.95rem;
+  color: var(--cyan-neon);
+  margin-bottom: 0.45rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dossier-box p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.dossier-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dossier-box ul li {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  position: relative;
+  padding-left: 1.2rem;
+  margin-bottom: 0.35rem;
+}
+
+.dossier-box ul li::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: var(--purple-neon);
 }
 
 /* ==========================================================================
-   Chapter 05 Specifics (Freelance Expeditions)
+   Stage 05 Specifics (Expeditions - Freelance Grid)
    ========================================================================== */
-.freelance-items-col {
-  display: flex;
-  flex-direction: column;
-  gap: 0.95rem;
-  margin-bottom: 1.5rem;
+.expeditions-stage-card {
+  max-width: 1050px;
 }
 
-.freelance-mini-card {
+.freelance-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.freelance-card-item {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-glass);
-  border-radius: 12px;
-  padding: 0.95rem 1.15rem;
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.freelance-mini-card h5 {
-  font-size: 0.95rem;
+.freelance-card-item h5 {
+  font-size: 1.1rem;
   color: var(--pink-neon);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.4rem;
 }
 
-.freelance-mini-card p {
-  font-size: 0.85rem;
-  line-height: 1.5;
-  margin-bottom: 0.45rem;
+.freelance-card-item p {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  margin-bottom: 0.85rem;
+  flex-grow: 1;
 }
 
 /* ==========================================================================
-   Chapter 06 Specifics (Contact Nexus & EmailJS Form)
+   Stage 06 Specifics (Epilogue - Terminal Console)
    ========================================================================== */
-.contact-console-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.95rem;
+.epilogue-stage-card {
+  max-width: 980px;
 }
 
-.form-input-3d, .form-textarea-3d {
+.epilogue-split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+.contact-meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.contact-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+}
+
+.contact-meta-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: rgba(0, 240, 255, 0.12);
+  color: var(--cyan-neon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+
+.contact-form-3d {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-input-box, .form-textarea-box {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1.1rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-glass);
   border-radius: 8px;
   color: var(--text-main);
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   transition: var(--transition-fast);
 }
 
-.form-input-3d:focus, .form-textarea-3d:focus {
+.form-input-box:focus, .form-textarea-box:focus {
   outline: none;
   border-color: var(--cyan-neon);
   background: rgba(0, 240, 255, 0.03);
-  box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
 }
 
-.form-textarea-3d {
+.form-textarea-box {
   resize: vertical;
-  min-height: 90px;
+  min-height: 110px;
 }
 
-.form-feedback {
+.form-toast {
   display: none;
-  padding: 0.75rem;
+  padding: 0.85rem;
   border-radius: 8px;
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   text-align: center;
   font-weight: 500;
 }
-.form-feedback.success {
+
+.form-toast.success {
   background: rgba(16, 185, 129, 0.15);
   border: 1px solid rgba(16, 185, 129, 0.4);
   color: #34d399;
 }
-.form-feedback.error {
+
+.form-toast.error {
   background: rgba(239, 68, 68, 0.15);
   border: 1px solid rgba(239, 68, 68, 0.4);
   color: #f87171;
@@ -970,21 +1106,21 @@ a {
 /* ==========================================================================
    Footer
    ========================================================================== */
-.story-footer {
+.site-footer {
   position: relative;
   z-index: 20;
   padding: 2.5rem 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(5, 3, 12, 0.9);
+  background: rgba(4, 6, 14, 0.92);
   backdrop-filter: blur(16px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
-.footer-copy-text {
+.footer-copy {
   font-size: 0.85rem;
   color: var(--text-dim);
 }
@@ -1000,7 +1136,7 @@ a {
     width: 78%;
     max-width: 320px;
     height: 100vh;
-    background: rgba(8, 6, 20, 0.98);
+    background: rgba(6, 8, 18, 0.98);
     backdrop-filter: blur(24px);
     flex-direction: column;
     justify-content: center;
@@ -1019,9 +1155,21 @@ a {
     display: flex;
   }
 
+  .story-stage {
+    padding: 5rem 1.25rem;
+    justify-content: center !important;
+  }
+
   .story-card {
-    margin: 0 auto;
-    max-width: 100%;
-    padding: 1.8rem;
+    max-width: 100% !important;
+    padding: 1.75rem;
+  }
+
+  .telemetry-strip-chips {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .epilogue-split-grid {
+    grid-template-columns: 1fr;
   }
 }

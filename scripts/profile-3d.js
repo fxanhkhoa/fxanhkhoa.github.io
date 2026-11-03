@@ -1,11 +1,11 @@
 /**
- * Scroll-Bound 3D Camera Path & Object Animation Timeline Engine
+ * Cybernetic Architect Rig & Scroll-Bound 3D Camera Engine
  *
- * The camera's position, field of view (FOV), lookAt target, and object animation timelines
- * (assembly, disassembly, exploded view, rotation, and lighting) are mapped directly
- * to continuous scroll depth.
+ * A unified, cohesive 3D centerpiece for Kevin Bui's portfolio.
+ * The camera's position, field of view (FOV), and the rig's exploded-view assembly
+ * and animation timelines are mapped directly to continuous scroll depth.
  *
- * Built with Three.js for Kevin Bui's Portfolio.
+ * Built with Three.js.
  */
 
 import * as THREE from 'three';
@@ -35,6 +35,19 @@ export class ProfileThreeScene {
     this.starfield = null;
     this.gridFloor = null;
 
+    // Unified 3D Cybernetic Rig Components
+    this.rig = null;
+    this.kbMesh = null;
+    this.coreInner = null;
+    this.coreCage = null;
+    this.corePanels = []; // Exploding outer shield panels
+    this.gimbalRings = []; // Concentric tech rings
+    this.techSatellites = [];
+    this.milestoneTowers = [];
+    this.laserSpline = null;
+    this.beaconRadarRings = [];
+    this.pedestalRing = null;
+
     // Continuous Scroll-Bound Camera & Timeline State
     this.scrollProgress = 0;       // Current damped progress (0.0 to 6.0)
     this.targetScrollProgress = 0; // Target progress (0.0 to 6.0)
@@ -48,87 +61,75 @@ export class ProfileThreeScene {
 
     // Tap/Click spring bounce
     this.wobble = { active: false, time: 0, amp: 0 };
-    this.raycaster = new THREE.Raycaster();
-    this.mouseVector = new THREE.Vector2();
 
     // -------------------------------------------------------------
     // SCROLL-BOUND CAMERA KEYFRAMES (0.0 to 6.0)
-    // Directly maps camera position, field of view, lookAt, and timeline states
     // -------------------------------------------------------------
     this.cameraKeyframes = [
-      // Stage 0: Prologue // Wide Cinematic Front 3/4
+      // 0: Prologue // Grand Wide 3/4 View of the Rig
       {
-        pos: new THREE.Vector3(2.4, 0.6, 7.8),
-        lookAt: new THREE.Vector3(1.2, 0.0, 0.0),
+        pos: new THREE.Vector3(3.4, 1.8, 6.8),
+        lookAt: new THREE.Vector3(0.4, 0.4, 0.0),
         fov: 52,
+        explode: 0.0,
         lightColor: 0x00f0ff,
-        rimColor: 0x8b5cf6,
-        fogDensity: 0.024
+        rimColor: 0x8b5cf6
       },
-      // Stage 1: Origin // Low-angle macro zoom into Systems Core
+      // 1: Origin // Low-Angle Macro Zoom into Exploded Core
       {
-        pos: new THREE.Vector3(3.2, 1.6, 5.6),
-        lookAt: new THREE.Vector3(1.0, 0.2, 0.0),
+        pos: new THREE.Vector3(2.0, 0.8, 3.6),
+        lookAt: new THREE.Vector3(0.0, 0.1, 0.0),
         fov: 40,
+        explode: 1.0,
         lightColor: 0x00f5d4,
-        rimColor: 0x6366f1,
-        fogDensity: 0.026
+        rimColor: 0x6366f1
       },
-      // Stage 2: Arsenal // Dynamic high-angle orbit around Tech Gyroscope
+      // 2: Arsenal // Dynamic Isometric High-Angle Orbit over Gimbal Rings
       {
-        pos: new THREE.Vector3(1.8, 3.4, 5.4),
-        lookAt: new THREE.Vector3(1.2, 0.0, 0.0),
+        pos: new THREE.Vector3(-3.0, 3.4, 4.4),
+        lookAt: new THREE.Vector3(0.0, 0.3, 0.0),
         fov: 48,
+        explode: 0.4,
         lightColor: 0xa855f7,
-        rimColor: 0x38bdf8,
-        fogDensity: 0.025
+        rimColor: 0x38bdf8
       },
-      // Stage 3: Masterpieces // Dramatic ground-level view of 3D showcases
+      // 3: Masterpieces // Low-Angle Ground Showcase View of Emitter Pedestal
       {
-        pos: new THREE.Vector3(3.6, -0.4, 6.0),
-        lookAt: new THREE.Vector3(1.0, 0.4, 0.0),
+        pos: new THREE.Vector3(2.8, -0.5, 4.8),
+        lookAt: new THREE.Vector3(0.0, 0.6, 0.0),
         fov: 44,
+        explode: 0.2,
         lightColor: 0xffd166,
-        rimColor: 0xff477e,
-        fogDensity: 0.028
+        rimColor: 0xff477e
       },
-      // Stage 4: Odyssey // Gliding alongside Enterprise Milestones spline
+      // 4: Odyssey // Gliding along the Milestone Monolith Spline
       {
-        pos: new THREE.Vector3(2.2, 1.4, 4.8),
-        lookAt: new THREE.Vector3(0.8, 0.3, -0.4),
+        pos: new THREE.Vector3(-3.8, 1.5, 4.0),
+        lookAt: new THREE.Vector3(-0.5, 0.4, -0.4),
         fov: 46,
+        explode: 0.15,
         lightColor: 0x3b82f6,
-        rimColor: 0x06b6d4,
-        fogDensity: 0.025
+        rimColor: 0x06b6d4
       },
-      // Stage 5: Expeditions // Equilibrium Polyhedra floating vantage
+      // 5: Expeditions // Floating Satellite Equilibrium Vantage
       {
-        pos: new THREE.Vector3(3.4, 2.2, 5.2),
-        lookAt: new THREE.Vector3(1.1, 0.1, 0.0),
+        pos: new THREE.Vector3(3.2, 2.0, 4.6),
+        lookAt: new THREE.Vector3(0.2, 0.1, 0.0),
         fov: 42,
+        explode: 0.3,
         lightColor: 0xec4899,
-        rimColor: 0xf59e0b,
-        fogDensity: 0.026
+        rimColor: 0xf59e0b
       },
-      // Stage 6: Epilogue // High-vantage cosmic broadcast perspective
+      // 6: Epilogue // High Cosmic Horizon Perspective of Transmission Beacon
       {
-        pos: new THREE.Vector3(1.6, 3.8, 6.2),
-        lookAt: new THREE.Vector3(0.8, -0.2, 0.0),
+        pos: new THREE.Vector3(0.2, 4.2, 5.8),
+        lookAt: new THREE.Vector3(0.0, 0.4, 0.0),
         fov: 54,
+        explode: 0.0,
         lightColor: 0x00f0ff,
-        rimColor: 0x10b981,
-        fogDensity: 0.022
+        rimColor: 0x10b981
       }
     ];
-
-    // Chapter Object Groups
-    this.groupPrologue = null;
-    this.groupOrigin = null;
-    this.groupArsenal = null;
-    this.groupMasterpieces = null;
-    this.groupOdyssey = null;
-    this.groupExpeditions = null;
-    this.groupEpilogue = null;
 
     this.init();
   }
@@ -140,13 +141,13 @@ export class ProfileThreeScene {
     this.setupCyberGridFloor();
     this.setupEventListeners();
     this.loadFont();
-    this.build3DTimelineObjects();
+    this.buildCyberneticRig();
     this.animate();
   }
 
   setupScene() {
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.FogExp2(0x070612, 0.024);
+    this.scene.fog = new THREE.FogExp2(0x060812, 0.024);
 
     const initialKF = this.cameraKeyframes[0];
     this.camera = new THREE.PerspectiveCamera(initialKF.fov, this.width / this.height, 0.1, 100);
@@ -189,7 +190,7 @@ export class ProfileThreeScene {
   }
 
   setupStarfield() {
-    const starCount = 1500;
+    const starCount = 1400;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(starCount * 3);
     const colors = new Float32Array(starCount * 3);
@@ -231,9 +232,8 @@ export class ProfileThreeScene {
   }
 
   setupCyberGridFloor() {
-    // Subtle radial floor grid giving reference plane for spatial 3D camera travel
-    const grid = new THREE.PolarGridHelper(18, 18, 8, 64, 0x00f0ff, 0x1f2638);
-    grid.position.y = -2.6;
+    const grid = new THREE.PolarGridHelper(18, 18, 8, 64, 0x00f0ff, 0x1a2133);
+    grid.position.y = -2.4;
     grid.material.opacity = 0.25;
     grid.material.transparent = true;
     this.gridFloor = grid;
@@ -250,218 +250,203 @@ export class ProfileThreeScene {
   }
 
   // -------------------------------------------------------------
-  // BUILD 3D OBJECTS FOR EACH TIMELINE STAGE
+  // BUILD UNIFIED CYBERNETIC ARCHITECT RIG
   // -------------------------------------------------------------
-  build3DTimelineObjects() {
-    const isDesktop = this.width > 960;
-    const baseOffset = isDesktop ? 1.8 : 0;
+  buildCyberneticRig() {
+    this.rig = new THREE.Group();
+    this.rig.position.set(0, 0, 0);
 
-    // Stage 0: 3D "KB" Monogram
-    this.groupPrologue = new THREE.Group();
-    this.groupPrologue.position.set(baseOffset, 0, 0);
+    // 1. Hexagonal Base Emitter Stage
+    const pedestalGeo = new THREE.CylinderGeometry(2.8, 3.2, 0.35, 6);
+    const pedestalMat = new THREE.MeshStandardMaterial({
+      color: 0x0c111d,
+      roughness: 0.3,
+      metalness: 0.85
+    });
+    const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
+    pedestal.position.y = -2.2;
+    pedestal.receiveShadow = true;
+    this.rig.add(pedestal);
 
-    const goldMat = new THREE.MeshPhysicalMaterial({
-      color: 0x00f0ff,
-      emissive: 0x071e2e,
-      metalness: 0.85,
-      roughness: 0.18,
-      clearcoat: 0.95,
+    // Glowing emitter ring on pedestal
+    const pRingGeo = new THREE.TorusGeometry(2.3, 0.04, 16, 64);
+    const pRingMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
+    this.pedestalRing = new THREE.Mesh(pRingGeo, pRingMat);
+    this.pedestalRing.rotation.x = Math.PI * 0.5;
+    this.pedestalRing.position.y = -2.0;
+    this.rig.add(this.pedestalRing);
+
+    // 2. Central Quantum Core (Inner glowing sphere + crystal)
+    const coreGroup = new THREE.Group();
+    coreGroup.position.set(0, 0.1, 0);
+
+    const innerSphereGeo = new THREE.SphereGeometry(0.75, 32, 32);
+    const innerSphereMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
+    this.coreInner = new THREE.Mesh(innerSphereGeo, innerSphereMat);
+    coreGroup.add(this.coreInner);
+
+    const crystalGeo = new THREE.IcosahedronGeometry(1.2, 0);
+    const crystalMat = new THREE.MeshPhysicalMaterial({
+      color: 0x00f5d4,
+      emissive: 0x044338,
+      roughness: 0.1,
+      metalness: 0.1,
+      transmission: 0.85,
+      ior: 1.5,
       reflectivity: 0.95
     });
+    this.coreCage = new THREE.Mesh(crystalGeo, crystalMat);
+    coreGroup.add(this.coreCage);
 
+    // 3. Segmented Exploding Shield Panels (Exploded View Animation)
+    this.corePanels = [];
+    const panelGeo = new THREE.CylinderGeometry(1.45, 1.45, 0.65, 8, 1, true, 0, Math.PI * 0.38);
+    const panelMat = new THREE.MeshStandardMaterial({
+      color: 0x161f33,
+      roughness: 0.25,
+      metalness: 0.9,
+      side: THREE.DoubleSide
+    });
+
+    for (let i = 0; i < 4; i++) {
+      const panel = new THREE.Mesh(panelGeo, panelMat);
+      const angle = (i * Math.PI) / 2;
+      panel.rotation.y = angle;
+      panel.userData = {
+        basePos: new THREE.Vector3(0, 0, 0),
+        explodeDir: new THREE.Vector3(Math.cos(angle + 0.3) * 1.5, (i % 2 === 0 ? 0.6 : -0.6), Math.sin(angle + 0.3) * 1.5)
+      };
+      coreGroup.add(panel);
+      this.corePanels.push(panel);
+    }
+    this.rig.add(coreGroup);
+
+    // 4. 3D Extruded "KB" Monogram atop Core
     if (this.font) {
       const kbGeo = new TextGeometry('KB', {
         font: this.font,
-        size: 2.3,
-        height: 0.55,
+        size: 1.6,
+        height: 0.45,
         curveSegments: 12,
         bevelEnabled: true,
-        bevelThickness: 0.12,
-        bevelSize: 0.08,
+        bevelThickness: 0.1,
+        bevelSize: 0.07,
         bevelSegments: 5
       });
       kbGeo.computeBoundingBox();
       const ox = -0.5 * (kbGeo.boundingBox.max.x - kbGeo.boundingBox.min.x);
       const oy = -0.5 * (kbGeo.boundingBox.max.y - kbGeo.boundingBox.min.y);
-      kbGeo.translate(ox, oy, -0.25);
+      kbGeo.translate(ox, oy, 0);
 
-      const kbMesh = new THREE.Mesh(kbGeo, goldMat);
-      kbMesh.castShadow = true;
-      this.groupPrologue.add(kbMesh);
-      this.groupPrologue.userData.kbMesh = kbMesh;
-    }
-
-    const ring = new THREE.Mesh(
-      new THREE.TorusGeometry(2.7, 0.05, 16, 100),
-      new THREE.MeshStandardMaterial({ color: 0x8b5cf6, emissive: 0x3b0764, metalness: 0.8, roughness: 0.3 })
-    );
-    ring.rotation.x = Math.PI * 0.35;
-    this.groupPrologue.add(ring);
-    this.groupPrologue.userData.ring = ring;
-
-    const sats = new THREE.Group();
-    for (let i = 0; i < 3; i++) {
-      const s = new THREE.Mesh(new THREE.SphereGeometry(0.16, 16, 16), new THREE.MeshStandardMaterial({ color: 0xffd166, emissive: 0xb45309 }));
-      const a = (i * Math.PI * 2) / 3;
-      s.position.set(Math.cos(a) * 2.7, Math.sin(a) * 2.7, 0);
-      sats.add(s);
-    }
-    sats.rotation.x = Math.PI * 0.35;
-    this.groupPrologue.add(sats);
-    this.groupPrologue.userData.sats = sats;
-    this.scene.add(this.groupPrologue);
-
-    // Stage 1: Holographic Systems Core
-    this.groupOrigin = new THREE.Group();
-    this.groupOrigin.position.set(baseOffset, 0, 0);
-
-    const innerCore = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(1.3, 0),
-      new THREE.MeshPhysicalMaterial({ color: 0x00f5d4, emissive: 0x044338, roughness: 0.1, metalness: 0.1, transmission: 0.85, ior: 1.5 })
-    );
-    this.groupOrigin.add(innerCore);
-
-    const cage = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(1.85, 1),
-      new THREE.MeshStandardMaterial({ color: 0x6366f1, wireframe: true, emissive: 0x312e81 })
-    );
-    this.groupOrigin.add(cage);
-
-    const nodes = new THREE.Group();
-    for (let i = 0; i < 8; i++) {
-      const n = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, 0.18), new THREE.MeshStandardMaterial({ color: 0x00f5d4, emissive: 0x00f5d4 }));
-      const t = (i * Math.PI * 2) / 8;
-      n.position.set(Math.cos(t) * 2.4, Math.sin(t) * 2.4, (Math.random() - 0.5) * 1.5);
-      nodes.add(n);
-    }
-    this.groupOrigin.add(nodes);
-    this.groupOrigin.userData = { inner: innerCore, cage, nodes };
-    this.scene.add(this.groupOrigin);
-
-    // Stage 2: Orbital Tech Gyroscope
-    this.groupArsenal = new THREE.Group();
-    this.groupArsenal.position.set(baseOffset, 0, 0);
-
-    const r1 = new THREE.Mesh(new THREE.TorusGeometry(2.3, 0.06, 16, 64), new THREE.MeshStandardMaterial({ color: 0x00f0ff, metalness: 0.8 }));
-    const r2 = new THREE.Mesh(new THREE.TorusGeometry(1.8, 0.06, 16, 64), new THREE.MeshStandardMaterial({ color: 0xa855f7, metalness: 0.8 }));
-    const r3 = new THREE.Mesh(new THREE.TorusGeometry(1.3, 0.06, 16, 64), new THREE.MeshStandardMaterial({ color: 0xec4899, metalness: 0.8 }));
-    this.groupArsenal.add(r1);
-    this.groupArsenal.add(r2);
-    this.groupArsenal.add(r3);
-
-    const centerGem = new THREE.Mesh(
-      new THREE.OctahedronGeometry(0.85, 0),
-      new THREE.MeshPhysicalMaterial({ color: 0xffffff, emissive: 0x38bdf8, metalness: 0.2, roughness: 0.1, transmission: 0.7, clearcoat: 1.0 })
-    );
-    this.groupArsenal.add(centerGem);
-    this.groupArsenal.userData = { r1, r2, r3, gem: centerGem };
-    this.scene.add(this.groupArsenal);
-
-    // Stage 3: Sci-Fi Masterpieces (Hypercar turbine & 3D 'A')
-    this.groupMasterpieces = new THREE.Group();
-    this.groupMasterpieces.position.set(baseOffset, 0, 0);
-
-    const carRing = new THREE.Mesh(
-      new THREE.TorusGeometry(2.2, 0.08, 16, 64),
-      new THREE.MeshStandardMaterial({ color: 0x00f0ff, emissive: 0x007799 })
-    );
-    carRing.rotation.x = Math.PI * 0.4;
-    this.groupMasterpieces.add(carRing);
-
-    if (this.font) {
-      const aGeo = new TextGeometry('A', {
-        font: this.font,
-        size: 1.8,
-        height: 0.45,
-        curveSegments: 12,
-        bevelEnabled: true,
-        bevelThickness: 0.1,
-        bevelSize: 0.06
+      const kbMat = new THREE.MeshPhysicalMaterial({
+        color: 0xffd166,
+        emissive: 0x78350f,
+        metalness: 0.9,
+        roughness: 0.15,
+        clearcoat: 1.0,
+        reflectivity: 0.95
       });
-      aGeo.computeBoundingBox();
-      const aOffX = -0.5 * (aGeo.boundingBox.max.x - aGeo.boundingBox.min.x);
-      const aOffY = -0.5 * (aGeo.boundingBox.max.y - aGeo.boundingBox.min.y);
-      aGeo.translate(aOffX + 0.8, aOffY, 0);
-
-      const aMesh = new THREE.Mesh(
-        aGeo,
-        new THREE.MeshPhysicalMaterial({ color: 0xffd166, emissive: 0x78350f, roughness: 0.2, metalness: 0.7 })
-      );
-      this.groupMasterpieces.add(aMesh);
+      this.kbMesh = new THREE.Mesh(kbGeo, kbMat);
+      this.kbMesh.position.set(0, 2.1, 0);
+      this.kbMesh.castShadow = true;
+      this.rig.add(this.kbMesh);
     }
-    this.groupMasterpieces.userData = { carRing };
-    this.scene.add(this.groupMasterpieces);
 
-    // Stage 4: Career Odyssey (Milestone Monoliths)
-    this.groupOdyssey = new THREE.Group();
-    this.groupOdyssey.position.set(baseOffset, 0, 0);
+    // 5. Concentric Gimbal Tech Rings (Arsenal Gyroscope)
+    this.gimbalRings = [];
+    const ringColors = [0x00f0ff, 0xa855f7, 0xec4899];
+    const ringRadii = [2.2, 2.65, 3.1];
 
-    const pillars = [];
-    const pillarMat = new THREE.MeshStandardMaterial({ color: 0x3b82f6, emissive: 0x1e3a8a, metalness: 0.8, roughness: 0.2 });
+    ringRadii.forEach((r, idx) => {
+      const ringMesh = new THREE.Mesh(
+        new THREE.TorusGeometry(r, 0.045, 16, 80),
+        new THREE.MeshStandardMaterial({
+          color: ringColors[idx],
+          metalness: 0.85,
+          roughness: 0.2
+        })
+      );
+      this.rig.add(ringMesh);
+      this.gimbalRings.push(ringMesh);
+    });
+
+    // Tech Gemstone Satellites
+    this.techSatellites = [];
+    const satColors = [0x00f0ff, 0x8b5cf6, 0xec4899, 0x10b981];
     for (let i = 0; i < 4; i++) {
-      const p = new THREE.Mesh(new THREE.BoxGeometry(0.45, 1.6 + i * 0.35, 0.45), pillarMat);
-      p.position.set((i - 1.5) * 1.25, (i - 1.5) * 0.25, (i % 2 === 0 ? 0.4 : -0.4));
-      this.groupOdyssey.add(p);
-      pillars.push(p);
-    }
-    const spline = new THREE.CatmullRomCurve3(pillars.map(p => p.position));
-    const splineMesh = new THREE.Mesh(new THREE.TubeGeometry(spline, 32, 0.04, 8, false), new THREE.MeshBasicMaterial({ color: 0x00f0ff }));
-    this.groupOdyssey.add(splineMesh);
-    this.groupOdyssey.userData = { pillars, splineMesh };
-    this.scene.add(this.groupOdyssey);
-
-    // Stage 5: Freelance Expeditions (Equilibrium Polyhedra)
-    this.groupExpeditions = new THREE.Group();
-    this.groupExpeditions.position.set(baseOffset, 0, 0);
-
-    const polyCrystals = new THREE.Group();
-    const polyMat = new THREE.MeshPhysicalMaterial({ color: 0xec4899, emissive: 0x701a75, metalness: 0.2, roughness: 0.1, transmission: 0.8, clearcoat: 1.0 });
-    for (let i = 0; i < 5; i++) {
-      const c = new THREE.Mesh(new THREE.OctahedronGeometry(0.65 + (i % 2) * 0.25, 0), polyMat);
-      const angle = (i * Math.PI * 2) / 5;
-      c.position.set(Math.cos(angle) * 1.8, Math.sin(angle) * 1.8, (Math.random() - 0.5) * 1.2);
-      polyCrystals.add(c);
-    }
-    this.groupExpeditions.add(polyCrystals);
-    this.groupExpeditions.userData = { polyCrystals };
-    this.scene.add(this.groupExpeditions);
-
-    // Stage 6: Quantum Transmission Beacon
-    this.groupEpilogue = new THREE.Group();
-    this.groupEpilogue.position.set(baseOffset, 0, 0);
-
-    const tower = new THREE.Mesh(
-      new THREE.ConeGeometry(0.8, 2.5, 6),
-      new THREE.MeshStandardMaterial({ color: 0x00f0ff, emissive: 0x003344, metalness: 0.8, roughness: 0.2 })
-    );
-    tower.rotation.x = Math.PI;
-    this.groupEpilogue.add(tower);
-
-    const radarRings = [];
-    for (let i = 0; i < 3; i++) {
-      const rRing = new THREE.Mesh(
-        new THREE.RingGeometry(1.2 + i * 0.7, 1.25 + i * 0.7, 32),
-        new THREE.MeshBasicMaterial({ color: 0x00f0ff, side: THREE.DoubleSide, transparent: true, opacity: 0.6 - i * 0.18 })
+      const sat = new THREE.Mesh(
+        new THREE.OctahedronGeometry(0.22, 0),
+        new THREE.MeshStandardMaterial({ color: satColors[i], emissive: satColors[i] })
       );
-      rRing.position.set(0, -1.2, 0);
-      rRing.rotation.x = Math.PI * 0.5;
-      this.groupEpilogue.add(rRing);
-      radarRings.push(rRing);
+      this.rig.add(sat);
+      this.techSatellites.push(sat);
     }
-    this.groupEpilogue.userData = { tower, radarRings };
-    this.scene.add(this.groupEpilogue);
+
+    // 6. Milestone Monolith Towers in Background Arc (Odyssey)
+    this.milestoneTowers = [];
+    const towerMat = new THREE.MeshStandardMaterial({
+      color: 0x1e293b,
+      metalness: 0.85,
+      roughness: 0.25
+    });
+
+    const towerPositions = [];
+    for (let i = 0; i < 4; i++) {
+      const h = 1.6 + i * 0.45;
+      const tMesh = new THREE.Mesh(new THREE.BoxGeometry(0.42, h, 0.42), towerMat);
+      const angle = Math.PI * 0.75 + (i * Math.PI * 0.5) / 3;
+      const dist = 3.6;
+      tMesh.position.set(Math.cos(angle) * dist, -2.2 + h / 2, Math.sin(angle) * dist);
+      this.rig.add(tMesh);
+      this.milestoneTowers.push(tMesh);
+      towerPositions.push(new THREE.Vector3(tMesh.position.x, tMesh.position.y + h / 2, tMesh.position.z));
+    }
+
+    // Laser Spline Tube connecting towers
+    if (towerPositions.length > 1) {
+      const splineCurve = new THREE.CatmullRomCurve3(towerPositions);
+      const splineGeo = new THREE.TubeGeometry(splineCurve, 32, 0.04, 8, false);
+      const splineMat = new THREE.MeshBasicMaterial({ color: 0x3b82f6 });
+      this.laserSpline = new THREE.Mesh(splineGeo, splineMat);
+      this.rig.add(this.laserSpline);
+    }
+
+    // 7. Top Transmission Beacon & Pulsating Radar Rings (Epilogue)
+    const antennaGeo = new THREE.CylinderGeometry(0.04, 0.08, 1.2, 8);
+    const antennaMat = new THREE.MeshStandardMaterial({ color: 0x00f0ff, metalness: 0.9 });
+    const antenna = new THREE.Mesh(antennaGeo, antennaMat);
+    antenna.position.set(0, 3.2, 0);
+    this.rig.add(antenna);
+
+    this.beaconRadarRings = [];
+    for (let i = 0; i < 3; i++) {
+      const rMesh = new THREE.Mesh(
+        new THREE.RingGeometry(0.8 + i * 0.6, 0.85 + i * 0.6, 32),
+        new THREE.MeshBasicMaterial({
+          color: 0x00f0ff,
+          side: THREE.DoubleSide,
+          transparent: true,
+          opacity: 0.6 - i * 0.18
+        })
+      );
+      rMesh.rotation.x = Math.PI * 0.5;
+      rMesh.position.set(0, 3.8, 0);
+      this.rig.add(rMesh);
+      this.beaconRadarRings.push(rMesh);
+    }
+
+    this.scene.add(this.rig);
   }
 
   // -------------------------------------------------------------
   // CONTINUOUS SCROLL INPUT BINDING
-  // Maps 0.0 to 6.0 directly to the 3D Camera Path and Object Timelines
   // -------------------------------------------------------------
   setScrollProgress(progress) {
     this.targetScrollProgress = Math.max(0, Math.min(this.cameraKeyframes.length - 1, progress));
   }
 
-  updateScrollBoundTimeline(delta) {
-    // Smooth cinematic dampening for scroll progress
+  updateScrollBoundTimeline(delta, elapsed) {
+    // Smooth cinematic dampening for camera scroll progress
     this.scrollProgress += (this.targetScrollProgress - this.scrollProgress) * 0.085;
 
     const totalKeyframes = this.cameraKeyframes.length - 1;
@@ -473,11 +458,11 @@ export class ProfileThreeScene {
     const kfA = this.cameraKeyframes[index];
     const kfB = this.cameraKeyframes[Math.min(totalKeyframes, index + 1)];
 
-    // 1. SCROLL-BOUND CAMERA POSITION & LOOKAT INTERPOLATION
+    // 1. CAMERA POSITION & LOOKAT ALONG SPLINE TRAJECTORY
     const targetPos = new THREE.Vector3().lerpVectors(kfA.pos, kfB.pos, fraction);
     const targetLookAt = new THREE.Vector3().lerpVectors(kfA.lookAt, kfB.lookAt, fraction);
 
-    // Apply User Orbit & Parallax on top of the camera path
+    // Apply User Orbit & Parallax
     const orbitRadius = targetPos.distanceTo(targetLookAt);
     const az = this.userOrbit.azimuth + (this.mouse.x * 0.12);
     const el = this.userOrbit.elevation + (this.mouse.y * 0.08);
@@ -492,14 +477,14 @@ export class ProfileThreeScene {
     this.camera.position.copy(targetPos);
     this.camera.lookAt(targetLookAt);
 
-    // 2. SCROLL-BOUND CAMERA FIELD OF VIEW (FOV)
+    // 2. CAMERA FIELD OF VIEW (FOV)
     const targetFov = THREE.MathUtils.lerp(kfA.fov, kfB.fov, fraction);
     if (Math.abs(this.camera.fov - targetFov) > 0.01) {
       this.camera.fov = targetFov;
       this.camera.updateProjectionMatrix();
     }
 
-    // 3. SCROLL-BOUND DYNAMIC LIGHTING & FOG
+    // 3. LIGHTING COLOR INTERPOLATION
     const colorA = new THREE.Color(kfA.lightColor);
     const colorB = new THREE.Color(kfB.lightColor);
     const rimA = new THREE.Color(kfA.rimColor);
@@ -507,100 +492,67 @@ export class ProfileThreeScene {
 
     if (this.accentPointLight) {
       this.accentPointLight.color.lerpColors(colorA, colorB, fraction);
-      this.accentPointLight.position.set(targetPos.x * 0.7, targetPos.y + 1, targetPos.z * 0.7);
+      this.accentPointLight.position.set(targetPos.x * 0.6, targetPos.y + 1, targetPos.z * 0.6);
     }
     if (this.rimLight) {
       this.rimLight.color.lerpColors(rimA, rimB, fraction);
     }
-    if (this.scene.fog) {
-      this.scene.fog.density = THREE.MathUtils.lerp(kfA.fogDensity, kfB.fogDensity, fraction);
+
+    // 4. OBJECT ANIMATION TIMELINES (Exploded View, Gimbal Rings, Pulse)
+    const targetExplode = THREE.MathUtils.lerp(kfA.explode, kfB.explode, fraction);
+
+    // Explode shield panels outward
+    this.corePanels.forEach(panel => {
+      panel.position.copy(panel.userData.explodeDir).multiplyScalar(targetExplode);
+    });
+
+    // Wobble bounce
+    let wobbleScale = 1;
+    if (this.wobble.active) {
+      wobbleScale = 1 + Math.sin(this.wobble.time) * this.wobble.amp;
     }
 
-    // 4. SCROLL-BOUND OBJECT ANIMATION TIMELINES
-    // Each group's scale, position, rotation, and explosion are a direct mathematical function of scrollProgress
-    this.updateObjectTimeline(this.groupPrologue, 0, clampedProgress, (grp, weight, p) => {
-      // Disassemble / Explode 'KB' as you scroll into Origin
-      const explode = Math.max(0, p - 0.2) * 1.5;
-      if (grp.userData.ring) grp.userData.ring.scale.set(1 + explode * 0.6, 1 + explode * 0.6, 1 + explode * 0.6);
-      if (grp.userData.sats) grp.userData.sats.rotation.z = -p * 3.0;
-    });
-
-    this.updateObjectTimeline(this.groupOrigin, 1, clampedProgress, (grp, weight, p) => {
-      // Unfold outer cage into exploded view revealing inner core
-      const cageExplode = 1.0 + Math.sin(Math.min(1, Math.max(0, p - 0.5)) * Math.PI) * 0.6;
-      if (grp.userData.cage) grp.userData.cage.scale.set(cageExplode, cageExplode, cageExplode);
-      if (grp.userData.inner) grp.userData.inner.rotation.y = -p * 2.0;
-    });
-
-    this.updateObjectTimeline(this.groupArsenal, 2, clampedProgress, (grp, weight, p) => {
-      // Orbiting gimbal rings expand and rotate into 3 axes
-      if (grp.userData.r1) grp.userData.r1.rotation.x = p * 2.2;
-      if (grp.userData.r2) grp.userData.r2.rotation.y = p * 2.8;
-      if (grp.userData.r3) grp.userData.r3.rotation.z = p * 3.4;
-    });
-
-    this.updateObjectTimeline(this.groupMasterpieces, 3, clampedProgress, (grp, weight, p) => {
-      if (grp.userData.carRing) grp.userData.carRing.rotation.z = p * 4.0;
-    });
-
-    this.updateObjectTimeline(this.groupOdyssey, 4, clampedProgress, (grp, weight, p) => {
-      // Monolith heights dynamically respond to milestone scroll depth
-      if (grp.userData.pillars) {
-        grp.userData.pillars.forEach((pillar, pIdx) => {
-          pillar.scale.y = 0.8 + Math.sin(p * 2 + pIdx * 1.2) * 0.35;
-        });
-      }
-    });
-
-    this.updateObjectTimeline(this.groupExpeditions, 5, clampedProgress, (grp, weight, p) => {
-      if (grp.userData.polyCrystals) grp.userData.polyCrystals.rotation.y = p * 2.5;
-    });
-
-    this.updateObjectTimeline(this.groupEpilogue, 6, clampedProgress, (grp, weight, p) => {
-      if (grp.userData.radarRings) {
-        grp.userData.radarRings.forEach((r, rIdx) => {
-          const s = 1 + (((p * 2.0 + rIdx * 0.6)) % 2.0);
-          r.scale.set(s, s, s);
-        });
-      }
-    });
-  }
-
-  updateObjectTimeline(group, targetStage, currentProgress, customFn) {
-    if (!group) return;
-
-    // Distance in timeline segments from target stage
-    const dist = Math.abs(currentProgress - targetStage);
-
-    if (dist < 1.0) {
-      // In view: smooth weight curve (cosine bell)
-      const weight = Math.cos(dist * (Math.PI / 2));
-      group.visible = true;
-
-      // Apply Spring Wobble if active
-      let wobbleScale = 1;
-      if (this.wobble.active) {
-        wobbleScale = 1 + Math.sin(this.wobble.time) * this.wobble.amp;
-      }
-
-      const s = weight * wobbleScale;
-      group.scale.set(s, s, s);
-
-      // Apply user rotation
-      group.rotation.y = (currentProgress * 0.8) + this.userOrbit.azimuth;
-      group.rotation.x = Math.sin(currentProgress) * 0.15 + this.userOrbit.elevation;
-
-      if (customFn) customFn(group, weight, currentProgress);
-    } else {
-      group.visible = false;
-      group.scale.set(0.001, 0.001, 0.001);
+    // Rotate core crystal
+    if (this.coreInner) {
+      const pulse = 1 + Math.sin(elapsed * 4) * 0.08;
+      this.coreInner.scale.set(pulse * wobbleScale, pulse * wobbleScale, pulse * wobbleScale);
     }
+    if (this.coreCage) {
+      this.coreCage.rotation.y = elapsed * 0.4 + clampedProgress * 0.6;
+      this.coreCage.rotation.x = Math.sin(elapsed * 0.3) * 0.2;
+    }
+
+    // Rotate KB Monogram
+    if (this.kbMesh) {
+      this.kbMesh.rotation.y = Math.sin(elapsed * 0.8) * 0.25;
+      this.kbMesh.position.y = 2.1 + Math.sin(elapsed * 1.5) * 0.08;
+    }
+
+    // Gimbal Rings Rotation (Mapped to scroll speed + idle)
+    if (this.gimbalRings.length === 3) {
+      this.gimbalRings[0].rotation.x = elapsed * 0.5 + clampedProgress * 1.8;
+      this.gimbalRings[1].rotation.y = elapsed * 0.7 + clampedProgress * 2.2;
+      this.gimbalRings[2].rotation.z = elapsed * 0.9 + clampedProgress * 2.6;
+    }
+
+    // Orbiting Satellites
+    this.techSatellites.forEach((sat, i) => {
+      const a = elapsed * 1.2 + (i * Math.PI) / 2 + clampedProgress * 0.8;
+      const r = 2.65;
+      sat.position.set(Math.cos(a) * r, Math.sin(a * 2) * 0.4, Math.sin(a) * r);
+    });
+
+    // Radar Pulse Waves expansion
+    this.beaconRadarRings.forEach((rRing, rIdx) => {
+      const s = 1 + ((elapsed * 1.4 + rIdx * 0.6 + clampedProgress * 0.5) % 2.2);
+      rRing.scale.set(s, s, s);
+    });
   }
 
   setupEventListeners() {
     window.addEventListener('resize', () => this.handleResize());
 
-    // Mouse / Touch Orbit Dragging
+    // Drag to Orbit
     this.container.addEventListener('pointerdown', (e) => {
       this.isDragging = true;
       this.dragStart.x = e.clientX;
@@ -646,21 +598,6 @@ export class ProfileThreeScene {
 
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    const isDesktop = this.width > 960;
-    const baseOffset = isDesktop ? 1.8 : 0;
-
-    [
-      this.groupPrologue,
-      this.groupOrigin,
-      this.groupArsenal,
-      this.groupMasterpieces,
-      this.groupOdyssey,
-      this.groupExpeditions,
-      this.groupEpilogue
-    ].forEach(grp => {
-      if (grp) grp.position.x = baseOffset;
-    });
   }
 
   animate() {
@@ -673,13 +610,13 @@ export class ProfileThreeScene {
     this.mouse.x += (this.mouse.targetX - this.mouse.x) * 0.05;
     this.mouse.y += (this.mouse.targetY - this.mouse.y) * 0.05;
 
-    // User orbit drag decay
+    // Decay user orbit drag when released
     if (!this.isDragging) {
       this.userOrbit.azimuth *= 0.95;
       this.userOrbit.elevation *= 0.95;
     }
 
-    // Wobble bounce decay
+    // Wobble decay
     if (this.wobble.active) {
       this.wobble.time += delta * 12;
       this.wobble.amp *= 0.92;
@@ -695,7 +632,7 @@ export class ProfileThreeScene {
     }
 
     // Update Scroll-Bound Camera Path & Object Timelines
-    this.updateScrollBoundTimeline(delta);
+    this.updateScrollBoundTimeline(delta, elapsedTime);
 
     this.renderer.render(this.scene, this.camera);
   }
