@@ -730,3 +730,4 @@ export const ALPHABET_DATA_VI = [
     propType: "star"
   }
 ];
+

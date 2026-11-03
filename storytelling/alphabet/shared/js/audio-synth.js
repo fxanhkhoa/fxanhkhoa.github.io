@@ -1,7 +1,9 @@
 /**
  * Shared Audio Synthesis & Voice Narration Engine
- * Built using native Web Audio API (zero external assets needed) and Web Speech API.
- * Supports multi-language narration (English 'en-US' & Vietnamese 'vi-VN').
+ * Built using native Web Audio API and dual-tier Voice Narration:
+ * Tier 1: Web Speech API (when native Vietnamese/English voices are installed in OS/browser)
+ * Tier 2: High-fidelity natural cloud audio TTS fallback (guaranteeing authentic native pronunciation
+ *         even when OS lacks installed Vietnamese voice packs or when translation extensions interfere).
  */
 
 class SoundEngine {
@@ -9,8 +11,9 @@ class SoundEngine {
     this.audioCtx = null;
     this.isMuted = false;
     this.masterGain = null;
-    this.speechSynth = window.speechSynthesis;
+    this.speechSynth = typeof window !== 'undefined' ? window.speechSynthesis : null;
     this.voicesByLang = {};
+    this.currentTTSAudio = null;
 
     // Check localStorage preference
     const savedMute = localStorage.getItem('alphabet_odyssey_muted');
@@ -20,7 +23,7 @@ class SoundEngine {
 
     if (this.speechSynth) {
       this.initVoices();
-      if (speechSynthesis.onvoiceschanged !== undefined) {
+      if (typeof speechSynthesis.onvoiceschanged !== 'undefined') {
         speechSynthesis.onvoiceschanged = () => this.initVoices();
       }
     }
@@ -51,19 +54,42 @@ class SoundEngine {
       || null;
 
     // Cache Vietnamese voice
-    this.voicesByLang['vi'] = voices.find(v => v.lang.startsWith('vi') || v.lang.includes('VIE'))
-      || voices.find(v => v.lang.startsWith('vi-VN'))
-      || null;
+    this.voicesByLang['vi'] = voices.find(v => {
+      const l = (v.lang || '').toLowerCase();
+      const n = (v.name || '').toLowerCase();
+      return l.startsWith('vi') || l.includes('vie') || n.includes('vietnam') || n.includes('tiếng việt') || n.includes('linh') || n.includes('mai');
+    }) || null;
+  }
+
+  getVietnameseVoice() {
+    if (!this.speechSynth) return null;
+    if (this.voicesByLang['vi']) return this.voicesByLang['vi'];
+    this.initVoices();
+    return this.voicesByLang['vi'];
+  }
+
+  getEnglishVoice() {
+    if (!this.speechSynth) return null;
+    if (this.voicesByLang['en']) return this.voicesByLang['en'];
+    this.initVoices();
+    return this.voicesByLang['en'];
   }
 
   toggleMute() {
     this.isMuted = !this.isMuted;
     localStorage.setItem('alphabet_odyssey_muted', this.isMuted);
+
     if (this.masterGain && this.audioCtx) {
       this.masterGain.gain.setValueAtTime(this.isMuted ? 0 : 0.35, this.audioCtx.currentTime);
     }
-    if (this.isMuted && this.speechSynth) {
-      this.speechSynth.cancel();
+    if (this.isMuted) {
+      if (this.speechSynth) {
+        this.speechSynth.cancel();
+      }
+      if (this.currentTTSAudio) {
+        this.currentTTSAudio.pause();
+        this.currentTTSAudio = null;
+      }
     }
     return this.isMuted;
   }
@@ -174,24 +200,81 @@ class SoundEngine {
   }
 
   /**
-   * Speak phonetic sound or educational phrase with language support
+   * Speak phonetic sound or educational phrase with robust multi-language & fallback support
    */
   speak(text, lang = 'en') {
-    if (this.isMuted || !this.speechSynth) return;
-    this.speechSynth.cancel();
+    if (this.isMuted) return;
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    const langKey = lang.startsWith('vi') ? 'vi' : 'en';
-    const voice = this.voicesByLang[langKey];
-    if (voice) {
-      utterance.voice = voice;
-      utterance.lang = voice.lang;
-    } else {
-      utterance.lang = langKey === 'vi' ? 'vi-VN' : 'en-US';
+    // Stop any ongoing speech or TTS audio
+    if (this.speechSynth) {
+      this.speechSynth.cancel();
     }
-    utterance.rate = langKey === 'vi' ? 0.9 : 0.95;
-    utterance.pitch = 1.05;
-    this.speechSynth.speak(utterance);
+    if (this.currentTTSAudio) {
+      this.currentTTSAudio.pause();
+      this.currentTTSAudio = null;
+    }
+
+    const isVi = lang.startsWith('vi');
+
+    if (isVi) {
+      const viVoice = this.getVietnameseVoice();
+
+      // If browser/OS has a verified Vietnamese voice installed, use SpeechSynthesis
+      if (viVoice) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.voice = viVoice;
+        utterance.lang = viVoice.lang || 'vi-VN';
+        utterance.rate = 0.92;
+        utterance.pitch = 1.05;
+        this.speechSynth.speak(utterance);
+        return;
+      }
+
+      // If NO Vietnamese voice is installed locally (common on English OS/Chrome setups),
+      // play authentic crystal-clear Vietnamese pronunciation via audio TTS fallback
+      this.playCloudTTS(text, 'vi');
+    } else {
+      // English pronunciation
+      const enVoice = this.getEnglishVoice();
+      if (this.speechSynth) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        if (enVoice) {
+          utterance.voice = enVoice;
+        }
+        utterance.lang = 'en-US';
+        utterance.rate = 0.95;
+        utterance.pitch = 1.05;
+        this.speechSynth.speak(utterance);
+      } else {
+        this.playCloudTTS(text, 'en');
+      }
+    }
+  }
+
+  /**
+   * Authentic native pronunciation audio stream
+   */
+  playCloudTTS(text, lang = 'vi') {
+    if (this.isMuted) return;
+
+    // Sanitize punctuation for clean query
+    const cleanText = text.replace(/[/\\#,+()$~%.'":*?<>{}]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!cleanText) return;
+
+    const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&client=tw-ob&q=${encodeURIComponent(cleanText)}`;
+    const audio = new Audio(url);
+    this.currentTTSAudio = audio;
+    audio.volume = 0.9;
+
+    audio.play().catch(err => {
+      console.warn('Cloud TTS playback notice:', err);
+      // Last-ditch SpeechSynthesis fallback
+      if (this.speechSynth) {
+        const fallbackUtterance = new SpeechSynthesisUtterance(cleanText);
+        fallbackUtterance.lang = lang === 'vi' ? 'vi-VN' : 'en-US';
+        this.speechSynth.speak(fallbackUtterance);
+      }
+    });
   }
 }
 

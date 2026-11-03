@@ -344,3 +344,4 @@ class EnglishAlphabetApp {
 window.addEventListener('DOMContentLoaded', () => {
   new EnglishAlphabetApp();
 });
+

@@ -336,3 +336,4 @@ class VietnameseAlphabetApp {
 window.addEventListener('DOMContentLoaded', () => {
   new VietnameseAlphabetApp();
 });
+
