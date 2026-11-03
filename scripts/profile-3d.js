@@ -1,15 +1,11 @@
 /**
- * Interactive 3D Scrollytelling Scene for Kevin Bui's Profile
- * Built with Three.js in the signature Alphabet Odyssey style.
+ * Scroll-Bound 3D Camera Path & Object Animation Timeline Engine
  *
- * Features:
- * - 7 Unique 3D chapter worlds (Extruded 3D "KB" monogram, Holographic System Core,
- *   Orbital Tech Gyroscope, 3D Masterpieces, Career Milestones spline,
- *   Freelance Crystal polyhedra, and Quantum Transmission Beacon).
- * - Drag-to-rotate 3D model interaction with physics inertia.
- * - Tap / Click wobble spring bounce animation.
- * - Dynamic camera choreography and smooth chapter blending synchronized with scroll.
- * - 1400+ twinkling celestial starfield and dynamic PBR lighting.
+ * The camera's position, field of view (FOV), lookAt target, and object animation timelines
+ * (assembly, disassembly, exploded view, rotation, and lighting) are mapped directly
+ * to continuous scroll depth.
+ *
+ * Built with Three.js for Kevin Bui's Portfolio.
  */
 
 import * as THREE from 'three';
@@ -26,6 +22,7 @@ export class ProfileThreeScene {
     this.scene = null;
     this.camera = null;
     this.renderer = null;
+    this.clock = new THREE.Clock();
     this.font = null;
 
     // Lighting
@@ -34,59 +31,127 @@ export class ProfileThreeScene {
     this.rimLight = null;
     this.accentPointLight = null;
 
-    // Starfield & Particles
+    // Environmental elements
     this.starfield = null;
-    this.floatingDust = null;
+    this.gridFloor = null;
 
-    // Chapter 3D Groups (0 to 6)
-    this.chapterGroups = [];
-    this.activeChapterIndex = 0;
-    this.scrollProgress = 0;
-    this.targetCameraY = 0;
+    // Continuous Scroll-Bound Camera & Timeline State
+    this.scrollProgress = 0;       // Current damped progress (0.0 to 6.0)
+    this.targetScrollProgress = 0; // Target progress (0.0 to 6.0)
 
-    // Interaction & Mouse
+    // Manual Drag Orbit & Mouse Parallax
     this.mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
-    this.raycaster = new THREE.Raycaster();
-    this.mouseVector = new THREE.Vector2();
     this.isDragging = false;
     this.dragStart = { x: 0, y: 0 };
-    this.userRotation = { x: 0, y: 0 };
+    this.userOrbit = { azimuth: 0, elevation: 0 };
     this.userVelocity = { velX: 0, velY: 0 };
 
-    // Click wobble bounce
+    // Tap/Click spring bounce
     this.wobble = { active: false, time: 0, amp: 0 };
-    this.clock = new THREE.Clock();
+    this.raycaster = new THREE.Raycaster();
+    this.mouseVector = new THREE.Vector2();
 
-    // Chapter Color Schemes
-    this.chapterThemes = [
-      { primary: 0x00f0ff, secondary: 0x8b5cf6, bg: '#080716' }, // 00 Prologue (Cyan/Purple)
-      { primary: 0x00f5d4, secondary: 0x6366f1, bg: '#060b17' }, // 01 Origin (Emerald/Indigo)
-      { primary: 0xa855f7, secondary: 0x38bdf8, bg: '#0b0718' }, // 02 Arsenal (Neon Purple/Cyan)
-      { primary: 0xffd166, secondary: 0xff477e, bg: '#14091c' }, // 03 Masterpieces (Gold/Pink)
-      { primary: 0x3b82f6, secondary: 0x06b6d4, bg: '#050c1e' }, // 04 Odyssey (Sapphire/Cyan)
-      { primary: 0xec4899, secondary: 0xf59e0b, bg: '#160818' }, // 05 Expeditions (Fuchsia/Amber)
-      { primary: 0x00f0ff, secondary: 0x10b981, bg: '#040812' }  // 06 Epilogue (Radiant Cyan)
+    // -------------------------------------------------------------
+    // SCROLL-BOUND CAMERA KEYFRAMES (0.0 to 6.0)
+    // Directly maps camera position, field of view, lookAt, and timeline states
+    // -------------------------------------------------------------
+    this.cameraKeyframes = [
+      // Stage 0: Prologue // Wide Cinematic Front 3/4
+      {
+        pos: new THREE.Vector3(2.4, 0.6, 7.8),
+        lookAt: new THREE.Vector3(1.2, 0.0, 0.0),
+        fov: 52,
+        lightColor: 0x00f0ff,
+        rimColor: 0x8b5cf6,
+        fogDensity: 0.024
+      },
+      // Stage 1: Origin // Low-angle macro zoom into Systems Core
+      {
+        pos: new THREE.Vector3(3.2, 1.6, 5.6),
+        lookAt: new THREE.Vector3(1.0, 0.2, 0.0),
+        fov: 40,
+        lightColor: 0x00f5d4,
+        rimColor: 0x6366f1,
+        fogDensity: 0.026
+      },
+      // Stage 2: Arsenal // Dynamic high-angle orbit around Tech Gyroscope
+      {
+        pos: new THREE.Vector3(1.8, 3.4, 5.4),
+        lookAt: new THREE.Vector3(1.2, 0.0, 0.0),
+        fov: 48,
+        lightColor: 0xa855f7,
+        rimColor: 0x38bdf8,
+        fogDensity: 0.025
+      },
+      // Stage 3: Masterpieces // Dramatic ground-level view of 3D showcases
+      {
+        pos: new THREE.Vector3(3.6, -0.4, 6.0),
+        lookAt: new THREE.Vector3(1.0, 0.4, 0.0),
+        fov: 44,
+        lightColor: 0xffd166,
+        rimColor: 0xff477e,
+        fogDensity: 0.028
+      },
+      // Stage 4: Odyssey // Gliding alongside Enterprise Milestones spline
+      {
+        pos: new THREE.Vector3(2.2, 1.4, 4.8),
+        lookAt: new THREE.Vector3(0.8, 0.3, -0.4),
+        fov: 46,
+        lightColor: 0x3b82f6,
+        rimColor: 0x06b6d4,
+        fogDensity: 0.025
+      },
+      // Stage 5: Expeditions // Equilibrium Polyhedra floating vantage
+      {
+        pos: new THREE.Vector3(3.4, 2.2, 5.2),
+        lookAt: new THREE.Vector3(1.1, 0.1, 0.0),
+        fov: 42,
+        lightColor: 0xec4899,
+        rimColor: 0xf59e0b,
+        fogDensity: 0.026
+      },
+      // Stage 6: Epilogue // High-vantage cosmic broadcast perspective
+      {
+        pos: new THREE.Vector3(1.6, 3.8, 6.2),
+        lookAt: new THREE.Vector3(0.8, -0.2, 0.0),
+        fov: 54,
+        lightColor: 0x00f0ff,
+        rimColor: 0x10b981,
+        fogDensity: 0.022
+      }
     ];
+
+    // Chapter Object Groups
+    this.groupPrologue = null;
+    this.groupOrigin = null;
+    this.groupArsenal = null;
+    this.groupMasterpieces = null;
+    this.groupOdyssey = null;
+    this.groupExpeditions = null;
+    this.groupEpilogue = null;
 
     this.init();
   }
 
   init() {
     this.setupScene();
-    this.setupLights();
+    this.setupLighting();
     this.setupStarfield();
+    this.setupCyberGridFloor();
     this.setupEventListeners();
     this.loadFont();
-    this.buildChapterWorlds();
+    this.build3DTimelineObjects();
     this.animate();
   }
 
   setupScene() {
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.FogExp2(0x080716, 0.024);
+    this.scene.fog = new THREE.FogExp2(0x070612, 0.024);
 
-    this.camera = new THREE.PerspectiveCamera(45, this.width / this.height, 0.1, 100);
-    this.camera.position.set(0, 0, 11);
+    const initialKF = this.cameraKeyframes[0];
+    this.camera = new THREE.PerspectiveCamera(initialKF.fov, this.width / this.height, 0.1, 100);
+    this.camera.position.copy(initialKF.pos);
+    this.camera.lookAt(initialKF.lookAt);
 
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -96,15 +161,15 @@ export class ProfileThreeScene {
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.2;
+    this.renderer.toneMappingExposure = 1.25;
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     this.container.appendChild(this.renderer.domElement);
   }
 
-  setupLights() {
-    this.ambientLight = new THREE.AmbientLight(0xffffff, 0.95);
+  setupLighting() {
+    this.ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
     this.scene.add(this.ambientLight);
 
     this.keyLight = new THREE.DirectionalLight(0xffeedd, 1.8);
@@ -114,17 +179,17 @@ export class ProfileThreeScene {
     this.keyLight.shadow.mapSize.height = 1024;
     this.scene.add(this.keyLight);
 
-    this.rimLight = new THREE.DirectionalLight(0x6699ff, 1.4);
+    this.rimLight = new THREE.DirectionalLight(0x8b5cf6, 1.5);
     this.rimLight.position.set(-8, -6, -5);
     this.scene.add(this.rimLight);
 
-    this.accentPointLight = new THREE.PointLight(0x00f0ff, 3.5, 20, 1.2);
-    this.accentPointLight.position.set(2, 0, 4);
+    this.accentPointLight = new THREE.PointLight(0x00f0ff, 3.8, 22, 1.2);
+    this.accentPointLight.position.set(2, 1, 4);
     this.scene.add(this.accentPointLight);
   }
 
   setupStarfield() {
-    const starCount = 1400;
+    const starCount = 1500;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(starCount * 3);
     const colors = new Float32Array(starCount * 3);
@@ -134,15 +199,15 @@ export class ProfileThreeScene {
       new THREE.Color(0x8b5cf6),
       new THREE.Color(0xffd166),
       new THREE.Color(0xffffff),
-      new THREE.Color(0xa7f3d0)
+      new THREE.Color(0xec4899)
     ];
 
     for (let i = 0; i < starCount; i++) {
-      const radius = 7 + Math.random() * 25;
+      const radius = 8 + Math.random() * 26;
       const theta = Math.random() * Math.PI * 2;
       positions[i * 3] = Math.cos(theta) * radius;
       positions[i * 3 + 1] = Math.sin(theta) * radius;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 65;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 70;
 
       const c = palette[Math.floor(Math.random() * palette.length)];
       colors[i * 3] = c.r;
@@ -165,6 +230,16 @@ export class ProfileThreeScene {
     this.scene.add(this.starfield);
   }
 
+  setupCyberGridFloor() {
+    // Subtle radial floor grid giving reference plane for spatial 3D camera travel
+    const grid = new THREE.PolarGridHelper(18, 18, 8, 64, 0x00f0ff, 0x1f2638);
+    grid.position.y = -2.6;
+    grid.material.opacity = 0.25;
+    grid.material.transparent = true;
+    this.gridFloor = grid;
+    this.scene.add(grid);
+  }
+
   loadFont() {
     try {
       const loader = new FontLoader();
@@ -174,32 +249,30 @@ export class ProfileThreeScene {
     }
   }
 
-  buildChapterWorlds() {
-    // Determine 3D model center offset based on screen width
+  // -------------------------------------------------------------
+  // BUILD 3D OBJECTS FOR EACH TIMELINE STAGE
+  // -------------------------------------------------------------
+  build3DTimelineObjects() {
     const isDesktop = this.width > 960;
-    const offsetX = isDesktop ? 2.5 : 0;
-    const offsetY = isDesktop ? 0 : 0.6;
+    const baseOffset = isDesktop ? 1.8 : 0;
 
-    // -------------------------------------------------------------
-    // Chapter 0: 3D Extruded "KB" Monogram with Golden Orbiters
-    // -------------------------------------------------------------
-    const group0 = new THREE.Group();
-    group0.position.set(offsetX, offsetY, 0);
+    // Stage 0: 3D "KB" Monogram
+    this.groupPrologue = new THREE.Group();
+    this.groupPrologue.position.set(baseOffset, 0, 0);
 
-    const goldMaterial = new THREE.MeshPhysicalMaterial({
+    const goldMat = new THREE.MeshPhysicalMaterial({
       color: 0x00f0ff,
-      emissive: 0x0a2233,
-      metalness: 0.8,
-      roughness: 0.2,
-      clearcoat: 0.9,
-      clearcoatRoughness: 0.1,
+      emissive: 0x071e2e,
+      metalness: 0.85,
+      roughness: 0.18,
+      clearcoat: 0.95,
       reflectivity: 0.95
     });
 
     if (this.font) {
       const kbGeo = new TextGeometry('KB', {
         font: this.font,
-        size: 2.2,
+        size: 2.3,
         height: 0.55,
         curveSegments: 12,
         bevelEnabled: true,
@@ -208,151 +281,93 @@ export class ProfileThreeScene {
         bevelSegments: 5
       });
       kbGeo.computeBoundingBox();
-      const centerOffsetX = -0.5 * (kbGeo.boundingBox.max.x - kbGeo.boundingBox.min.x);
-      const centerOffsetY = -0.5 * (kbGeo.boundingBox.max.y - kbGeo.boundingBox.min.y);
-      kbGeo.translate(centerOffsetX, centerOffsetY, -0.25);
+      const ox = -0.5 * (kbGeo.boundingBox.max.x - kbGeo.boundingBox.min.x);
+      const oy = -0.5 * (kbGeo.boundingBox.max.y - kbGeo.boundingBox.min.y);
+      kbGeo.translate(ox, oy, -0.25);
 
-      const kbMesh = new THREE.Mesh(kbGeo, goldMaterial);
+      const kbMesh = new THREE.Mesh(kbGeo, goldMat);
       kbMesh.castShadow = true;
-      group0.add(kbMesh);
-    } else {
-      const fallbackMesh = new THREE.Mesh(new THREE.TorusKnotGeometry(1.2, 0.4, 64, 16), goldMaterial);
-      group0.add(fallbackMesh);
+      this.groupPrologue.add(kbMesh);
+      this.groupPrologue.userData.kbMesh = kbMesh;
     }
 
-    // Outer Gyroscope Planetary Ring
-    const ringGeo = new THREE.TorusGeometry(2.6, 0.05, 16, 100);
-    const ringMat = new THREE.MeshStandardMaterial({
-      color: 0x8b5cf6,
-      emissive: 0x4c1d95,
-      metalness: 0.8,
-      roughness: 0.3
-    });
-    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-    ringMesh.rotation.x = Math.PI * 0.35;
-    group0.add(ringMesh);
+    const ring = new THREE.Mesh(
+      new THREE.TorusGeometry(2.7, 0.05, 16, 100),
+      new THREE.MeshStandardMaterial({ color: 0x8b5cf6, emissive: 0x3b0764, metalness: 0.8, roughness: 0.3 })
+    );
+    ring.rotation.x = Math.PI * 0.35;
+    this.groupPrologue.add(ring);
+    this.groupPrologue.userData.ring = ring;
 
-    // Orbiting Satellites
-    const satellitesGroup0 = new THREE.Group();
+    const sats = new THREE.Group();
     for (let i = 0; i < 3; i++) {
-      const sat = new THREE.Mesh(
-        new THREE.SphereGeometry(0.16, 16, 16),
-        new THREE.MeshStandardMaterial({ color: 0xffd166, emissive: 0xffa500 })
-      );
-      const angle = (i * Math.PI * 2) / 3;
-      sat.position.set(Math.cos(angle) * 2.6, Math.sin(angle) * 2.6, 0);
-      satellitesGroup0.add(sat);
+      const s = new THREE.Mesh(new THREE.SphereGeometry(0.16, 16, 16), new THREE.MeshStandardMaterial({ color: 0xffd166, emissive: 0xb45309 }));
+      const a = (i * Math.PI * 2) / 3;
+      s.position.set(Math.cos(a) * 2.7, Math.sin(a) * 2.7, 0);
+      sats.add(s);
     }
-    satellitesGroup0.rotation.x = Math.PI * 0.35;
-    group0.add(satellitesGroup0);
+    sats.rotation.x = Math.PI * 0.35;
+    this.groupPrologue.add(sats);
+    this.groupPrologue.userData.sats = sats;
+    this.scene.add(this.groupPrologue);
 
-    group0.userData = { satellites: satellitesGroup0, ring: ringMesh };
-    this.scene.add(group0);
-    this.chapterGroups.push(group0);
+    // Stage 1: Holographic Systems Core
+    this.groupOrigin = new THREE.Group();
+    this.groupOrigin.position.set(baseOffset, 0, 0);
 
-    // -------------------------------------------------------------
-    // Chapter 1: Holographic Systems Core (Layered Crystalline Polyhedron)
-    // -------------------------------------------------------------
-    const group1 = new THREE.Group();
-    group1.position.set(offsetX, offsetY, 0);
-    group1.visible = false;
-
-    // Inner glowing crystal
-    const innerCrystal = new THREE.Mesh(
+    const innerCore = new THREE.Mesh(
       new THREE.IcosahedronGeometry(1.3, 0),
-      new THREE.MeshPhysicalMaterial({
-        color: 0x00f5d4,
-        emissive: 0x044338,
-        roughness: 0.1,
-        metalness: 0.1,
-        transmission: 0.85,
-        ior: 1.5,
-        reflectivity: 0.9
-      })
+      new THREE.MeshPhysicalMaterial({ color: 0x00f5d4, emissive: 0x044338, roughness: 0.1, metalness: 0.1, transmission: 0.85, ior: 1.5 })
     );
-    group1.add(innerCrystal);
+    this.groupOrigin.add(innerCore);
 
-    // Outer wireframe cage
-    const wireCage = new THREE.Mesh(
+    const cage = new THREE.Mesh(
       new THREE.IcosahedronGeometry(1.85, 1),
-      new THREE.MeshStandardMaterial({
-        color: 0x6366f1,
-        wireframe: true,
-        emissive: 0x312e81
-      })
+      new THREE.MeshStandardMaterial({ color: 0x6366f1, wireframe: true, emissive: 0x312e81 })
     );
-    group1.add(wireCage);
+    this.groupOrigin.add(cage);
 
-    // Orbiting data nodes
-    const dataNodes = new THREE.Group();
+    const nodes = new THREE.Group();
     for (let i = 0; i < 8; i++) {
-      const node = new THREE.Mesh(
-        new THREE.BoxGeometry(0.18, 0.18, 0.18),
-        new THREE.MeshStandardMaterial({ color: 0x00f5d4, emissive: 0x00f5d4 })
-      );
-      const theta = (i * Math.PI * 2) / 8;
-      node.position.set(Math.cos(theta) * 2.4, Math.sin(theta) * 2.4, (Math.random() - 0.5) * 1.5);
-      dataNodes.add(node);
+      const n = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, 0.18), new THREE.MeshStandardMaterial({ color: 0x00f5d4, emissive: 0x00f5d4 }));
+      const t = (i * Math.PI * 2) / 8;
+      n.position.set(Math.cos(t) * 2.4, Math.sin(t) * 2.4, (Math.random() - 0.5) * 1.5);
+      nodes.add(n);
     }
-    group1.add(dataNodes);
+    this.groupOrigin.add(nodes);
+    this.groupOrigin.userData = { inner: innerCore, cage, nodes };
+    this.scene.add(this.groupOrigin);
 
-    group1.userData = { inner: innerCrystal, cage: wireCage, nodes: dataNodes };
-    this.scene.add(group1);
-    this.chapterGroups.push(group1);
+    // Stage 2: Orbital Tech Gyroscope
+    this.groupArsenal = new THREE.Group();
+    this.groupArsenal.position.set(baseOffset, 0, 0);
 
-    // -------------------------------------------------------------
-    // Chapter 2: Orbital Tech Gyroscope (Concentric Tech Rings)
-    // -------------------------------------------------------------
-    const group2 = new THREE.Group();
-    group2.position.set(offsetX, offsetY, 0);
-    group2.visible = false;
+    const r1 = new THREE.Mesh(new THREE.TorusGeometry(2.3, 0.06, 16, 64), new THREE.MeshStandardMaterial({ color: 0x00f0ff, metalness: 0.8 }));
+    const r2 = new THREE.Mesh(new THREE.TorusGeometry(1.8, 0.06, 16, 64), new THREE.MeshStandardMaterial({ color: 0xa855f7, metalness: 0.8 }));
+    const r3 = new THREE.Mesh(new THREE.TorusGeometry(1.3, 0.06, 16, 64), new THREE.MeshStandardMaterial({ color: 0xec4899, metalness: 0.8 }));
+    this.groupArsenal.add(r1);
+    this.groupArsenal.add(r2);
+    this.groupArsenal.add(r3);
 
-    const ringMat1 = new THREE.MeshStandardMaterial({ color: 0x00f0ff, metalness: 0.8, roughness: 0.2 });
-    const ringMat2 = new THREE.MeshStandardMaterial({ color: 0xa855f7, metalness: 0.8, roughness: 0.2 });
-    const ringMat3 = new THREE.MeshStandardMaterial({ color: 0xec4899, metalness: 0.8, roughness: 0.2 });
-
-    const gRing1 = new THREE.Mesh(new THREE.TorusGeometry(2.3, 0.06, 16, 64), ringMat1);
-    const gRing2 = new THREE.Mesh(new THREE.TorusGeometry(1.8, 0.06, 16, 64), ringMat2);
-    const gRing3 = new THREE.Mesh(new THREE.TorusGeometry(1.3, 0.06, 16, 64), ringMat3);
-
-    group2.add(gRing1);
-    group2.add(gRing2);
-    group2.add(gRing3);
-
-    // Tech Gemstone in center
     const centerGem = new THREE.Mesh(
       new THREE.OctahedronGeometry(0.85, 0),
-      new THREE.MeshPhysicalMaterial({
-        color: 0xffffff,
-        emissive: 0x38bdf8,
-        metalness: 0.2,
-        roughness: 0.1,
-        transmission: 0.7,
-        clearcoat: 1.0
-      })
+      new THREE.MeshPhysicalMaterial({ color: 0xffffff, emissive: 0x38bdf8, metalness: 0.2, roughness: 0.1, transmission: 0.7, clearcoat: 1.0 })
     );
-    group2.add(centerGem);
+    this.groupArsenal.add(centerGem);
+    this.groupArsenal.userData = { r1, r2, r3, gem: centerGem };
+    this.scene.add(this.groupArsenal);
 
-    group2.userData = { ring1: gRing1, ring2: gRing2, ring3: gRing3, gem: centerGem };
-    this.scene.add(group2);
-    this.chapterGroups.push(group2);
+    // Stage 3: Sci-Fi Masterpieces (Hypercar turbine & 3D 'A')
+    this.groupMasterpieces = new THREE.Group();
+    this.groupMasterpieces.position.set(baseOffset, 0, 0);
 
-    // -------------------------------------------------------------
-    // Chapter 3: Sci-Fi Masterpieces (Hypercar Silhouette & 3D 'A')
-    // -------------------------------------------------------------
-    const group3 = new THREE.Group();
-    group3.position.set(offsetX, offsetY, 0);
-    group3.visible = false;
-
-    // Sleek Hypercar wireframe speed-ring
     const carRing = new THREE.Mesh(
       new THREE.TorusGeometry(2.2, 0.08, 16, 64),
-      new THREE.MeshStandardMaterial({ color: 0x00f0ff, emissive: 0x0099bb })
+      new THREE.MeshStandardMaterial({ color: 0x00f0ff, emissive: 0x007799 })
     );
     carRing.rotation.x = Math.PI * 0.4;
-    group3.add(carRing);
+    this.groupMasterpieces.add(carRing);
 
-    // 3D Extruded letter "A" for Alphabet Odyssey
     if (this.font) {
       const aGeo = new TextGeometry('A', {
         font: this.font,
@@ -370,140 +385,222 @@ export class ProfileThreeScene {
 
       const aMesh = new THREE.Mesh(
         aGeo,
-        new THREE.MeshPhysicalMaterial({ color: 0xffd166, emissive: 0x996600, roughness: 0.2, metalness: 0.7 })
+        new THREE.MeshPhysicalMaterial({ color: 0xffd166, emissive: 0x78350f, roughness: 0.2, metalness: 0.7 })
       );
-      group3.add(aMesh);
+      this.groupMasterpieces.add(aMesh);
     }
+    this.groupMasterpieces.userData = { carRing };
+    this.scene.add(this.groupMasterpieces);
 
-    // Mini Hypercar energy reactor
-    const carReactor = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.9, 0.9, 0.4, 32),
-      new THREE.MeshStandardMaterial({ color: 0x111625, metalness: 0.9, roughness: 0.3 })
-    );
-    carReactor.position.set(-1.0, 0, 0);
-    carReactor.rotation.x = Math.PI * 0.5;
-    group3.add(carReactor);
-
-    group3.userData = { ring: carRing, reactor: carReactor };
-    this.scene.add(group3);
-    this.chapterGroups.push(group3);
-
-    // -------------------------------------------------------------
-    // Chapter 4: Career Odyssey (Floating Milestone Monoliths)
-    // -------------------------------------------------------------
-    const group4 = new THREE.Group();
-    group4.position.set(offsetX, offsetY, 0);
-    group4.visible = false;
-
-    const milestonesGroup = new THREE.Group();
-    const pillarMat = new THREE.MeshStandardMaterial({
-      color: 0x3b82f6,
-      emissive: 0x1e3a8a,
-      metalness: 0.8,
-      roughness: 0.2
-    });
+    // Stage 4: Career Odyssey (Milestone Monoliths)
+    this.groupOdyssey = new THREE.Group();
+    this.groupOdyssey.position.set(baseOffset, 0, 0);
 
     const pillars = [];
+    const pillarMat = new THREE.MeshStandardMaterial({ color: 0x3b82f6, emissive: 0x1e3a8a, metalness: 0.8, roughness: 0.2 });
     for (let i = 0; i < 4; i++) {
-      const pillar = new THREE.Mesh(new THREE.BoxGeometry(0.45, 1.6 + i * 0.35, 0.45), pillarMat);
-      const px = (i - 1.5) * 1.25;
-      const py = (i - 1.5) * 0.25;
-      pillar.position.set(px, py, (i % 2 === 0 ? 0.4 : -0.4));
-      milestonesGroup.add(pillar);
-      pillars.push(pillar);
+      const p = new THREE.Mesh(new THREE.BoxGeometry(0.45, 1.6 + i * 0.35, 0.45), pillarMat);
+      p.position.set((i - 1.5) * 1.25, (i - 1.5) * 0.25, (i % 2 === 0 ? 0.4 : -0.4));
+      this.groupOdyssey.add(p);
+      pillars.push(p);
     }
-    group4.add(milestonesGroup);
+    const spline = new THREE.CatmullRomCurve3(pillars.map(p => p.position));
+    const splineMesh = new THREE.Mesh(new THREE.TubeGeometry(spline, 32, 0.04, 8, false), new THREE.MeshBasicMaterial({ color: 0x00f0ff }));
+    this.groupOdyssey.add(splineMesh);
+    this.groupOdyssey.userData = { pillars, splineMesh };
+    this.scene.add(this.groupOdyssey);
 
-    // Spline laser connector
-    const curve = new THREE.CatmullRomCurve3(pillars.map(p => p.position));
-    const splineGeo = new THREE.TubeGeometry(curve, 32, 0.04, 8, false);
-    const splineMesh = new THREE.Mesh(
-      splineGeo,
-      new THREE.MeshBasicMaterial({ color: 0x00f0ff })
-    );
-    group4.add(splineMesh);
+    // Stage 5: Freelance Expeditions (Equilibrium Polyhedra)
+    this.groupExpeditions = new THREE.Group();
+    this.groupExpeditions.position.set(baseOffset, 0, 0);
 
-    group4.userData = { milestones: milestonesGroup, pillars };
-    this.scene.add(group4);
-    this.chapterGroups.push(group4);
-
-    // -------------------------------------------------------------
-    // Chapter 5: Freelance Expeditions (Equilibrium Polyhedra)
-    // -------------------------------------------------------------
-    const group5 = new THREE.Group();
-    group5.position.set(offsetX, offsetY, 0);
-    group5.visible = false;
-
-    const crystals = new THREE.Group();
-    const crystalMat = new THREE.MeshPhysicalMaterial({
-      color: 0xec4899,
-      emissive: 0x831843,
-      metalness: 0.2,
-      roughness: 0.1,
-      transmission: 0.8,
-      clearcoat: 1.0
-    });
-
+    const polyCrystals = new THREE.Group();
+    const polyMat = new THREE.MeshPhysicalMaterial({ color: 0xec4899, emissive: 0x701a75, metalness: 0.2, roughness: 0.1, transmission: 0.8, clearcoat: 1.0 });
     for (let i = 0; i < 5; i++) {
-      const cMesh = new THREE.Mesh(new THREE.OctahedronGeometry(0.65 + (i % 2) * 0.25, 0), crystalMat);
+      const c = new THREE.Mesh(new THREE.OctahedronGeometry(0.65 + (i % 2) * 0.25, 0), polyMat);
       const angle = (i * Math.PI * 2) / 5;
-      cMesh.position.set(Math.cos(angle) * 1.8, Math.sin(angle) * 1.8, (Math.random() - 0.5) * 1.2);
-      crystals.add(cMesh);
+      c.position.set(Math.cos(angle) * 1.8, Math.sin(angle) * 1.8, (Math.random() - 0.5) * 1.2);
+      polyCrystals.add(c);
     }
-    group5.add(crystals);
+    this.groupExpeditions.add(polyCrystals);
+    this.groupExpeditions.userData = { polyCrystals };
+    this.scene.add(this.groupExpeditions);
 
-    group5.userData = { crystals };
-    this.scene.add(group5);
-    this.chapterGroups.push(group5);
+    // Stage 6: Quantum Transmission Beacon
+    this.groupEpilogue = new THREE.Group();
+    this.groupEpilogue.position.set(baseOffset, 0, 0);
 
-    // -------------------------------------------------------------
-    // Chapter 6: Quantum Transmission Beacon (Pulse Radar Waves)
-    // -------------------------------------------------------------
-    const group6 = new THREE.Group();
-    group6.position.set(offsetX, offsetY, 0);
-    group6.visible = false;
-
-    // Beacon tower
-    const towerGeo = new THREE.ConeGeometry(0.8, 2.5, 6);
-    const towerMat = new THREE.MeshStandardMaterial({
-      color: 0x00f0ff,
-      emissive: 0x005577,
-      metalness: 0.8,
-      roughness: 0.2
-    });
-    const tower = new THREE.Mesh(towerGeo, towerMat);
+    const tower = new THREE.Mesh(
+      new THREE.ConeGeometry(0.8, 2.5, 6),
+      new THREE.MeshStandardMaterial({ color: 0x00f0ff, emissive: 0x003344, metalness: 0.8, roughness: 0.2 })
+    );
     tower.rotation.x = Math.PI;
-    group6.add(tower);
+    this.groupEpilogue.add(tower);
 
-    // Radar pulse rings
-    const pulseRings = [];
+    const radarRings = [];
     for (let i = 0; i < 3; i++) {
-      const pRing = new THREE.Mesh(
+      const rRing = new THREE.Mesh(
         new THREE.RingGeometry(1.2 + i * 0.7, 1.25 + i * 0.7, 32),
-        new THREE.MeshBasicMaterial({
-          color: 0x00f0ff,
-          side: THREE.DoubleSide,
-          transparent: true,
-          opacity: 0.6 - i * 0.18
-        })
+        new THREE.MeshBasicMaterial({ color: 0x00f0ff, side: THREE.DoubleSide, transparent: true, opacity: 0.6 - i * 0.18 })
       );
-      pRing.position.set(0, -1.2, 0);
-      pRing.rotation.x = Math.PI * 0.5;
-      group6.add(pRing);
-      pulseRings.push(pRing);
+      rRing.position.set(0, -1.2, 0);
+      rRing.rotation.x = Math.PI * 0.5;
+      this.groupEpilogue.add(rRing);
+      radarRings.push(rRing);
+    }
+    this.groupEpilogue.userData = { tower, radarRings };
+    this.scene.add(this.groupEpilogue);
+  }
+
+  // -------------------------------------------------------------
+  // CONTINUOUS SCROLL INPUT BINDING
+  // Maps 0.0 to 6.0 directly to the 3D Camera Path and Object Timelines
+  // -------------------------------------------------------------
+  setScrollProgress(progress) {
+    this.targetScrollProgress = Math.max(0, Math.min(this.cameraKeyframes.length - 1, progress));
+  }
+
+  updateScrollBoundTimeline(delta) {
+    // Smooth cinematic dampening for scroll progress
+    this.scrollProgress += (this.targetScrollProgress - this.scrollProgress) * 0.085;
+
+    const totalKeyframes = this.cameraKeyframes.length - 1;
+    const clampedProgress = Math.max(0, Math.min(totalKeyframes, this.scrollProgress));
+
+    const index = Math.floor(clampedProgress);
+    const fraction = clampedProgress - index;
+
+    const kfA = this.cameraKeyframes[index];
+    const kfB = this.cameraKeyframes[Math.min(totalKeyframes, index + 1)];
+
+    // 1. SCROLL-BOUND CAMERA POSITION & LOOKAT INTERPOLATION
+    const targetPos = new THREE.Vector3().lerpVectors(kfA.pos, kfB.pos, fraction);
+    const targetLookAt = new THREE.Vector3().lerpVectors(kfA.lookAt, kfB.lookAt, fraction);
+
+    // Apply User Orbit & Parallax on top of the camera path
+    const orbitRadius = targetPos.distanceTo(targetLookAt);
+    const az = this.userOrbit.azimuth + (this.mouse.x * 0.12);
+    const el = this.userOrbit.elevation + (this.mouse.y * 0.08);
+
+    const orbitOffset = new THREE.Vector3(
+      Math.sin(az) * orbitRadius * 0.18,
+      Math.sin(el) * orbitRadius * 0.12,
+      (Math.cos(az) - 1) * orbitRadius * 0.18
+    );
+    targetPos.add(orbitOffset);
+
+    this.camera.position.copy(targetPos);
+    this.camera.lookAt(targetLookAt);
+
+    // 2. SCROLL-BOUND CAMERA FIELD OF VIEW (FOV)
+    const targetFov = THREE.MathUtils.lerp(kfA.fov, kfB.fov, fraction);
+    if (Math.abs(this.camera.fov - targetFov) > 0.01) {
+      this.camera.fov = targetFov;
+      this.camera.updateProjectionMatrix();
     }
 
-    group6.userData = { tower, pulseRings };
-    this.scene.add(group6);
-    this.chapterGroups.push(group6);
+    // 3. SCROLL-BOUND DYNAMIC LIGHTING & FOG
+    const colorA = new THREE.Color(kfA.lightColor);
+    const colorB = new THREE.Color(kfB.lightColor);
+    const rimA = new THREE.Color(kfA.rimColor);
+    const rimB = new THREE.Color(kfB.rimColor);
 
-    this.updateThemeColors(0);
+    if (this.accentPointLight) {
+      this.accentPointLight.color.lerpColors(colorA, colorB, fraction);
+      this.accentPointLight.position.set(targetPos.x * 0.7, targetPos.y + 1, targetPos.z * 0.7);
+    }
+    if (this.rimLight) {
+      this.rimLight.color.lerpColors(rimA, rimB, fraction);
+    }
+    if (this.scene.fog) {
+      this.scene.fog.density = THREE.MathUtils.lerp(kfA.fogDensity, kfB.fogDensity, fraction);
+    }
+
+    // 4. SCROLL-BOUND OBJECT ANIMATION TIMELINES
+    // Each group's scale, position, rotation, and explosion are a direct mathematical function of scrollProgress
+    this.updateObjectTimeline(this.groupPrologue, 0, clampedProgress, (grp, weight, p) => {
+      // Disassemble / Explode 'KB' as you scroll into Origin
+      const explode = Math.max(0, p - 0.2) * 1.5;
+      if (grp.userData.ring) grp.userData.ring.scale.set(1 + explode * 0.6, 1 + explode * 0.6, 1 + explode * 0.6);
+      if (grp.userData.sats) grp.userData.sats.rotation.z = -p * 3.0;
+    });
+
+    this.updateObjectTimeline(this.groupOrigin, 1, clampedProgress, (grp, weight, p) => {
+      // Unfold outer cage into exploded view revealing inner core
+      const cageExplode = 1.0 + Math.sin(Math.min(1, Math.max(0, p - 0.5)) * Math.PI) * 0.6;
+      if (grp.userData.cage) grp.userData.cage.scale.set(cageExplode, cageExplode, cageExplode);
+      if (grp.userData.inner) grp.userData.inner.rotation.y = -p * 2.0;
+    });
+
+    this.updateObjectTimeline(this.groupArsenal, 2, clampedProgress, (grp, weight, p) => {
+      // Orbiting gimbal rings expand and rotate into 3 axes
+      if (grp.userData.r1) grp.userData.r1.rotation.x = p * 2.2;
+      if (grp.userData.r2) grp.userData.r2.rotation.y = p * 2.8;
+      if (grp.userData.r3) grp.userData.r3.rotation.z = p * 3.4;
+    });
+
+    this.updateObjectTimeline(this.groupMasterpieces, 3, clampedProgress, (grp, weight, p) => {
+      if (grp.userData.carRing) grp.userData.carRing.rotation.z = p * 4.0;
+    });
+
+    this.updateObjectTimeline(this.groupOdyssey, 4, clampedProgress, (grp, weight, p) => {
+      // Monolith heights dynamically respond to milestone scroll depth
+      if (grp.userData.pillars) {
+        grp.userData.pillars.forEach((pillar, pIdx) => {
+          pillar.scale.y = 0.8 + Math.sin(p * 2 + pIdx * 1.2) * 0.35;
+        });
+      }
+    });
+
+    this.updateObjectTimeline(this.groupExpeditions, 5, clampedProgress, (grp, weight, p) => {
+      if (grp.userData.polyCrystals) grp.userData.polyCrystals.rotation.y = p * 2.5;
+    });
+
+    this.updateObjectTimeline(this.groupEpilogue, 6, clampedProgress, (grp, weight, p) => {
+      if (grp.userData.radarRings) {
+        grp.userData.radarRings.forEach((r, rIdx) => {
+          const s = 1 + (((p * 2.0 + rIdx * 0.6)) % 2.0);
+          r.scale.set(s, s, s);
+        });
+      }
+    });
+  }
+
+  updateObjectTimeline(group, targetStage, currentProgress, customFn) {
+    if (!group) return;
+
+    // Distance in timeline segments from target stage
+    const dist = Math.abs(currentProgress - targetStage);
+
+    if (dist < 1.0) {
+      // In view: smooth weight curve (cosine bell)
+      const weight = Math.cos(dist * (Math.PI / 2));
+      group.visible = true;
+
+      // Apply Spring Wobble if active
+      let wobbleScale = 1;
+      if (this.wobble.active) {
+        wobbleScale = 1 + Math.sin(this.wobble.time) * this.wobble.amp;
+      }
+
+      const s = weight * wobbleScale;
+      group.scale.set(s, s, s);
+
+      // Apply user rotation
+      group.rotation.y = (currentProgress * 0.8) + this.userOrbit.azimuth;
+      group.rotation.x = Math.sin(currentProgress) * 0.15 + this.userOrbit.elevation;
+
+      if (customFn) customFn(group, weight, currentProgress);
+    } else {
+      group.visible = false;
+      group.scale.set(0.001, 0.001, 0.001);
+    }
   }
 
   setupEventListeners() {
     window.addEventListener('resize', () => this.handleResize());
 
-    // Mouse / Touch Dragging to Rotate Active 3D Model
+    // Mouse / Touch Orbit Dragging
     this.container.addEventListener('pointerdown', (e) => {
       this.isDragging = true;
       this.dragStart.x = e.clientX;
@@ -513,17 +610,16 @@ export class ProfileThreeScene {
     });
 
     window.addEventListener('pointermove', (e) => {
-      // Mouse Parallax
       this.mouse.targetX = (e.clientX / this.width) * 2 - 1;
       this.mouse.targetY = -(e.clientY / this.height) * 2 + 1;
 
       if (this.isDragging) {
         const deltaX = e.clientX - this.dragStart.x;
         const deltaY = e.clientY - this.dragStart.y;
-        this.userVelocity.velX = deltaX * 0.007;
-        this.userVelocity.velY = deltaY * 0.007;
-        this.userRotation.y += this.userVelocity.velX;
-        this.userRotation.x += this.userVelocity.velY;
+        this.userVelocity.velX = deltaX * 0.005;
+        this.userVelocity.velY = deltaY * 0.005;
+        this.userOrbit.azimuth += this.userVelocity.velX;
+        this.userOrbit.elevation += this.userVelocity.velY;
         this.dragStart.x = e.clientX;
         this.dragStart.y = e.clientY;
       }
@@ -533,61 +629,12 @@ export class ProfileThreeScene {
       this.isDragging = false;
     });
 
-    // Tap / Click Wobble Bounce
-    this.container.addEventListener('click', (e) => {
-      this.mouseVector.x = (e.clientX / this.width) * 2 - 1;
-      this.mouseVector.y = -(e.clientY / this.height) * 2 + 1;
-
-      this.raycaster.setFromCamera(this.mouseVector, this.camera);
-      const activeGroup = this.chapterGroups[this.activeChapterIndex];
-      if (activeGroup) {
-        const intersects = this.raycaster.intersectObjects(activeGroup.children, true);
-        if (intersects.length > 0) {
-          this.triggerWobble();
-        }
-      }
+    // Click to wobble
+    this.container.addEventListener('click', () => {
+      this.wobble.active = true;
+      this.wobble.time = 0;
+      this.wobble.amp = 0.35;
     });
-  }
-
-  triggerWobble() {
-    this.wobble.active = true;
-    this.wobble.time = 0;
-    this.wobble.amp = 0.35;
-  }
-
-  onScroll(scrollProgress, activeChapterIndex) {
-    this.scrollProgress = scrollProgress;
-
-    if (activeChapterIndex !== this.activeChapterIndex && activeChapterIndex >= 0 && activeChapterIndex < this.chapterGroups.length) {
-      this.transitionToChapter(activeChapterIndex);
-    }
-
-    // Camera subtle drift
-    this.targetCameraY = (scrollProgress - 0.5) * -1.8;
-  }
-
-  transitionToChapter(newIndex) {
-    const oldIndex = this.activeChapterIndex;
-    this.activeChapterIndex = newIndex;
-
-    this.chapterGroups.forEach((group, idx) => {
-      if (idx === newIndex) {
-        group.visible = true;
-        group.scale.set(0.2, 0.2, 0.2);
-      }
-    });
-
-    this.updateThemeColors(newIndex);
-  }
-
-  updateThemeColors(index) {
-    const theme = this.chapterThemes[index] || this.chapterThemes[0];
-    if (this.accentPointLight) {
-      this.accentPointLight.color.setHex(theme.primary);
-    }
-    if (this.rimLight) {
-      this.rimLight.color.setHex(theme.secondary);
-    }
   }
 
   handleResize() {
@@ -600,14 +647,19 @@ export class ProfileThreeScene {
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Reposition chapter groups for responsive layout
     const isDesktop = this.width > 960;
-    const offsetX = isDesktop ? 2.5 : 0;
-    const offsetY = isDesktop ? 0 : 0.6;
+    const baseOffset = isDesktop ? 1.8 : 0;
 
-    this.chapterGroups.forEach(grp => {
-      grp.position.x = offsetX;
-      grp.position.y = offsetY;
+    [
+      this.groupPrologue,
+      this.groupOrigin,
+      this.groupArsenal,
+      this.groupMasterpieces,
+      this.groupOdyssey,
+      this.groupExpeditions,
+      this.groupEpilogue
+    ].forEach(grp => {
+      if (grp) grp.position.x = baseOffset;
     });
   }
 
@@ -621,80 +673,29 @@ export class ProfileThreeScene {
     this.mouse.x += (this.mouse.targetX - this.mouse.x) * 0.05;
     this.mouse.y += (this.mouse.targetY - this.mouse.y) * 0.05;
 
-    // Apply Camera Position
-    this.camera.position.x = this.mouse.x * 0.8;
-    this.camera.position.y += (this.targetCameraY + this.mouse.y * 0.5 - this.camera.position.y) * 0.06;
-    this.camera.lookAt(0, 0, 0);
-
-    // Starfield subtle rotation
-    if (this.starfield) {
-      this.starfield.rotation.y = elapsedTime * 0.02;
-      this.starfield.rotation.x = elapsedTime * 0.01;
-    }
-
-    // Inertial user rotation decay
+    // User orbit drag decay
     if (!this.isDragging) {
-      this.userVelocity.velX *= 0.94;
-      this.userVelocity.velY *= 0.94;
-      this.userRotation.y += this.userVelocity.velX;
-      this.userRotation.x += this.userVelocity.velY;
+      this.userOrbit.azimuth *= 0.95;
+      this.userOrbit.elevation *= 0.95;
     }
 
-    // Click Wobble decay
-    let wobbleScale = 1;
+    // Wobble bounce decay
     if (this.wobble.active) {
       this.wobble.time += delta * 12;
       this.wobble.amp *= 0.92;
-      wobbleScale = 1 + Math.sin(this.wobble.time) * this.wobble.amp;
       if (this.wobble.amp < 0.01) {
         this.wobble.active = false;
       }
     }
 
-    // Animate Active Chapter Group
-    this.chapterGroups.forEach((group, idx) => {
-      if (!group.visible) return;
+    // Starfield gentle celestial drift
+    if (this.starfield) {
+      this.starfield.rotation.y = elapsedTime * 0.018;
+      this.starfield.rotation.x = elapsedTime * 0.008;
+    }
 
-      if (idx === this.activeChapterIndex) {
-        // Scale in to 1.0 smoothly
-        group.scale.lerp(new THREE.Vector3(wobbleScale, wobbleScale, wobbleScale), 0.08);
-
-        // Apply base idle rotation + user rotation
-        group.rotation.y = elapsedTime * 0.25 + this.userRotation.y;
-        group.rotation.x = Math.sin(elapsedTime * 0.4) * 0.12 + this.userRotation.x;
-      } else {
-        // Fade/scale out
-        group.scale.lerp(new THREE.Vector3(0.01, 0.01, 0.01), 0.1);
-        if (group.scale.x < 0.05) {
-          group.visible = false;
-        }
-      }
-
-      // Specific Chapter Inner Animations
-      if (idx === 0 && group.userData.satellites) {
-        group.userData.satellites.rotation.z = -elapsedTime * 0.8;
-      } else if (idx === 1 && group.userData.inner) {
-        group.userData.inner.rotation.y = -elapsedTime * 0.6;
-        group.userData.cage.rotation.y = elapsedTime * 0.4;
-      } else if (idx === 2 && group.userData.ring1) {
-        group.userData.ring1.rotation.x = elapsedTime * 0.7;
-        group.userData.ring2.rotation.y = elapsedTime * 0.9;
-        group.userData.ring3.rotation.z = elapsedTime * 1.1;
-      } else if (idx === 3 && group.userData.ring) {
-        group.userData.ring.rotation.z = elapsedTime * 1.2;
-      } else if (idx === 4 && group.userData.pillars) {
-        group.userData.pillars.forEach((p, pIdx) => {
-          p.position.y += Math.sin(elapsedTime * 1.5 + pIdx) * 0.003;
-        });
-      } else if (idx === 5 && group.userData.crystals) {
-        group.userData.crystals.rotation.y = elapsedTime * 0.5;
-      } else if (idx === 6 && group.userData.pulseRings) {
-        group.userData.pulseRings.forEach((r, rIdx) => {
-          const s = 1 + ((elapsedTime * 1.2 + rIdx * 0.6) % 1.8);
-          r.scale.set(s, s, s);
-        });
-      }
-    });
+    // Update Scroll-Bound Camera Path & Object Timelines
+    this.updateScrollBoundTimeline(delta);
 
     this.renderer.render(this.scene, this.camera);
   }

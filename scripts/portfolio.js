@@ -161,10 +161,11 @@ class ProfileApp {
       }
     });
 
-    // 5. Notify 3D Scene
+    // 5. Notify 3D Scene with continuous scroll stage (0.0 to 6.0)
     if (this.threeScene) {
       const scrollRatio = totalHeight > 0 ? scrollY / totalHeight : 0;
-      this.threeScene.onScroll(scrollRatio, this.currentChapterIndex);
+      const scrollStage = scrollRatio * (this.chapters.length - 1);
+      this.threeScene.setScrollProgress(scrollStage);
     }
   }
 
