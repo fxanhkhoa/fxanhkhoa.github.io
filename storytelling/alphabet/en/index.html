@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alphabet Odyssey - Interactive 3D Scrollytelling (English) | Kevin Bui</title>
+  
+  <meta name="description" content="An interactive 3D scrollytelling journey through the English alphabet. Narrative, 3D typography, and animations directly tied to your scroll progress.">
+  <meta name="keywords" content="Scrollytelling, Three.js, Interactive 3D, English Alphabet, Phonics, WebGL">
+  <meta name="author" content="Kevin Bui">
+  
+  <link rel="icon" type="image/x-icon" href="../../../images/favicon.ico">
+  
+  <!-- Google Fonts: Fredoka & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Shared Stylesheet -->
+  <link rel="stylesheet" href="../shared/css/style.css">
+
+  <!-- Import Map for ES Modules -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "../shared/vendor/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Cosmic Background Gradient -->
+  <div class="cosmic-backdrop"></div>
+
+  <!-- Interactive 3D WebGL Canvas Layer -->
+  <div id="webgl-container" aria-hidden="true"></div>
+
+  <!-- Global Top Scroll Progress Line -->
+  <div class="scroll-progress-bar" id="scroll-progress"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="top-header">
+    <div class="brand-wrapper">
+      <a href="../../../index.html" class="back-portfolio-link" title="Return to Kevin's Portfolio">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Portfolio</span>
+      </a>
+      <div class="logo-badge">
+        <span class="logo-icon">🪐</span>
+        <span>Alphabet Odyssey</span>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <!-- Language Switcher Pill -->
+      <div class="lang-switch-group">
+        <span class="lang-btn active">🇬🇧 EN</span>
+        <a href="../vi/" class="lang-btn" title="Chuyển sang Tiếng Việt">🇻🇳 VI</a>
+      </div>
+
+      <button class="ctrl-btn" id="tour-toggle-btn" title="Automated scrollytelling tour">
+        <i class="fa-solid fa-play"></i>
+        <span>Auto Tour</span>
+      </button>
+
+      <button class="ctrl-btn" id="sound-toggle-btn" title="Toggle audio and speech narration">
+        <i class="fa-solid fa-volume-high"></i>
+        <span>Sound On</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Desktop Alphabet Vertical Scrubber Rail -->
+  <nav class="alphabet-scrubber-rail" id="alphabet-rail" aria-label="Alphabet Scrubber Navigation"></nav>
+
+  <!-- Mobile Floating Quick Navigation HUD -->
+  <div class="mobile-scrub-bar" id="mobile-scrub-bar">
+    <button class="mobile-nav-btn" id="mobile-prev-btn" aria-label="Previous Letter">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <div class="mobile-letter-indicator" id="mobile-letter-label">Letter A (1/26)</div>
+    <button class="mobile-nav-btn" id="mobile-next-btn" aria-label="Next Letter">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Toast Notification Message -->
+  <div class="story-toast" id="story-toast" role="status" aria-live="polite"></div>
+
+  <!-- Scrollytelling Scrollable Narrative Track -->
+  <main class="story-scroll-container" id="story-container">
+
+    <!-- Prologue / Hero Section -->
+    <section class="story-chapter hero-chapter" id="chapter-prologue">
+      <div class="hero-glass-card">
+        <span class="hero-pill">Interactive 3D Scrollytelling</span>
+        <h1 class="hero-title">The Wonderverse of Letters</h1>
+        <p class="hero-desc">
+          Embark on an interactive expedition from <strong>A</strong> to <strong>Z</strong>. As you scroll, 3D letters, thematic worlds, and acoustic chimes unfold in direct synchronization with your journey.
+        </p>
+        <div class="hero-actions">
+          <a href="#chapter-A" class="primary-cta">
+            <span>Begin Expedition</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </a>
+          <button class="secondary-cta" onclick="document.getElementById('tour-toggle-btn').click()">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>Watch Auto Tour</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Letter Chapters A through Z will be injected here by app.js -->
+
+    <!-- Epilogue / Completion Section -->
+    <section class="story-chapter epilogue-chapter" id="chapter-epilogue">
+      <div class="epilogue-card">
+        <div class="trophy-badge">🎓</div>
+        <h2 class="hero-title">Alphabet Master!</h2>
+        <p class="hero-desc">
+          You've voyaged across all 26 cosmic letters, discovered fascinating words, and unlocked the magic of the alphabet!
+        </p>
+        <div class="hero-actions">
+          <a href="#chapter-prologue" class="primary-cta">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>Replay Odyssey</span>
+          </a>
+          <a href="../../../index.html#projects" class="secondary-cta">
+            <i class="fa-solid fa-folder-open"></i>
+            <span>More Projects</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

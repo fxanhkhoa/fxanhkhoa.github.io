@@ -137,6 +137,40 @@ body {
   gap: 0.75rem;
 }
 
+.lang-switch-group {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+}
+
+.lang-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.32rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  transition: all 0.2s ease;
+}
+
+.lang-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.lang-btn.active {
+  color: #fff;
+  background: linear-gradient(135deg, #ff4757, #ff6b81);
+  box-shadow: 0 0 10px rgba(255, 71, 87, 0.4);
+}
+
 .ctrl-btn {
   display: inline-flex;
   align-items: center;

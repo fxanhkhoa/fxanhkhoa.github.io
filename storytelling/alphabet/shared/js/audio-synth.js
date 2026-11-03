@@ -1,6 +1,7 @@
 /**
- * Audio Synthesis & Voice Narration Engine
+ * Shared Audio Synthesis & Voice Narration Engine
  * Built using native Web Audio API (zero external assets needed) and Web Speech API.
+ * Supports multi-language narration (English 'en-US' & Vietnamese 'vi-VN').
  */
 
 class SoundEngine {
@@ -9,7 +10,7 @@ class SoundEngine {
     this.isMuted = false;
     this.masterGain = null;
     this.speechSynth = window.speechSynthesis;
-    this.voice = null;
+    this.voicesByLang = {};
 
     // Check localStorage preference
     const savedMute = localStorage.getItem('alphabet_odyssey_muted');
@@ -17,11 +18,10 @@ class SoundEngine {
       this.isMuted = savedMute === 'true';
     }
 
-    // Try finding a friendly voice
     if (this.speechSynth) {
-      this.initVoice();
+      this.initVoices();
       if (speechSynthesis.onvoiceschanged !== undefined) {
-        speechSynthesis.onvoiceschanged = () => this.initVoice();
+        speechSynthesis.onvoiceschanged = () => this.initVoices();
       }
     }
   }
@@ -41,13 +41,19 @@ class SoundEngine {
     }
   }
 
-  initVoice() {
+  initVoices() {
     if (!this.speechSynth) return;
     const voices = this.speechSynth.getVoices();
-    // Prioritize natural English voices (Google, Samantha, Daniel, Karen, Victoria)
-    this.voice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Samantha') || v.name.includes('Karen') || v.name.includes('Google')))
+
+    // Cache English voice
+    this.voicesByLang['en'] = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Samantha') || v.name.includes('Karen') || v.name.includes('Google')))
       || voices.find(v => v.lang.startsWith('en'))
-      || voices[0] || null;
+      || null;
+
+    // Cache Vietnamese voice
+    this.voicesByLang['vi'] = voices.find(v => v.lang.startsWith('vi') || v.lang.includes('VIE'))
+      || voices.find(v => v.lang.startsWith('vi-VN'))
+      || null;
   }
 
   toggleMute() {
@@ -72,19 +78,16 @@ class SoundEngine {
 
     const t = this.audioCtx.currentTime;
 
-    // Main melodic tone (sine wave)
     const osc1 = this.audioCtx.createOscillator();
     const gain1 = this.audioCtx.createGain();
     osc1.type = 'sine';
     osc1.frequency.setValueAtTime(frequency, t);
 
-    // Harmonic sparkle (triangle wave + 1 octave up)
     const osc2 = this.audioCtx.createOscillator();
     const gain2 = this.audioCtx.createGain();
     osc2.type = 'triangle';
     osc2.frequency.setValueAtTime(frequency * 2, t);
 
-    // Soft envelope
     gain1.gain.setValueAtTime(0, t);
     gain1.gain.linearRampToValueAtTime(0.25, t + 0.04);
     gain1.gain.exponentialRampToValueAtTime(0.001, t + 1.2);
@@ -171,21 +174,25 @@ class SoundEngine {
   }
 
   /**
-   * Speak phonetic sound or educational phrase
+   * Speak phonetic sound or educational phrase with language support
    */
-  speak(text) {
+  speak(text, lang = 'en') {
     if (this.isMuted || !this.speechSynth) return;
-    this.speechSynth.cancel(); // Stop prior speech
+    this.speechSynth.cancel();
 
     const utterance = new SpeechSynthesisUtterance(text);
-    if (this.voice) {
-      utterance.voice = this.voice;
+    const langKey = lang.startsWith('vi') ? 'vi' : 'en';
+    const voice = this.voicesByLang[langKey];
+    if (voice) {
+      utterance.voice = voice;
+      utterance.lang = voice.lang;
+    } else {
+      utterance.lang = langKey === 'vi' ? 'vi-VN' : 'en-US';
     }
-    utterance.rate = 0.95; // Slightly measured, friendly rate for learning
-    utterance.pitch = 1.1; // Friendly warm pitch
+    utterance.rate = langKey === 'vi' ? 0.9 : 0.95;
+    utterance.pitch = 1.05;
     this.speechSynth.speak(utterance);
   }
 }
 
 export const soundEngine = new SoundEngine();
-

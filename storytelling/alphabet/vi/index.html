@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Chữ Cái Kỳ Diệu - Trải Nghiệm 3D Scrollytelling (Tiếng Việt) | Kevin Bui</title>
+  
+  <meta name="description" content="Khám phá 29 chữ cái Tiếng Việt kỳ diệu với đồ họa 3D tương tác theo từng bước cuộn trang. Phát âm, vần thơ vui và từ vựng phong phú.">
+  <meta name="keywords" content="Bảng chữ cái Tiếng Việt, 3D Scrollytelling, Three.js, Giáo dục tương tác, WebGL, Kevin Bui">
+  <meta name="author" content="Kevin Bui">
+  
+  <link rel="icon" type="image/x-icon" href="../../../images/favicon.ico">
+  
+  <!-- Google Fonts: Fredoka & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Shared Stylesheet -->
+  <link rel="stylesheet" href="../shared/css/style.css">
+
+  <!-- Import Map for ES Modules -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "../shared/vendor/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Cosmic Background Gradient -->
+  <div class="cosmic-backdrop"></div>
+
+  <!-- Interactive 3D WebGL Canvas Layer -->
+  <div id="webgl-container" aria-hidden="true"></div>
+
+  <!-- Global Top Scroll Progress Line -->
+  <div class="scroll-progress-bar" id="scroll-progress"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="top-header">
+    <div class="brand-wrapper">
+      <a href="../../../index.html" class="back-portfolio-link" title="Quay lại Portfolio Kevin">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Portfolio</span>
+      </a>
+      <div class="logo-badge">
+        <span class="logo-icon">🪐</span>
+        <span>Bảng Chữ Cái Kỳ Diệu</span>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <!-- Language Switcher Pill -->
+      <div class="lang-switch-group">
+        <a href="../en/" class="lang-btn" title="Switch to English">🇬🇧 EN</a>
+        <span class="lang-btn active">🇻🇳 VI</span>
+      </div>
+
+      <button class="ctrl-btn" id="tour-toggle-btn" title="Tự động du ngoạn bảng chữ cái">
+        <i class="fa-solid fa-play"></i>
+        <span>Tự động đọc</span>
+      </button>
+
+      <button class="ctrl-btn" id="sound-toggle-btn" title="Bật/Tắt âm thanh và giọng đọc">
+        <i class="fa-solid fa-volume-high"></i>
+        <span>Âm thanh</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Desktop Alphabet Vertical Scrubber Rail -->
+  <nav class="alphabet-scrubber-rail" id="alphabet-rail" aria-label="Bảng điều hướng chữ cái"></nav>
+
+  <!-- Mobile Floating Quick Navigation HUD -->
+  <div class="mobile-scrub-bar" id="mobile-scrub-bar">
+    <button class="mobile-nav-btn" id="mobile-prev-btn" aria-label="Chữ trước">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <div class="mobile-letter-indicator" id="mobile-letter-label">Chữ A (1/29)</div>
+    <button class="mobile-nav-btn" id="mobile-next-btn" aria-label="Chữ tiếp theo">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Toast Notification Message -->
+  <div class="story-toast" id="story-toast" role="status" aria-live="polite"></div>
+
+  <!-- Scrollytelling Scrollable Narrative Track -->
+  <main class="story-scroll-container" id="story-container">
+
+    <!-- Prologue / Hero Section -->
+    <section class="story-chapter hero-chapter" id="chapter-prologue">
+      <div class="hero-glass-card">
+        <span class="hero-pill">Học Chữ Cái 3D Tương Tác</span>
+        <h1 class="hero-title">Vũ Trụ 29 Chữ Cái Tiếng Việt</h1>
+        <p class="hero-desc">
+          Cùng bắt đầu chuyến du hành kỳ thú từ chữ <strong>A</strong> đến chữ <strong>Y</strong>! Khi bạn cuộn trang, từng chữ cái 3D sống động, thế giới chủ đề, câu chuyện vui và âm điệu êm ái sẽ hòa nhịp theo từng bước chân bạn.
+        </p>
+        <div class="hero-actions">
+          <a href="#chapter-A" class="primary-cta">
+            <span>Bắt Đầu Khám Phá</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </a>
+          <button class="secondary-cta" onclick="document.getElementById('tour-toggle-btn').click()">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>Xem Tự Động</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Letter Chapters will be injected here by app.js -->
+
+    <!-- Epilogue / Completion Section -->
+    <section class="story-chapter epilogue-chapter" id="chapter-epilogue">
+      <div class="epilogue-card">
+        <div class="trophy-badge">🎓</div>
+        <h2 class="hero-title">Nhà Thông Thái Nhí!</h2>
+        <p class="hero-desc">
+          Chúc mừng bạn đã hoàn thành chuyến phiêu lưu qua 29 chữ cái tiếng Việt kỳ diệu, mở khóa hàng trăm từ ngữ tươi đẹp và kiến thức bổ ích!
+        </p>
+        <div class="hero-actions">
+          <a href="#chapter-prologue" class="primary-cta">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>Khám Phá Lại</span>
+          </a>
+          <a href="../../../index.html#projects" class="secondary-cta">
+            <i class="fa-solid fa-folder-open"></i>
+            <span>Dự Án Khác</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
