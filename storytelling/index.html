@@ -2,19 +2,249 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=alphabet/">
-  <title>Redirecting to Alphabet Odyssey...</title>
-  <script>
-    // Intelligent auto-redirect based on browser language
-    const userLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-    if (userLang.startsWith('vi')) {
-      window.location.replace('alphabet/vi/');
-    } else {
-      window.location.replace('alphabet/en/');
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Scrollytelling Experiences | Kevin Bui</title>
+  
+  <meta name="description" content="Explore interactive 3D scrollytelling and exploded-view product tours created with Three.js and WebGL by Kevin Bui.">
+  <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --font-heading: 'Syne', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --cyan: #00f0ff;
     }
-  </script>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 50% 25%, #121829 0%, #080a10 70%, #030406 100%);
+      color: #f8fafc;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+    }
+    .back-btn {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #8a99ad;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1.1rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+    .back-btn:hover {
+      color: #fff;
+      border-color: var(--cyan);
+      background: rgba(0, 240, 255, 0.1);
+      transform: translateX(-3px);
+    }
+    .container {
+      max-width: 980px;
+      width: 100%;
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 1.2rem;
+      border-radius: 9999px;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      color: var(--cyan);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 40%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      color: #8a99ad;
+      max-width: 620px;
+      margin: 0 auto 3rem;
+      line-height: 1.6;
+    }
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+    .showcase-card {
+      background: rgba(13, 17, 26, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      text-align: left;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .showcase-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--cyan);
+      box-shadow: 0 20px 50px rgba(0, 240, 255, 0.2);
+    }
+    .card-icon {
+      font-size: 3rem;
+      margin-bottom: 1.25rem;
+      display: inline-block;
+    }
+    .card-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.85rem;
+    }
+    .card-desc {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      line-height: 1.65;
+      margin-bottom: 2rem;
+    }
+    .card-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #000;
+      background: var(--cyan);
+      padding: 0.75rem 1.6rem;
+      border-radius: 9999px;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.35);
+      transition: all 0.25s ease;
+    }
+    .showcase-card:hover .card-action {
+      transform: translateX(4px);
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.55);
+    }
+    .card-tags-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+    .card-tags-list span {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+    }
+  </style>
 </head>
-<body style="background:#0a0518; color:#fff; font-family:sans-serif; text-align:center; padding-top:20vh;">
-  <p>Loading Alphabet Odyssey... <a href="alphabet/" style="color:#ffd32a;">Click here if not redirected automatically</a>.</p>
+<body>
+
+  <a href="../index.html" class="back-btn" title="Return to Portfolio">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Portfolio</span>
+  </a>
+
+  <div class="container">
+    <span class="badge">Interactive 3D Scrollytelling</span>
+    <h1 class="title">Interactive 3D Experiences</h1>
+    <p class="subtitle">
+      Explore cutting-edge WebGL experiences where visual mechanics, exploded-view reveals, camera choreography, and sound design synchronize directly with your scroll.
+    </p>
+
+    <div class="showcase-grid">
+      <!-- Hypercar 3D Exploded View Card -->
+      <a href="car/" class="showcase-card">
+        <div>
+          <span class="card-icon">🏎️</span>
+          <div class="card-tag">3D Product Tour • Exploded View</div>
+          <h2 class="card-title">AETHER GT Hypercar</h2>
+          <p class="card-desc">
+            A scroll-driven exploded-view product reveal. The camera flies around and into the hypercar, disassembling carbon body panels, dual electric motors, battery skateboard, and cockpit in real-time WebGL.
+          </p>
+          <div class="card-tags-list">
+            <span>Three.js</span>
+            <span>Exploded View</span>
+            <span>PBR Shaders</span>
+            <span>Cockpit Flythrough</span>
+            <span>Customizer</span>
+          </div>
+        </div>
+        <div>
+          <span class="card-action">
+            <span>Launch Car Tour</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </span>
+        </div>
+      </a>
+
+      <!-- Alphabet Odyssey Card -->
+      <a href="alphabet/" class="showcase-card">
+        <div>
+          <span class="card-icon">🪐</span>
+          <div class="card-tag">Educational Scrollytelling</div>
+          <h2 class="card-title">Alphabet Odyssey</h2>
+          <p class="card-desc">
+            An interactive journey through the alphabet available in English (26 letters) and Vietnamese (29 letters). Features 3D extruded typography, companion props, audio phonics, and generative web audio.
+          </p>
+          <div class="card-tags-list">
+            <span>English (A–Z)</span>
+            <span>Tiếng Việt (29 chữ)</span>
+            <span>3D Typography</span>
+            <span>Google TTS</span>
+            <span>Web Audio</span>
+          </div>
+        </div>
+        <div>
+          <span class="card-action">
+            <span>Explore Alphabet</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </span>
+        </div>
+      </a>
+    </div>
+  </div>
+
 </body>
 </html>

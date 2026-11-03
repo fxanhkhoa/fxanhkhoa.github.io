@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AETHER GT - 3D Exploded View & Scroll-Driven Hypercar Tour | Kevin Bui</title>
+
+  <meta name="description" content="An interactive scroll-driven 3D product tour and exploded view animation of the AETHER GT electric hypercar. Explore engine, chassis, interior, and autonomous tech in real-time WebGL.">
+  <meta name="keywords" content="3D Product Tour, Exploded View, Three.js, WebGL, Scrollytelling, Automotive 3D, Kevin Bui">
+  <meta name="author" content="Kevin Bui">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AETHER GT - 3D Exploded View & Scroll-Driven Tour">
+  <meta property="og:description" content="Experience the AETHER GT through a scroll-driven 3D exploded view tour with Three.js.">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+
+  <!-- Google Fonts: Syne (Ultra-modern automotive), Space Mono (Technical), Plus Jakarta Sans (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Import Map for ES Modules -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="studio-backdrop"></div>
+
+  <!-- Interactive 3D WebGL Canvas Layer -->
+  <div id="canvas-container" aria-hidden="true"></div>
+
+  <!-- Global Top Scroll Progress Meter -->
+  <div class="scroll-meter" id="scroll-meter"></div>
+
+  <!-- Top HUD Header -->
+  <header class="top-hud">
+    <div class="brand-section">
+      <a href="../../index.html" class="back-link" title="Return to Kevin's Portfolio">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Portfolio</span>
+      </a>
+      <div class="car-brand">
+        <div class="car-title">AETHER GT</div>
+        <div class="car-subtitle">Next-Gen Electric Hypercar</div>
+      </div>
+    </div>
+
+    <!-- Live Telemetry Readout -->
+    <div class="telemetry-strip" aria-label="Hypercar Specs">
+      <div class="telemetry-item">
+        <span class="telemetry-val">1,450 HP</span>
+        <span class="telemetry-label">Peak Power</span>
+      </div>
+      <div class="telemetry-item">
+        <span class="telemetry-val">1.8s</span>
+        <span class="telemetry-label">0-100 km/h</span>
+      </div>
+      <div class="telemetry-item">
+        <span class="telemetry-val">420 km/h</span>
+        <span class="telemetry-label">V-Max</span>
+      </div>
+      <div class="telemetry-item">
+        <span class="telemetry-val">800V</span>
+        <span class="telemetry-label">SiC Arch</span>
+      </div>
+    </div>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <button class="hud-btn" id="tour-toggle-btn" title="Automated 3D tour">
+        <i class="fa-solid fa-play"></i>
+        <span>Auto Tour</span>
+      </button>
+
+      <button class="hud-btn" id="sound-toggle-btn" title="Toggle audio effects">
+        <i class="fa-solid fa-volume-high"></i>
+        <span>Sound On</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Floating Right-Edge Chapter Rail -->
+  <nav class="chapter-rail" aria-label="Tour Stages Navigation">
+    <div class="rail-dot active" data-stage="0" title="01. Aerodynamics & Stance"></div>
+    <div class="rail-dot" data-stage="1" title="02. Active Aerodynamics"></div>
+    <div class="rail-dot" data-stage="2" title="03. Exploded Powertrain & Battery"></div>
+    <div class="rail-dot" data-stage="3" title="04. Carbon Monocoque & Chassis"></div>
+    <div class="rail-dot" data-stage="4" title="05. Cybernetic Cockpit"></div>
+    <div class="rail-dot" data-stage="5" title="06. Autonomous Neural AI"></div>
+    <div class="rail-dot" data-stage="6" title="07. Studio Customizer"></div>
+  </nav>
+
+  <!-- 3D Interactive Hotspot Overlays (Anchored in World Space) -->
+  <div class="hotspot-pin" id="hotspot-motor" data-stage="2">
+    <div class="hotspot-dot"></div>
+    <div class="hotspot-card">
+      <div class="hotspot-card-title">Dual Axial Flux Motors</div>
+      <div class="hotspot-card-desc">1,450 HP • 1,800 Nm Torque</div>
+    </div>
+  </div>
+
+  <div class="hotspot-pin" id="hotspot-battery" data-stage="2">
+    <div class="hotspot-dot"></div>
+    <div class="hotspot-card">
+      <div class="hotspot-card-title">105 kWh Skateboard Battery</div>
+      <div class="hotspot-card-desc">800V Silicon-Carbide Inverter</div>
+    </div>
+  </div>
+
+  <div class="hotspot-pin" id="hotspot-brakes" data-stage="3">
+    <div class="hotspot-dot"></div>
+    <div class="hotspot-card">
+      <div class="hotspot-card-title">Carbon-Ceramic Rotors</div>
+      <div class="hotspot-card-desc">420mm Discs • 10-Piston Calipers</div>
+    </div>
+  </div>
+
+  <div class="hotspot-pin" id="hotspot-wing" data-stage="1">
+    <div class="hotspot-dot"></div>
+    <div class="hotspot-card">
+      <div class="hotspot-card-title">Active Aerofoil Wing</div>
+      <div class="hotspot-card-desc">850 kg Downforce @ 250 km/h</div>
+    </div>
+  </div>
+
+  <div class="hotspot-pin" id="hotspot-cockpit" data-stage="4">
+    <div class="hotspot-dot"></div>
+    <div class="hotspot-card">
+      <div class="hotspot-card-title">Digital Cyber Cockpit</div>
+      <div class="hotspot-card-desc">Curved Panoramic Holographic HUD</div>
+    </div>
+  </div>
+
+  <div class="hotspot-pin" id="hotspot-lidar" data-stage="5">
+    <div class="hotspot-dot"></div>
+    <div class="hotspot-card">
+      <div class="hotspot-card-title">Solid-State LiDAR Array</div>
+      <div class="hotspot-card-desc">300m Range • 360° Neural Vision</div>
+    </div>
+  </div>
+
+  <!-- Main Scrollable Storytelling Track -->
+  <main class="tour-scroll-track" id="tour-track">
+
+    <!-- Stage 0: Stance & Pure Aerodynamics -->
+    <section class="tour-stage active" id="stage-intro" data-stage="0">
+      <div class="stage-card">
+        <span class="stage-tag"><i class="fa-solid fa-bolt"></i> Milestone 01 • Genesis</span>
+        <h1 class="stage-title">AETHER GT</h1>
+        <p class="stage-desc">
+          Sculpted in a hypersonic digital wind tunnel, the AETHER GT combines an ultra-low drag coefficient of <strong>Cd 0.21</strong> with pure carbon-fiber contours. Scroll to initiate the exploded engineering reveal.
+        </p>
+        <div class="spec-grid">
+          <div class="spec-cell">
+            <span class="spec-val">0.21 Cd</span>
+            <span class="spec-key">Drag Coefficient</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">1,480 kg</span>
+            <span class="spec-key">Dry Curb Weight</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">1,450 HP</span>
+            <span class="spec-key">Peak Output</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">680 km</span>
+            <span class="spec-key">WLTP Range</span>
+          </div>
+        </div>
+        <div class="feature-pills">
+          <span class="feature-pill"><i class="fa-solid fa-arrows-split-up-and-left"></i> Scroll down to disassemble</span>
+          <span class="feature-pill"><i class="fa-solid fa-computer-mouse"></i> Drag 3D canvas to orbit</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 1: Active Aerodynamics -->
+    <section class="tour-stage" id="stage-aero" data-stage="1">
+      <div class="stage-card">
+        <span class="stage-tag"><i class="fa-solid fa-wind"></i> Milestone 02 • Aerodynamics</span>
+        <h2 class="stage-title">Active Dynamic Downforce</h2>
+        <p class="stage-desc">
+          High-speed stability is governed by active venturi tunnels, front air curtains, and an electro-hydraulic active rear aerofoil that tilts up to 35° under heavy braking, generating <strong>850 kg of downforce</strong>.
+        </p>
+        <div class="spec-grid">
+          <div class="spec-cell">
+            <span class="spec-val">850 kg</span>
+            <span class="spec-key">Downforce @ 250 km/h</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">0.15s</span>
+            <span class="spec-key">Air-Brake Actuation</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">Carbon</span>
+            <span class="spec-key">Composite Blade</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">Venturi</span>
+            <span class="spec-key">Ground Effect Underbody</span>
+          </div>
+        </div>
+        <div class="feature-pills">
+          <span class="feature-pill"><i class="fa-solid fa-circle-check"></i> High-Downforce Aero Mode</span>
+          <span class="feature-pill"><i class="fa-solid fa-circle-check"></i> Active Air Curtain Channels</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 2: Exploded Powertrain & Battery -->
+    <section class="tour-stage" id="stage-powertrain" data-stage="2">
+      <div class="stage-card">
+        <span class="stage-tag"><i class="fa-solid fa-microchip"></i> Milestone 03 • Exploded Powertrain</span>
+        <h2 class="stage-title">Dual Axial Flux Core</h2>
+        <p class="stage-desc">
+          As the outer composite shell lifts, the high-voltage powertrain emerges. Front and rear dual-rotor axial flux electric motors deliver instantaneous torque distribution with an 800V silicon-carbide inverter system.
+        </p>
+        <div class="spec-grid">
+          <div class="spec-cell">
+            <span class="spec-val">1,800 Nm</span>
+            <span class="spec-key">Instant Torque</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">22,000 RPM</span>
+            <span class="spec-key">Motor Rev Limit</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">800V</span>
+            <span class="spec-key">Ultra-Fast Architecture</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">350 kW</span>
+            <span class="spec-key">Peak DC Fast Charge</span>
+          </div>
+        </div>
+        <div class="feature-pills">
+          <span class="feature-pill"><i class="fa-solid fa-bolt"></i> Liquid Immersion Cooling</span>
+          <span class="feature-pill"><i class="fa-solid fa-fire"></i> Torque Vectoring per Wheel</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 3: Chassis & Pushrod Suspension -->
+    <section class="tour-stage" id="stage-chassis" data-stage="3">
+      <div class="stage-card">
+        <span class="stage-tag"><i class="fa-solid fa-gears"></i> Milestone 04 • Exploded Chassis</span>
+        <h2 class="stage-title">Aerospace Monocoque</h2>
+        <p class="stage-desc">
+          The wheels and braking assemblies slide outward into exploded view. Built on an autoclave-cured carbon monocoque tub, double-wishbone pushrod suspension and 420mm carbon-ceramic brakes guarantee pinpoint apex control.
+        </p>
+        <div class="spec-grid">
+          <div class="spec-cell">
+            <span class="spec-val">65,000 Nm</span>
+            <span class="spec-key">Torsional Rigidity/deg</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">420 mm</span>
+            <span class="spec-key">Ceramic Rotor Diameter</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">Pushrod</span>
+            <span class="spec-key">Horizontal Coilover</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">Centerlock</span>
+            <span class="spec-key">Aero Forged Alloy</span>
+          </div>
+        </div>
+        <div class="feature-pills">
+          <span class="feature-pill"><i class="fa-solid fa-shield-halved"></i> 10-Piston Monobloc Calipers</span>
+          <span class="feature-pill"><i class="fa-solid fa-ring"></i> Directional Turbine Rims</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 4: Interior & Cockpit Flythrough -->
+    <section class="tour-stage" id="stage-interior" data-stage="4">
+      <div class="stage-card">
+        <span class="stage-tag"><i class="fa-solid fa-eye"></i> Milestone 05 • Digital Cockpit</span>
+        <h2 class="stage-title">Cybernetic Interior</h2>
+        <p class="stage-desc">
+          The scissor doors swing open and the camera glides into the driver's eye-line. Twin carbon sport bucket seats, an F1-inspired yoke steering wheel, and a curved holographic instrument cluster bridge driver and machine.
+        </p>
+        <div class="spec-grid">
+          <div class="spec-cell">
+            <span class="spec-val">Curved HUD</span>
+            <span class="spec-key">Holographic Telemetry</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">Alcantara</span>
+            <span class="spec-key">Lightweight Upholstery</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">Yoke</span>
+            <span class="spec-key">Steer-by-Wire Control</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">Scissor</span>
+            <span class="spec-key">Hydraulic Dihedral Doors</span>
+          </div>
+        </div>
+        <div class="feature-pills">
+          <span class="feature-pill"><i class="fa-solid fa-fingerprint"></i> Biometric Driver Profile</span>
+          <span class="feature-pill"><i class="fa-solid fa-lightbulb"></i> Ambient Fiber-Optic Halo</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 5: Autonomous Neural AI & LiDAR -->
+    <section class="tour-stage" id="stage-tech" data-stage="5">
+      <div class="stage-card">
+        <span class="stage-tag"><i class="fa-solid fa-network-wired"></i> Milestone 06 • Autonomous Tech</span>
+        <h2 class="stage-title">Neural Copilot & LiDAR</h2>
+        <p class="stage-desc">
+          Perched on the roof canopy, a solid-state LiDAR array fires 2.4 million points per second, combining with dual millimeter-wave radar and 360° optical sensors to build an instantaneous real-time neural mesh of the road.
+        </p>
+        <div class="spec-grid">
+          <div class="spec-cell">
+            <span class="spec-val">2.4M</span>
+            <span class="spec-key">LiDAR Points / sec</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">300 m</span>
+            <span class="spec-key">Max Detection Range</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">Level 4</span>
+            <span class="spec-key">Track Autonomous Mode</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-val">500 TOPS</span>
+            <span class="spec-key">Neural Processing Core</span>
+          </div>
+        </div>
+        <div class="feature-pills">
+          <span class="feature-pill"><i class="fa-solid fa-satellite-dish"></i> Millimeter-Wave Radar</span>
+          <span class="feature-pill"><i class="fa-solid fa-microchip"></i> Real-Time AI Apex Optimization</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 6: Studio Customizer & Technical Benchmark -->
+    <section class="tour-stage" id="stage-customizer" data-stage="6">
+      <div class="stage-card customizer-panel">
+        <span class="stage-tag"><i class="fa-solid fa-palette"></i> Milestone 07 • Studio Customizer</span>
+        <h2 class="stage-title">Craft Your AETHER GT</h2>
+        <p class="stage-desc">
+          Interact directly with the fully reassembled hypercar. Select custom luxury metallic paint finishes, manually trigger the exploded-view slider, or test the dihedral scissor doors in real-time 3D.
+        </p>
+
+        <!-- Color Swatches -->
+        <div class="color-swatches" aria-label="Car Paint Finishes">
+          <button class="swatch-btn active" data-color="0x00f0ff" style="background: #00f0ff; --swatch-color: #00f0ff;" title="Apex Cyber Cyan"></button>
+          <button class="swatch-btn" data-color="0xd8dde8" style="background: #d8dde8; --swatch-color: #d8dde8;" title="Liquid Silver Mercury"></button>
+          <button class="swatch-btn" data-color="0x151518" style="background: #18181c; --swatch-color: #333338;" title="Stealth Carbon Onyx"></button>
+          <button class="swatch-btn" data-color="0xff1e38" style="background: #ff1e38; --swatch-color: #ff1e38;" title="Rosso Hyper Crimson"></button>
+          <button class="swatch-btn" data-color="0xffa800" style="background: #ffa800; --swatch-color: #ffa800;" title="Solar Sunset Gold"></button>
+        </div>
+
+        <!-- Manual Explode Slider -->
+        <div style="margin: 1.5rem 0; text-align: left;">
+          <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+            <span><i class="fa-solid fa-layer-group"></i> Manual Explode View</span>
+            <span>0% — 100%</span>
+          </div>
+          <input type="range" id="explode-slider" min="0" max="100" value="0" style="width: 100%; accent-color: var(--cyan-accent); cursor: pointer;">
+        </div>
+
+        <!-- Interactive Control Buttons -->
+        <div class="interactive-controls-row">
+          <button class="action-btn" id="doors-toggle-btn">
+            <i class="fa-solid fa-door-open"></i>
+            <span>Scissor Doors</span>
+          </button>
+          <button class="action-btn" id="wing-toggle-btn">
+            <i class="fa-solid fa-angles-up"></i>
+            <span>Aero Wing</span>
+          </button>
+          <a href="#stage-intro" class="action-btn" style="text-decoration: none;">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>Replay Tour</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
