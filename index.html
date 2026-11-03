@@ -2,1187 +2,663 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kevin Bui | Full Stack Developer & Creative Technologist</title>
-    <meta name="description" content="Storytelling portfolio of Kevin Bui (Bùi Anh Khoa) - Full Stack Developer and Creative Technologist specializing in Angular, React, SvelteKit, Golang, Node.js, Kubernetes, and interactive 3D WebGL experiences.">
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kevin Bui | 3D Interactive Scrollytelling Portfolio</title>
+  <meta name="description" content="Explore the interactive 3D scrollytelling portfolio of Kevin Bui (Bùi Anh Khoa) - Full Stack Architect and Creative Technologist specializing in Angular, React, SvelteKit, Golang, Node.js, and Three.js WebGL experiences.">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 
-    <!-- Fonts & Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles/portfolio.css">
+  <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Portfolio 3D Scrollytelling Stylesheet -->
+  <link rel="stylesheet" href="styles/portfolio.css">
+
+  <!-- ES Module Import Map for Three.js -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./storytelling/alphabet/shared/vendor/three.module.js"
+    }
+  }
+  </script>
 </head>
 
 <body>
-    <!-- Top Scroll Progress Bar -->
-    <div class="scroll-progress-container">
-        <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
+
+  <!-- Atmospheric Cosmic Backdrop Gradient -->
+  <div class="cosmic-backdrop"></div>
+
+  <!-- Interactive 3D WebGL Canvas Layer (Alphabet Odyssey Style) -->
+  <div id="webgl-container" aria-hidden="true"></div>
+
+  <!-- Global Top Scroll Progress Line -->
+  <div class="scroll-progress-bar" id="scroll-progress"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="top-header">
+    <div class="brand-wrapper">
+      <a href="#prologue" class="logo-link">
+        <img class="nav-logo" src="images/logo.png" alt="Kevin Bui Logo">
+        <span class="brand-title">Kevin<span class="gradient-text">Bui</span></span>
+      </a>
     </div>
 
-    <!-- Ambient Storytelling Background Elements -->
-    <canvas id="story-canvas"></canvas>
-    <div class="ambient-glow glow-top-left"></div>
-    <div class="ambient-glow glow-mid-right"></div>
-    <div class="ambient-glow glow-bottom-left"></div>
+    <!-- Center Nav Links (Desktop) -->
+    <ul class="header-nav-menu">
+      <li><a href="#prologue" class="header-nav-link active">Prologue</a></li>
+      <li><a href="#origin" class="header-nav-link">Origin</a></li>
+      <li><a href="#arsenal" class="header-nav-link">Arsenal</a></li>
+      <li><a href="#creations" class="header-nav-link">Creations</a></li>
+      <li><a href="#odyssey" class="header-nav-link">Odyssey</a></li>
+      <li><a href="#expeditions" class="header-nav-link">Expeditions</a></li>
+      <li><a href="#epilogue" class="header-nav-link">Connect</a></li>
+    </ul>
 
-    <!-- Story Navigation HUD Rail (Desktop) -->
-    <nav class="story-hud" aria-label="Story HUD Rail">
-        <div class="hud-item active" data-target="prologue">
-            <span class="hud-tooltip">00 Prologue</span>
-            <div class="hud-dot"></div>
-        </div>
-        <div class="hud-item" data-target="origin">
-            <span class="hud-tooltip">01 Origin</span>
-            <div class="hud-dot"></div>
-        </div>
-        <div class="hud-item" data-target="arsenal">
-            <span class="hud-tooltip">02 Arsenal</span>
-            <div class="hud-dot"></div>
-        </div>
-        <div class="hud-item" data-target="creations">
-            <span class="hud-tooltip">03 Masterpieces</span>
-            <div class="hud-dot"></div>
-        </div>
-        <div class="hud-item" data-target="odyssey">
-            <span class="hud-tooltip">04 Odyssey</span>
-            <div class="hud-dot"></div>
-        </div>
-        <div class="hud-item" data-target="expeditions">
-            <span class="hud-tooltip">05 Expeditions</span>
-            <div class="hud-dot"></div>
-        </div>
-        <div class="hud-item" data-target="epilogue">
-            <span class="hud-tooltip">06 Connect</span>
-            <div class="hud-dot"></div>
-        </div>
-    </nav>
+    <!-- Header Action Controls -->
+    <div class="header-controls">
+      <button class="ctrl-btn" id="tour-toggle-btn" title="Automated scrollytelling camera tour">
+        <i class="fa-solid fa-play"></i>
+        <span>Auto Tour</span>
+      </button>
 
-    <!-- Navigation Header -->
-    <header class="navbar">
-        <div class="container nav-container">
-            <a href="#prologue" class="nav-brand">
-                <img class="nav-logo" src="images/logo.png" alt="Kevin Bui Logo">
-                <span class="nav-brand-title">Kevin<span class="gradient-text">Bui</span></span>
+      <button class="ctrl-btn" id="sound-toggle-btn" title="Toggle audio synth notes">
+        <i class="fa-solid fa-volume-xmark"></i>
+        <span>Muted</span>
+      </button>
+
+      <a href="files/khoa-bui-28-02-2025.pdf" class="ctrl-btn" download title="Download CV">
+        <i class="fa-solid fa-file-arrow-down"></i>
+        <span>CV</span>
+      </a>
+
+      <button class="hamburger" aria-label="Toggle mobile menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Side Alphabet-Style Scrubber Rail (Desktop) -->
+  <nav class="story-scrubber-rail" aria-label="Chapter Scrubber Navigation">
+    <a href="#prologue" class="scrub-item active" title="00 Prologue">
+      <span class="scrub-tooltip">00 Prologue</span>
+      <div class="scrub-node">00</div>
+    </a>
+    <a href="#origin" class="scrub-item" title="01 Origin Story">
+      <span class="scrub-tooltip">01 Origin</span>
+      <div class="scrub-node">01</div>
+    </a>
+    <a href="#arsenal" class="scrub-item" title="02 Technical Arsenal">
+      <span class="scrub-tooltip">02 Arsenal</span>
+      <div class="scrub-node">02</div>
+    </a>
+    <a href="#creations" class="scrub-item" title="03 Flagship Masterpieces">
+      <span class="scrub-tooltip">03 Creations</span>
+      <div class="scrub-node">03</div>
+    </a>
+    <a href="#odyssey" class="scrub-item" title="04 Career Odyssey">
+      <span class="scrub-tooltip">04 Odyssey</span>
+      <div class="scrub-node">04</div>
+    </a>
+    <a href="#expeditions" class="scrub-item" title="05 Freelance Expeditions">
+      <span class="scrub-tooltip">05 Expeditions</span>
+      <div class="scrub-node">05</div>
+    </a>
+    <a href="#epilogue" class="scrub-item" title="06 Epilogue & Connect">
+      <span class="scrub-tooltip">06 Connect</span>
+      <div class="scrub-node">06</div>
+    </a>
+  </nav>
+
+  <!-- Scrollytelling Narrative Track -->
+  <main class="story-scroll-container">
+
+    <!-- ================================================================
+         CHAPTER 00: PROLOGUE // THE HERO ENTRANCE
+         3D Object: Gleaming Extruded "KB" Monogram with Golden Orbiters
+         ================================================================ -->
+    <section class="story-chapter" id="prologue" data-chapter="00">
+      <div class="story-card">
+        <div class="hero-avatar-row">
+          <div class="avatar-sphere">
+            <img src="images/avatar.png" alt="Kevin Bui profile photo">
+          </div>
+          <div>
+            <div class="chapter-badge-marker">
+              <i class="fa-solid fa-sparkles"></i>
+              <span>Prologue // Creative Technologist</span>
+            </div>
+            <h1 class="card-title">Hi, I'm <span class="gradient-text">Kevin Bui</span></h1>
+          </div>
+        </div>
+
+        <div class="card-subtitle">
+          <span id="typed-text"></span>
+        </div>
+
+        <p class="card-narrative">
+          Over 6 years crafting robust distributed systems, high-concurrency microservices, and interactive 3D WebGL scrollytelling experiences with Angular, SvelteKit, React, Golang, Node.js, and Three.js.
+        </p>
+
+        <div class="hero-stats-chips">
+          <div class="stat-chip">
+            <div class="stat-chip-val">6+</div>
+            <div class="stat-chip-lbl">Years Experience</div>
+          </div>
+          <div class="stat-chip">
+            <div class="stat-chip-val">50+</div>
+            <div class="stat-chip-lbl">Shipped Projects</div>
+          </div>
+          <div class="stat-chip">
+            <div class="stat-chip-val">30+</div>
+            <div class="stat-chip-lbl">Happy Clients</div>
+          </div>
+          <div class="stat-chip">
+            <div class="stat-chip-val">10M+</div>
+            <div class="stat-chip-lbl">Users Impacted</div>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <a href="#creations" class="btn btn-primary">
+            <i class="fa-solid fa-cube"></i> Explore 3D Creations
+          </a>
+          <a href="storytelling/" class="btn btn-glow">
+            <i class="fa-solid fa-compass"></i> Storytelling Hub
+          </a>
+        </div>
+
+        <div class="social-links">
+          <a href="https://github.com/fxanhkhoa" target="_blank" class="social-btn" title="GitHub" rel="noopener noreferrer">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/khoa-bui-anh-698ab2173" target="_blank" class="social-btn" title="LinkedIn" rel="noopener noreferrer">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+          <a href="https://twitter.com/BuiAnhK49302949" target="_blank" class="social-btn" title="Twitter" rel="noopener noreferrer">
+            <i class="fa-brands fa-twitter"></i>
+          </a>
+          <a href="https://www.facebook.com/bui.a.khoa.1" target="_blank" class="social-btn" title="Facebook" rel="noopener noreferrer">
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+        </div>
+
+        <div class="hint-3d-pill">
+          <i class="fa-solid fa-hand-pointer"></i>
+          <span>Drag 3D "KB" in space to rotate • Tap to wobble</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CHAPTER 01: ORIGIN // PHILOSOPHY & PILLARS
+         3D Object: Layered Holographic Crystalline System Core
+         ================================================================ -->
+    <section class="story-chapter" id="origin" data-chapter="01">
+      <div class="story-card">
+        <div class="chapter-badge-marker">
+          <i class="fa-solid fa-compass"></i>
+          <span>Chapter 01 // Origin Story</span>
+        </div>
+        <h2 class="card-title">Architecting <span class="gradient-text">Systems & Worlds</span></h2>
+        
+        <p class="card-narrative">
+          From an enthusiastic engineering college graduate to a Lead Architect delivering high-stakes solutions for Singapore major hospitals, German industrial automation, and US SaaS platforms.
+        </p>
+
+        <div class="origin-pillar-list">
+          <div class="origin-pillar-item">
+            <div class="pillar-icon-box">
+              <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <div>
+              <h5>Full-Cycle Ownership</h5>
+              <p>End-to-end stewardship from database design, gRPC/GraphQL microservices, and cloud infrastructure to responsive user interfaces.</p>
+            </div>
+          </div>
+
+          <div class="origin-pillar-item">
+            <div class="pillar-icon-box">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div>
+              <h5>Low Latency & Concurrency</h5>
+              <p>Engineering real-time video streaming, WebSocket synchronization, and hardware-software valve control with millisecond response times.</p>
+            </div>
+          </div>
+
+          <div class="origin-pillar-item">
+            <div class="pillar-icon-box">
+              <i class="fa-solid fa-vr-cardboard"></i>
+            </div>
+            <div>
+              <h5>3D Scrollytelling Frontiers</h5>
+              <p>Blending Three.js WebGL, procedural typography, and camera choreography to transform static portfolios into narrative journeys.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <a href="files/khoa-bui-28-02-2025.pdf" class="btn btn-primary" download>
+            <i class="fa-solid fa-download"></i> Download Full CV (PDF)
+          </a>
+          <a href="#odyssey" class="btn btn-secondary">
+            <i class="fa-solid fa-timeline"></i> View Career Timeline
+          </a>
+        </div>
+
+        <div class="hint-3d-pill">
+          <i class="fa-solid fa-hand-pointer"></i>
+          <span>Drag 3D Holographic Core to inspect crystal facets</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CHAPTER 02: ARSENAL // TECHNICAL STACKS
+         3D Object: 3-Axis Concentric Orbital Tech Gyroscope
+         ================================================================ -->
+    <section class="story-chapter" id="arsenal" data-chapter="02">
+      <div class="story-card">
+        <div class="chapter-badge-marker">
+          <i class="fa-solid fa-microchip"></i>
+          <span>Chapter 02 // Technical Arsenal</span>
+        </div>
+        <h2 class="card-title">Battle-Tested <span class="gradient-text">Mastery</span></h2>
+
+        <!-- Frontend -->
+        <div class="arsenal-cluster">
+          <div class="cluster-title">
+            <i class="fa-solid fa-code"></i>
+            <span>Frontend & Interactive UI</span>
+          </div>
+          <div class="tag-cloud">
+            <span class="tech-chip"><img src="images/icons/angular.png" alt="Angular">Angular (2–19)</span>
+            <span class="tech-chip"><img src="images/icons/reactjs.png" alt="React">React.js</span>
+            <span class="tech-chip"><img src="images/icons/nextjs.png" alt="Next.js">Next.js</span>
+            <span class="tech-chip"><i class="fa-solid fa-fire" style="color: #ff3e00;"></i> Svelte & SvelteKit</span>
+            <span class="tech-chip"><i class="fa-brands fa-js" style="color: #3178c6;"></i> TypeScript</span>
+            <span class="tech-chip"><img src="images/icons/tailwind.png" alt="Tailwind">Tailwind CSS</span>
+            <span class="tech-chip"><i class="fa-brands fa-sass" style="color: #cf649a;"></i> SASS</span>
+          </div>
+        </div>
+
+        <!-- Backend & Distributed -->
+        <div class="arsenal-cluster">
+          <div class="cluster-title">
+            <i class="fa-solid fa-server"></i>
+            <span>Backend & Distributed Systems</span>
+          </div>
+          <div class="tag-cloud">
+            <span class="tech-chip"><img src="images/icons/golang.png" alt="Golang">Golang</span>
+            <span class="tech-chip"><img src="images/icons/nodejs.png" alt="Node.js">Node.js</span>
+            <span class="tech-chip"><img src="images/icons/nestjs.png" alt="NestJS">NestJS</span>
+            <span class="tech-chip"><img src="images/icons/graphql.png" alt="GraphQL">GraphQL & Hasura</span>
+            <span class="tech-chip"><img src="images/icons/grpc.png" alt="gRPC">gRPC & Microservices</span>
+            <span class="tech-chip"><i class="fa-solid fa-broadcast-tower"></i> WebSockets & WebRTC</span>
+          </div>
+        </div>
+
+        <!-- Cloud & Specialized -->
+        <div class="arsenal-cluster">
+          <div class="cluster-title">
+            <i class="fa-solid fa-cloud"></i>
+            <span>Cloud, DevOps & Creative</span>
+          </div>
+          <div class="tag-cloud">
+            <span class="tech-chip"><img src="images/icons/docker.png" alt="Docker">Docker</span>
+            <span class="tech-chip"><i class="fa-solid fa-dharmachakra" style="color: #326ce5;"></i> Kubernetes (K8s)</span>
+            <span class="tech-chip"><img src="images/icons/azure.png" alt="Azure">Azure</span>
+            <span class="tech-chip"><img src="images/icons/aws.png" alt="AWS">AWS</span>
+            <span class="tech-chip"><i class="fa-solid fa-cube" style="color: #00f0ff;"></i> Three.js & WebGL</span>
+            <span class="tech-chip"><img src="images/icons/rxjs.png" alt="RxJS">RxJS / NgRx</span>
+          </div>
+        </div>
+
+        <div class="hint-3d-pill">
+          <i class="fa-solid fa-hand-pointer"></i>
+          <span>Drag 3D Gyroscope to spin gimbal rings on 3 axes</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CHAPTER 03: MASTERPIECES // 3D EXPERIENCES
+         3D Object: Sci-Fi Hypercar Silhouette & Extruded Letter 'A'
+         ================================================================ -->
+    <section class="story-chapter" id="creations" data-chapter="03">
+      <div class="story-card">
+        <div class="chapter-badge-marker">
+          <i class="fa-solid fa-cube"></i>
+          <span>Chapter 03 // Flagship Masterpieces</span>
+        </div>
+        <h2 class="card-title">Where Code Meets <span class="gradient-text">Interactive Magic</span></h2>
+
+        <div class="masterpiece-showcase-row">
+          <!-- AETHER GT -->
+          <div class="masterpiece-mini-card">
+            <div class="mini-card-header">
+              <h4>🏎️ AETHER GT</h4>
+              <span class="mini-card-badge">3D Product Tour</span>
+            </div>
+            <p>Scroll-driven 3D product tour of an electric hypercar. Camera executes a 7-stage choreographed flythrough, disassembling body panels, motors, and cockpit.</p>
+            <div class="btn-group" style="margin-bottom: 0;">
+              <a href="storytelling/car/" class="btn btn-primary" style="font-size: 0.8rem; padding: 0.45rem 0.9rem;">
+                <i class="fa-solid fa-play"></i> Launch Hypercar Tour
+              </a>
+              <a href="storytelling/" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.45rem 0.9rem;">
+                Storytelling Hub
+              </a>
+            </div>
+          </div>
+
+          <!-- Alphabet Odyssey -->
+          <div class="masterpiece-mini-card">
+            <div class="mini-card-header">
+              <h4>🪐 Alphabet Odyssey</h4>
+              <span class="mini-card-badge">Bilingual 3D Scrollytelling</span>
+            </div>
+            <p>Interactive 3D educational adventure in English (A–Z) & Vietnamese (29 chữ cái). Features extruded 3D typography, procedural diacritics, and Web Audio synth.</p>
+            <div class="btn-group" style="margin-bottom: 0;">
+              <a href="storytelling/alphabet/en/" class="btn btn-primary" style="font-size: 0.8rem; padding: 0.45rem 0.9rem;">
+                English (A–Z)
+              </a>
+              <a href="storytelling/alphabet/vi/" class="btn btn-glow" style="font-size: 0.8rem; padding: 0.45rem 0.9rem;">
+                Tiếng Việt (29 chữ)
+              </a>
+            </div>
+          </div>
+
+          <!-- What to Eat -->
+          <div class="masterpiece-mini-card">
+            <div class="mini-card-header">
+              <h4>🍳 What To Eat</h4>
+              <span class="mini-card-badge">Live Web Platform</span>
+            </div>
+            <p>Interactive food discovery platform with ingredient masters and dish-based mini-games (Flavor Wheel, Community Voting) built with SvelteKit & Golang.</p>
+            <a href="https://eatwhat.io.vn" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.45rem 0.9rem;">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit eatwhat.io.vn
             </a>
-
-            <ul class="nav-menu">
-                <li><a href="#prologue" class="nav-link active">Prologue</a></li>
-                <li><a href="#origin" class="nav-link">Origin</a></li>
-                <li><a href="#arsenal" class="nav-link">Arsenal</a></li>
-                <li><a href="#creations" class="nav-link">Creations</a></li>
-                <li><a href="#odyssey" class="nav-link">Odyssey</a></li>
-                <li><a href="#expeditions" class="nav-link">Expeditions</a></li>
-                <li><a href="#epilogue" class="nav-link">Connect</a></li>
-            </ul>
-
-            <div class="nav-cta">
-                <div class="status-badge">
-                    <span class="status-dot"></span>
-                    <span>Open to Impactful Roles</span>
-                </div>
-                <button class="hamburger" aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
+          </div>
         </div>
-    </header>
 
-    <main>
-        <!-- ================================================================
-             PROLOGUE: THE HERO ENTRANCE
-             ================================================================ -->
-        <section id="prologue" class="hero story-chapter" data-chapter="00">
-            <div class="container">
-                <div class="hero-grid">
-                    <div class="hero-intro">
-                        <div class="hero-tagline">
-                            <i class="fas fa-sparkles"></i>
-                            <span>Full-Cycle Architect & 3D Creative Technologist</span>
-                        </div>
-                        <h1 class="hero-title">
-                            Hi, I'm <br><span class="gradient-text">Kevin Bui</span>
-                        </h1>
-                        <div class="hero-typed-wrapper">
-                            <span id="typed-text"></span>
-                        </div>
-                        <p class="hero-description">
-                            For over 6 years, I've bridged heavy-duty systems engineering with cutting-edge visual craft.
-                            Specialized in architecting high-performance web applications, distributed clouds, and immersive 3D scrollytelling experiences with Angular, SvelteKit, React, Node.js, and Golang.
-                        </p>
-                        <div class="hero-actions">
-                            <a href="#creations" class="btn btn-primary">
-                                <i class="fas fa-rocket"></i> Explore Creations
-                            </a>
-                            <a href="storytelling/" class="btn btn-glow">
-                                <i class="fas fa-cube"></i> Launch 3D Showcase
-                            </a>
-                            <a href="files/khoa-bui-28-02-2025.pdf" class="btn btn-secondary" download>
-                                <i class="fas fa-file-arrow-down"></i> Download Resume
-                            </a>
-                        </div>
-                        <div class="social-links">
-                            <a href="https://github.com/fxanhkhoa" target="_blank" class="social-btn" title="GitHub" rel="noopener noreferrer">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="https://www.linkedin.com/in/khoa-bui-anh-698ab2173" target="_blank" class="social-btn" title="LinkedIn" rel="noopener noreferrer">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                            <a href="https://twitter.com/BuiAnhK49302949" target="_blank" class="social-btn" title="Twitter" rel="noopener noreferrer">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="https://www.facebook.com/bui.a.khoa.1" target="_blank" class="social-btn" title="Facebook" rel="noopener noreferrer">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Hero Telemetry Hologram Card -->
-                    <div class="hero-card-portal">
-                        <div class="hero-interactive-card">
-                            <div class="card-hud-header">
-                                <div class="hud-signal">
-                                    <span class="signal-dot"></span>
-                                    <span>Live Telemetry // Ready</span>
-                                </div>
-                                <span class="hud-version">SYS-V2.6</span>
-                            </div>
-
-                            <div class="profile-avatar-center">
-                                <div class="avatar-ring">
-                                    <img src="images/avatar.png" alt="Kevin Bui profile photo">
-                                    <div class="avatar-pulse-circle"></div>
-                                </div>
-                                <h3>Kevin Bui</h3>
-                                <p>Bùi Anh Khoa • Tech Lead & Architect</p>
-                            </div>
-
-                            <div class="hero-metrics-grid">
-                                <div class="metric-box">
-                                    <div class="metric-value" data-count="6" data-suffix="+">6+</div>
-                                    <div class="metric-label">Years Experience</div>
-                                </div>
-                                <div class="metric-box">
-                                    <div class="metric-value" data-count="50" data-suffix="+">50+</div>
-                                    <div class="metric-label">Projects Shipped</div>
-                                </div>
-                                <div class="metric-box">
-                                    <div class="metric-value" data-count="30" data-suffix="+">30+</div>
-                                    <div class="metric-label">Happy Clients</div>
-                                </div>
-                                <div class="metric-box">
-                                    <div class="metric-value" data-count="10" data-suffix="M+">10M+</div>
-                                    <div class="metric-label">Users Impacted</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Scroll Cue Indicator -->
-            <a href="#origin" class="scroll-cue">
-                <div class="scroll-cue-mouse">
-                    <div class="scroll-cue-dot"></div>
-                </div>
-                <span>Scroll Into Origin</span>
-            </a>
-        </section>
-
-        <!-- ================================================================
-             CHAPTER 01: ORIGIN & PHILOSOPHY
-             ================================================================ -->
-        <section id="origin" class="story-chapter" data-chapter="01">
-            <div class="container">
-                <div class="chapter-header">
-                    <div class="chapter-badge">
-                        <i class="fas fa-compass"></i>
-                        <span>Chapter 01 // The Origin Story</span>
-                    </div>
-                    <h2 class="chapter-title">Engineering Meets <span class="gradient-text">Creative Vision</span></h2>
-                    <p class="chapter-subtitle">
-                        From a curious engineering student to a technical lead architecting mission-critical platforms and 3D digital worlds.
-                    </p>
-                </div>
-
-                <div class="origin-layout">
-                    <div class="origin-narrative-card">
-                        <h3 class="origin-title">The Architect's Journey</h3>
-                        <p class="origin-paragraph">
-                            With over 6 years of deep-dive software engineering, I specialize in crafting robust, resilient web systems that tackle high-stakes problems with elegance. My engineering philosophy revolves around full-cycle ownership: writing maintainable code from foundational databases and microservices up through polished user interfaces and CI/CD pipelines.
-                        </p>
-                        <p class="origin-paragraph">
-                            I thrive on solving complex architectural puzzles — whether it's synchronizing millisecond-latency hardware valves with musical orchestrations, architecting remote touch interfaces for German industrial CNC machines, or crafting scroll-driven 3D product tours.
-                        </p>
-
-                        <div class="origin-actions">
-                            <a href="files/khoa-bui-28-02-2025.pdf" class="btn btn-primary" download>
-                                <i class="fas fa-download"></i> Download Full Resume (PDF)
-                            </a>
-                            <a href="#odyssey" class="btn btn-secondary">
-                                <i class="fas fa-timeline"></i> View Career Timeline
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Core Architectural Pillars -->
-                    <div class="origin-pillars-grid">
-                        <div class="pillar-item">
-                            <div class="pillar-icon">
-                                <i class="fas fa-layer-group"></i>
-                            </div>
-                            <div class="pillar-content">
-                                <h4>Full-Cycle Engineering</h4>
-                                <p>End-to-end mastery spanning database architecture, REST/GraphQL APIs, microservices, reactive frontend state, and Kubernetes cloud deployments.</p>
-                            </div>
-                        </div>
-
-                        <div class="pillar-item">
-                            <div class="pillar-icon">
-                                <i class="fas fa-bolt"></i>
-                            </div>
-                            <div class="pillar-content">
-                                <h4>High Concurrency & Low Latency</h4>
-                                <p>Optimizing real-time video streaming, WebSocket subscriptions, distributed caching, and micro-frontend performance for enterprise scale.</p>
-                            </div>
-                        </div>
-
-                        <div class="pillar-item">
-                            <div class="pillar-icon">
-                                <i class="fas fa-cube"></i>
-                            </div>
-                            <div class="pillar-content">
-                                <h4>3D Scrollytelling & Visual Craft</h4>
-                                <p>Blending Three.js, WebGL shaders, Web Audio synthesis, and scroll choreography to transform standard websites into interactive narrative adventures.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================================================================
-             CHAPTER 02: TECHNICAL ARSENAL
-             ================================================================ -->
-        <section id="arsenal" class="story-chapter" data-chapter="02">
-            <div class="container">
-                <div class="chapter-header">
-                    <div class="chapter-badge">
-                        <i class="fas fa-microchip"></i>
-                        <span>Chapter 02 // Technical Arsenal</span>
-                    </div>
-                    <h2 class="chapter-title">Battle-Tested <span class="gradient-text">Capabilities</span></h2>
-                    <p class="chapter-subtitle">
-                        An integrated matrix of modern frameworks, languages, cloud architectures, and creative technologies.
-                    </p>
-                </div>
-
-                <div class="arsenal-grid">
-                    <!-- Frontend -->
-                    <div class="arsenal-card">
-                        <div class="arsenal-card-header">
-                            <div class="arsenal-icon-box cyan">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <div class="arsenal-title">
-                                <h3>Frontend & UI/UX</h3>
-                                <span>Reactive & Micro-Frontends</span>
-                            </div>
-                        </div>
-                        <div class="arsenal-tags">
-                            <span class="tech-tag"><img src="images/icons/angular.png" alt="Angular">Angular (2–19)</span>
-                            <span class="tech-tag"><img src="images/icons/reactjs.png" alt="React">React.js</span>
-                            <span class="tech-tag"><img src="images/icons/nextjs.png" alt="Next.js">Next.js</span>
-                            <span class="tech-tag"><i class="fas fa-fire"></i> Svelte & SvelteKit</span>
-                            <span class="tech-tag"><i class="fab fa-js"></i> TypeScript / ESNext</span>
-                            <span class="tech-tag"><img src="images/icons/tailwind.png" alt="Tailwind">Tailwind CSS</span>
-                            <span class="tech-tag"><i class="fab fa-sass"></i> SASS / SCSS</span>
-                            <span class="tech-tag"><img src="images/icons/angular-material.svg" alt="Material">Angular Material</span>
-                        </div>
-                    </div>
-
-                    <!-- Backend & Systems -->
-                    <div class="arsenal-card">
-                        <div class="arsenal-card-header">
-                            <div class="arsenal-icon-box purple">
-                                <i class="fas fa-server"></i>
-                            </div>
-                            <div class="arsenal-title">
-                                <h3>Backend & Distributed</h3>
-                                <span>Microservices & High Concurrency</span>
-                            </div>
-                        </div>
-                        <div class="arsenal-tags">
-                            <span class="tech-tag"><img src="images/icons/golang.png" alt="Golang">Golang</span>
-                            <span class="tech-tag"><img src="images/icons/nodejs.png" alt="Node.js">Node.js</span>
-                            <span class="tech-tag"><img src="images/icons/nestjs.png" alt="NestJS">NestJS</span>
-                            <span class="tech-tag"><img src="images/icons/graphql.png" alt="GraphQL">GraphQL & Hasura</span>
-                            <span class="tech-tag"><img src="images/icons/grpc.png" alt="gRPC">gRPC & Protobuf</span>
-                            <span class="tech-tag"><i class="fas fa-network-wired"></i> RESTful APIs</span>
-                            <span class="tech-tag"><i class="fas fa-broadcast-tower"></i> WebSockets & Socket.io</span>
-                            <span class="tech-tag"><i class="fas fa-video"></i> WebRTC Streaming</span>
-                        </div>
-                    </div>
-
-                    <!-- Cloud & DevOps -->
-                    <div class="arsenal-card">
-                        <div class="arsenal-card-header">
-                            <div class="arsenal-icon-box pink">
-                                <i class="fas fa-cloud"></i>
-                            </div>
-                            <div class="arsenal-title">
-                                <h3>Cloud & DevOps</h3>
-                                <span>Scalable Infrastructure</span>
-                            </div>
-                        </div>
-                        <div class="arsenal-tags">
-                            <span class="tech-tag"><img src="images/icons/docker.png" alt="Docker">Docker Containers</span>
-                            <span class="tech-tag"><i class="fas fa-dharmachakra"></i> Kubernetes (K8s)</span>
-                            <span class="tech-tag"><img src="images/icons/azure.png" alt="Azure">Azure Cloud</span>
-                            <span class="tech-tag"><img src="images/icons/aws.png" alt="AWS">AWS</span>
-                            <span class="tech-tag"><i class="fas fa-database"></i> PostgreSQL & MongoDB</span>
-                            <span class="tech-tag"><i class="fas fa-memory"></i> Redis Cache</span>
-                            <span class="tech-tag"><img src="images/icons/rabbitmq.png" alt="RabbitMQ">RabbitMQ</span>
-                            <span class="tech-tag"><i class="fas fa-infinity"></i> GitHub Actions CI/CD</span>
-                        </div>
-                    </div>
-
-                    <!-- 3D Creative & Specialized -->
-                    <div class="arsenal-card">
-                        <div class="arsenal-card-header">
-                            <div class="arsenal-icon-box emerald">
-                                <i class="fas fa-vr-cardboard"></i>
-                            </div>
-                            <div class="arsenal-title">
-                                <h3>3D Creative & Specialized</h3>
-                                <span>Immersive & Native Interop</span>
-                            </div>
-                        </div>
-                        <div class="arsenal-tags">
-                            <span class="tech-tag"><i class="fas fa-cube"></i> Three.js & WebGL</span>
-                            <span class="tech-tag"><i class="fas fa-wave-square"></i> Web Audio Synth</span>
-                            <span class="tech-tag"><img src="images/icons/rxjs.png" alt="RxJS">RxJS Reactive</span>
-                            <span class="tech-tag"><img src="images/icons/ngrx.png" alt="NgRx">NgRx Store</span>
-                            <span class="tech-tag"><img src="images/icons/redux.png" alt="Redux">Redux & Akita</span>
-                            <span class="tech-tag"><i class="fas fa-mobile-screen"></i> Flutter Mobile</span>
-                            <span class="tech-tag"><i class="fas fa-desktop"></i> Electron Desktop</span>
-                            <span class="tech-tag"><i class="fas fa-satellite-dish"></i> MQTT & IoT Systems</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================================================================
-             CHAPTER 03: FEATURED CREATIONS & 3D EXPERIENCES
-             ================================================================ -->
-        <section id="creations" class="story-chapter" data-chapter="03">
-            <div class="container">
-                <div class="chapter-header">
-                    <div class="chapter-badge">
-                        <i class="fas fa-cube"></i>
-                        <span>Chapter 03 // Flagship Masterpieces</span>
-                    </div>
-                    <h2 class="chapter-title">Where Code Meets <span class="gradient-text">Interactive Magic</span></h2>
-                    <p class="chapter-subtitle">
-                        Step into live platforms and immersive 3D scrollytelling experiments designed to engage and inspire.
-                    </p>
-                </div>
-
-                <div class="creations-grid">
-                    <!-- Project 1: AETHER GT -->
-                    <div class="creation-card">
-                        <div class="creation-banner" style="background: radial-gradient(circle at 50% 40%, #151d33 0%, #05070c 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
-                            <span style="font-size: 3.5rem; filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.4));">🏎️⚡</span>
-                            <span style="font-family: var(--font-heading); font-weight: 800; color: #00f0ff; font-size: 1.25rem; letter-spacing: 3px;">AETHER GT</span>
-                            <div class="creation-banner-overlay">
-                                <span class="creation-badge-pill">3D Exploded Product Tour</span>
-                            </div>
-                        </div>
-                        <div class="creation-body">
-                            <h3>AETHER GT (3D Hypercar Exploded View)</h3>
-                            <p>
-                                An interactive scroll-driven 3D product tour of an electric hypercar. The camera executes a 7-stage choreographed flythrough, disassembling aerodynamic carbon body panels, dual electric drive units, battery cells, and cockpit interior as you scroll.
-                            </p>
-                            <div class="creation-tags">
-                                <span class="creation-tag">Three.js</span>
-                                <span class="creation-tag">WebGL</span>
-                                <span class="creation-tag">Exploded View</span>
-                                <span class="creation-tag">Camera Flythrough</span>
-                                <span class="creation-tag">3D Studio</span>
-                            </div>
-                            <div class="creation-actions">
-                                <a href="storytelling/car/" class="btn btn-primary" title="Launch AETHER GT Tour">
-                                    <i class="fas fa-play"></i> Launch 3D Tour
-                                </a>
-                                <a href="storytelling/" class="btn btn-secondary" title="Storytelling Hub">
-                                    <i class="fas fa-layer-group"></i> Story Hub
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 2: Alphabet Odyssey -->
-                    <div class="creation-card">
-                        <div class="creation-banner" style="background: radial-gradient(circle at 50% 40%, #2e1065 0%, #070411 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
-                            <span style="font-size: 3.5rem; filter: drop-shadow(0 0 20px rgba(255, 211, 42, 0.4));">🪐✨</span>
-                            <span style="font-family: var(--font-heading); font-weight: 800; color: #ffd32a; font-size: 1.25rem; letter-spacing: 2px;">ALPHABET ODYSSEY</span>
-                            <div class="creation-banner-overlay">
-                                <span class="creation-badge-pill">Bilingual 3D Scrollytelling</span>
-                            </div>
-                        </div>
-                        <div class="creation-body">
-                            <h3>Alphabet Odyssey (3D Scrollytelling)</h3>
-                            <p>
-                                An interactive educational journey in English (A–Z) & Vietnamese (29 chữ cái). Features extruded 3D typography, procedural Vietnamese diacritics (dấu sắc, huyền, hỏi, ngã, nặng, nón, râu), ambient Web Audio synthesis, and dynamic scroll-tied cosmic environments.
-                            </p>
-                            <div class="creation-tags">
-                                <span class="creation-tag">English (A–Z)</span>
-                                <span class="creation-tag">Tiếng Việt (29 chữ)</span>
-                                <span class="creation-tag">Procedural Diacritics</span>
-                                <span class="creation-tag">Web Audio Synth</span>
-                                <span class="creation-tag">Three.js</span>
-                            </div>
-                            <div class="creation-actions">
-                                <a href="storytelling/alphabet/en/" class="btn btn-primary" title="English Odyssey">
-                                    <i class="fas fa-globe"></i> English (A–Z)
-                                </a>
-                                <a href="storytelling/alphabet/vi/" class="btn btn-glow" title="Tiếng Việt">
-                                    <i class="fas fa-star"></i> Tiếng Việt (29 chữ)
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 3: What To Eat -->
-                    <div class="creation-card">
-                        <div class="creation-banner">
-                            <img src="images/projects/eatwhat-thumbnail.png" alt="What to Eat preview">
-                            <div class="creation-banner-overlay">
-                                <span class="creation-badge-pill">Live Food Platform</span>
-                            </div>
-                        </div>
-                        <div class="creation-body">
-                            <h3>What To Eat (eatwhat.io.vn)</h3>
-                            <p>
-                                The interactive culinary platform built for the indecisive foodie. Search thousands of international recipes, explore ingredient profiles, and play dish discovery mini-games including the Flavor Wheel and Community Recipe Voting.
-                            </p>
-                            <div class="creation-tags">
-                                <span class="creation-tag">SvelteKit</span>
-                                <span class="creation-tag">Golang</span>
-                                <span class="creation-tag">MongoDB</span>
-                                <span class="creation-tag">Angular</span>
-                                <span class="creation-tag">Kubernetes</span>
-                            </div>
-                            <div class="creation-actions">
-                                <a href="https://eatwhat.io.vn" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                                    <i class="fas fa-arrow-up-right-from-square"></i> Visit eatwhat.io.vn
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================================================================
-             CHAPTER 04: THE CAREER ODYSSEY
-             ================================================================ -->
-        <section id="odyssey" class="story-chapter" data-chapter="04">
-            <div class="container">
-                <div class="chapter-header">
-                    <div class="chapter-badge">
-                        <i class="fas fa-road"></i>
-                        <span>Chapter 04 // The Career Odyssey</span>
-                    </div>
-                    <h2 class="chapter-title">Professional Milestones & <span class="gradient-text">Leadership</span></h2>
-                    <p class="chapter-subtitle">
-                        A chronological deep-dive into leading teams, architecting solutions, and delivering enterprise software.
-                    </p>
-                </div>
-
-                <div class="odyssey-timeline">
-                    <!-- Company 1: ST Engineering -->
-                    <div class="odyssey-company">
-                        <div class="odyssey-company-header">
-                            <div class="odyssey-logo-box">
-                                <img src="/images/logo/st-engineering.png" alt="ST Engineering Logo">
-                            </div>
-                            <div class="odyssey-meta-title">
-                                <h3>Full Stack Developer & Technical Lead</h3>
-                                <div class="odyssey-company-name">ST Engineering</div>
-                                <div class="odyssey-badges-row">
-                                    <span class="odyssey-badge"><i class="fas fa-calendar"></i> Nov 2023 - Present</span>
-                                    <span class="odyssey-badge"><i class="fas fa-map-pin"></i> Ho Chi Minh City, Vietnam</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Project Tabs -->
-                        <div class="dossier-tabs">
-                            <button class="dossier-tab-btn active" data-project="st-1">Health Care Operation Center</button>
-                            <button class="dossier-tab-btn" data-project="st-2">CRM & Livestream System</button>
-                            <button class="dossier-tab-btn" data-project="st-3">SSRE</button>
-                            <button class="dossier-tab-btn" data-project="st-4">Manga Sahara</button>
-                            <button class="dossier-tab-btn" data-project="st-5">G2B Advertising</button>
-                        </div>
-
-                        <!-- Dossier Content Panels -->
-                        <div class="dossier-content-panel active" id="st-1">
-                            <div class="dossier-grid">
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-file-lines"></i> Project Mission</h5>
-                                    <p>Comprehensive modernization of legacy software for a major Singapore hospital, replacing archaic workflows with modern reactive architecture and real-time data synchronization.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-list-check"></i> Key Responsibilities</h5>
-                                    <ul>
-                                        <li>Architected critical requirements based on core source code</li>
-                                        <li>Technical advisor for FE & BE solutions directly to the client</li>
-                                        <li>Built CI/CD with VPS, GitHub pipelines, and Kubernetes deployment</li>
-                                        <li>Code reviews, architectural standards, and team mentorship</li>
-                                    </ul>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-triangle-exclamation"></i> Challenges Overcome</h5>
-                                    <p>Seamless coordination across 4 cross-functional teams, executing high-volume ETL data migrations, and guaranteeing sub-second real-time subscription pipelines.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-circle-info"></i> Executive Summary</h5>
-                                    <p class="dossier-summary-item"><strong>Team Size:</strong> 10 Engineers</p>
-                                    <p class="dossier-summary-item"><strong>Tech Stack:</strong> SvelteKit, NestJS, PostgreSQL, Kubernetes, Keycloak, Hasura, GraphQL, WebSockets</p>
-                                    <p class="dossier-summary-item"><strong>Role:</strong> Full Stack Developer, Technical Lead</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="dossier-content-panel" id="st-2">
-                            <div class="dossier-grid">
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-file-lines"></i> Project Mission</h5>
-                                    <p>Ultra-low-latency CRM and interactive livestream system integrating real-time video broadcasting, instant chat rooms, customer analytics, and automated sales workflows.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-list-check"></i> Key Responsibilities</h5>
-                                    <ul>
-                                        <li>End-to-end system and microservices design</li>
-                                        <li>Engineered low-latency WebRTC and Socket streaming channels</li>
-                                        <li>Full stack implementation across Golang backend and modern frontend</li>
-                                    </ul>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-triangle-exclamation"></i> Challenges Overcome</h5>
-                                    <p>Minimizing glass-to-glass latency for simultaneous high-volume audience interactions while keeping CPU load resilient.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-circle-info"></i> Executive Summary</h5>
-                                    <p class="dossier-summary-item"><strong>Team Size:</strong> 2 Senior Engineers</p>
-                                    <p class="dossier-summary-item"><strong>Tech Stack:</strong> Golang, Next.js, NestJS, Angular 19, WebRTC, Socket.io, Microservices</p>
-                                    <p class="dossier-summary-item"><strong>Role:</strong> Software Architect, Full Stack Developer</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="dossier-content-panel" id="st-3">
-                            <div class="dossier-grid">
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-file-lines"></i> Project Mission</h5>
-                                    <p>Full-cycle engineering and development for SSRE engineering portal, delivering rapid interactive client features and operational dashboards.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-list-check"></i> Key Responsibilities</h5>
-                                    <ul>
-                                        <li>Full-cycle implementation (Frontend, Backend, and DevOps)</li>
-                                        <li>Continuous deployment automation and monitoring</li>
-                                    </ul>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-circle-info"></i> Executive Summary</h5>
-                                    <p class="dossier-summary-item"><strong>Team Size:</strong> 2 Engineers</p>
-                                    <p class="dossier-summary-item"><strong>Tech Stack:</strong> Golang, Next.js, Socket.io</p>
-                                    <p class="dossier-summary-item"><strong>Role:</strong> Full Stack Developer</p>
-                                    <p class="dossier-summary-item">
-                                        <a href="https://ssrengineering.tech" target="_blank" rel="noopener noreferrer" class="gradient-text">
-                                            <i class="fas fa-external-link-alt"></i> ssrengineering.tech
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="dossier-content-panel" id="st-4">
-                            <div class="dossier-grid">
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-file-lines"></i> Project Mission</h5>
-                                    <p>High-throughput digital comic reading engine engineered for silky-smooth rendering, instant chapter prefetching, and minimal bandwidth consumption.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-list-check"></i> Key Responsibilities</h5>
-                                    <ul>
-                                        <li>Engineered image optimization pipelines and responsive preloading</li>
-                                        <li>Built backend microservices and mobile application features</li>
-                                        <li>Optimized API response times and cache hierarchies</li>
-                                    </ul>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-circle-info"></i> Executive Summary</h5>
-                                    <p class="dossier-summary-item"><strong>Team Size:</strong> 3 Engineers</p>
-                                    <p class="dossier-summary-item"><strong>Tech Stack:</strong> Golang, NestJS, Next.js, Flutter, Socket.io</p>
-                                    <p class="dossier-summary-item"><strong>Role:</strong> Full Stack Developer</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="dossier-content-panel" id="st-5">
-                            <div class="dossier-grid">
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-file-lines"></i> Project Mission</h5>
-                                    <p>Enterprise quoting and booking management platform for digital billboards and commercial LED advertising networks.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-list-check"></i> Key Responsibilities</h5>
-                                    <ul>
-                                        <li>Full-cycle implementation across frontend, backend, and cloud</li>
-                                        <li>Architected dynamic pricing algorithms and visual quoting dashboard</li>
-                                    </ul>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-circle-info"></i> Executive Summary</h5>
-                                    <p class="dossier-summary-item"><strong>Team Size:</strong> 2 Engineers</p>
-                                    <p class="dossier-summary-item"><strong>Tech Stack:</strong> Next.js 14, NestJS, PostgreSQL, Kubernetes</p>
-                                    <p class="dossier-summary-item"><strong>Role:</strong> Full Stack Developer</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Company 2: Bloom -->
-                    <div class="odyssey-company">
-                        <div class="odyssey-company-header">
-                            <div class="odyssey-logo-box">
-                                <img src="/images/logo/bloom.png" alt="Bloom Logo">
-                            </div>
-                            <div class="odyssey-meta-title">
-                                <h3>Full Stack Developer & Technical Architect</h3>
-                                <div class="odyssey-company-name">Bloom</div>
-                                <div class="odyssey-badges-row">
-                                    <span class="odyssey-badge"><i class="fas fa-calendar"></i> Mar 2022 - Nov 2023</span>
-                                    <span class="odyssey-badge"><i class="fas fa-map-pin"></i> Ho Chi Minh City, Vietnam</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Project Tabs -->
-                        <div class="dossier-tabs">
-                            <button class="dossier-tab-btn active" data-project="bloom-1">The Dolce Diet</button>
-                            <button class="dossier-tab-btn" data-project="bloom-2">D-Producer</button>
-                        </div>
-
-                        <div class="dossier-content-panel active" id="bloom-1">
-                            <div class="dossier-grid">
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-file-lines"></i> Project Mission</h5>
-                                    <p>Comprehensive rebuild of a prominent US diet and fitness platform serving 10,000+ users. Replaced legacy Drupal/PHP stack with a high-performance Kubernetes-orchestrated SaaS architecture.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-list-check"></i> Key Responsibilities</h5>
-                                    <ul>
-                                        <li>Technology selection and database schema re-architecture</li>
-                                        <li>Engineered automated meal & exercise plan generation engine</li>
-                                        <li>Built automated Kubernetes cluster templates, cron jobs, and backup pipelines</li>
-                                        <li>Led code reviews and technical direction for the development squad</li>
-                                    </ul>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-triangle-exclamation"></i> Challenges Overcome</h5>
-                                    <p>Migrated complex legacy data models without downtime, supporting 1,000+ concurrent active sessions during peak workout hours.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-circle-info"></i> Executive Summary</h5>
-                                    <p class="dossier-summary-item"><strong>Users:</strong> 10,000+ registered, ~1,000 concurrent</p>
-                                    <p class="dossier-summary-item"><strong>Tech Stack:</strong> Next.js, NestJS, MongoDB, Kubernetes</p>
-                                    <p class="dossier-summary-item"><strong>Role:</strong> Technical Architect (Backend), Full Stack, DevOps</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="dossier-content-panel" id="bloom-2">
-                            <div class="dossier-grid">
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-file-lines"></i> Project Mission</h5>
-                                    <p>Innovative entertainment control system to choreograph synchronized LED lighting and high-speed electronic hydraulic valves for musical water fountain shows.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-list-check"></i> Key Responsibilities</h5>
-                                    <ul>
-                                        <li>Built the entire software-hardware synchronization interface from scratch</li>
-                                        <li>Authored microservice communication with gRPC and WebSockets</li>
-                                        <li>Rigorous R&D to hit ultra-precise millisecond valve response</li>
-                                    </ul>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-circle-info"></i> Executive Summary</h5>
-                                    <p class="dossier-summary-item"><strong>Latency:</strong> Millisecond response execution</p>
-                                    <p class="dossier-summary-item"><strong>Tech Stack:</strong> Angular, NestJS, MongoDB, Python, gRPC, GraphQL, Socket.io, Embedded Firmware</p>
-                                    <p class="dossier-summary-item"><strong>Role:</strong> Software Architect, Full Stack Developer</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Company 3: NashTech -->
-                    <div class="odyssey-company">
-                        <div class="odyssey-company-header">
-                            <div class="odyssey-logo-box">
-                                <img src="/images/logo/nashtech.webp" alt="NashTech Logo">
-                            </div>
-                            <div class="odyssey-meta-title">
-                                <h3>Full Stack Developer</h3>
-                                <div class="odyssey-company-name">NashTech</div>
-                                <div class="odyssey-badges-row">
-                                    <span class="odyssey-badge"><i class="fas fa-calendar"></i> June 2020 - Nov 2021</span>
-                                    <span class="odyssey-badge"><i class="fas fa-map-pin"></i> Ho Chi Minh City, Vietnam</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Project Tabs -->
-                        <div class="dossier-tabs">
-                            <button class="dossier-tab-btn active" data-project="nash-1">CNC Machine Software</button>
-                            <button class="dossier-tab-btn" data-project="nash-2">Smart Manufacturing</button>
-                            <button class="dossier-tab-btn" data-project="nash-3">Wealth Management</button>
-                        </div>
-
-                        <div class="dossier-content-panel active" id="nash-1">
-                            <div class="dossier-grid">
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-file-lines"></i> Project Mission</h5>
-                                    <p>Industrial CNC machine control software for a premier German manufacturing client. Designed a touch-optimized remote computer access interface (RDP, VNC, SSH) using micro-frontend architecture.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-list-check"></i> Key Responsibilities</h5>
-                                    <ul>
-                                        <li>Architected micro-frontend layout and touch-screen gesture processing</li>
-                                        <li>Delivered low-latency remote machine desktop bridging</li>
-                                        <li>Mentored junior frontend developers and conducted architectural code reviews</li>
-                                    </ul>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-circle-info"></i> Executive Summary</h5>
-                                    <p class="dossier-summary-item"><strong>Client:</strong> German Industrial Manufacturer</p>
-                                    <p class="dossier-summary-item"><strong>Tech Stack:</strong> Angular 9, Electron, Golang, Micro Frontends</p>
-                                    <p class="dossier-summary-item"><strong>Role:</strong> Frontend Developer & Technical Contributor</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="dossier-content-panel" id="nash-2">
-                            <div class="dossier-grid">
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-file-lines"></i> Project Mission</h5>
-                                    <p>Real-time factory production line monitoring system deployed onto Industrial PCs (IPC) across German manufacturing plants.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-list-check"></i> Key Responsibilities</h5>
-                                    <ul>
-                                        <li>Implemented 4-level hierarchical production data visualization</li>
-                                        <li>Designed robust offline caching and auto-sync for shop-floor displays</li>
-                                    </ul>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-circle-info"></i> Executive Summary</h5>
-                                    <p class="dossier-summary-item"><strong>Users:</strong> 100+ active plant operators</p>
-                                    <p class="dossier-summary-item"><strong>Tech Stack:</strong> Angular 11, Java, SQL</p>
-                                    <p class="dossier-summary-item"><strong>Role:</strong> Frontend Developer</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="dossier-content-panel" id="nash-3">
-                            <div class="dossier-grid">
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-file-lines"></i> Project Mission</h5>
-                                    <p>High-security wealth management platform customized from the Finantix product suite for an Italian financial corporation serving US clients.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-list-check"></i> Key Responsibilities</h5>
-                                    <ul>
-                                        <li>Implemented secure wire transfer flows and portfolio balance views</li>
-                                        <li>Engineered JBPM (Java Business Process Management) workflow integrations</li>
-                                    </ul>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-circle-info"></i> Executive Summary</h5>
-                                    <p class="dossier-summary-item"><strong>Users Impacted:</strong> 10,000,000+ accounts</p>
-                                    <p class="dossier-summary-item"><strong>Tech Stack:</strong> Angular 11, Java, SQL, JBPM</p>
-                                    <p class="dossier-summary-item"><strong>Role:</strong> Frontend Developer</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Company 4: Hitachi Vantara -->
-                    <div class="odyssey-company">
-                        <div class="odyssey-company-header">
-                            <div class="odyssey-logo-box">
-                                <img src="/images/logo/hitachi-vantara.png" alt="Hitachi Vantara Logo">
-                            </div>
-                            <div class="odyssey-meta-title">
-                                <h3>Full Stack Developer</h3>
-                                <div class="odyssey-company-name">Hitachi Vantara</div>
-                                <div class="odyssey-badges-row">
-                                    <span class="odyssey-badge"><i class="fas fa-calendar"></i> Feb 2019 - Jun 2020</span>
-                                    <span class="odyssey-badge"><i class="fas fa-map-pin"></i> Ho Chi Minh City, Vietnam</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Project Tabs -->
-                        <div class="dossier-tabs">
-                            <button class="dossier-tab-btn active" data-project="hitachi-1">Vidole</button>
-                            <button class="dossier-tab-btn" data-project="hitachi-2">Polymate</button>
-                            <button class="dossier-tab-btn" data-project="hitachi-3">IoT Project</button>
-                        </div>
-
-                        <div class="dossier-content-panel active" id="hitachi-1">
-                            <div class="dossier-grid">
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-file-lines"></i> Project Mission</h5>
-                                    <p>Enterprise digital video management and streaming platform for large corporate archives.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-circle-info"></i> Executive Summary</h5>
-                                    <p class="dossier-summary-item"><strong>Tech Stack:</strong> Angular, Node.js</p>
-                                    <p class="dossier-summary-item"><strong>Role:</strong> Full Stack Developer</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="dossier-content-panel" id="hitachi-2">
-                            <div class="dossier-grid">
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-file-lines"></i> Project Mission</h5>
-                                    <p>Enterprise data analytics platform delivering rich interactive data visualizations using D3.js charts and graphs.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-circle-info"></i> Executive Summary</h5>
-                                    <p class="dossier-summary-item"><strong>Tech Stack:</strong> Angular, D3.js</p>
-                                    <p class="dossier-summary-item"><strong>Role:</strong> Frontend Developer</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="dossier-content-panel" id="hitachi-3">
-                            <div class="dossier-grid">
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-file-lines"></i> Project Mission</h5>
-                                    <p>Real-time IoT device telemetry management and telemetry command interface.</p>
-                                </div>
-                                <div class="dossier-card">
-                                    <h5><i class="fas fa-circle-info"></i> Executive Summary</h5>
-                                    <p class="dossier-summary-item"><strong>Tech Stack:</strong> Angular, MQTT, WebSockets</p>
-                                    <p class="dossier-summary-item"><strong>Role:</strong> Full Stack Developer</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================================================================
-             CHAPTER 05: FREELANCE EXPEDITIONS
-             ================================================================ -->
-        <section id="expeditions" class="story-chapter" data-chapter="05">
-            <div class="container">
-                <div class="chapter-header">
-                    <div class="chapter-badge">
-                        <i class="fas fa-briefcase"></i>
-                        <span>Chapter 05 // Freelance Expeditions</span>
-                    </div>
-                    <h2 class="chapter-title">Specialized Consulting & <span class="gradient-text">Client Ventures</span></h2>
-                    <p class="chapter-subtitle">
-                        Delivering custom digital products, architectures, and full-cycle engineering for international clients.
-                    </p>
-                </div>
-
-                <div class="freelance-grid">
-                    <!-- Freelance 1: What To Eat -->
-                    <div class="freelance-card">
-                        <div class="freelance-top">
-                            <div class="freelance-icon">
-                                <i class="fas fa-utensils"></i>
-                            </div>
-                            <span class="freelance-date">Mar 2022 - Mar 2023</span>
-                        </div>
-                        <h3>What To Eat</h3>
-                        <p>International culinary platform featuring community recipe discovery, voting games, and ingredient mastery.</p>
-                        <div class="freelance-subcard">
-                            <h5><i class="fas fa-tasks"></i> Scope & Execution</h5>
-                            <ul>
-                                <li>Implemented core dynamic features and user games</li>
-                                <li>Engineered VPS CI/CD pipeline and Kubernetes deployment</li>
-                            </ul>
-                        </div>
-                        <div class="freelance-tags">
-                            <span class="freelance-tag">SvelteKit</span>
-                            <span class="freelance-tag">Golang</span>
-                            <span class="freelance-tag">MongoDB</span>
-                            <span class="freelance-tag">Kubernetes</span>
-                        </div>
-                        <div class="freelance-footer">
-                            <span>Team: 2 (1 Fullstack, 1 PO)</span>
-                            <a href="https://eatwhat.io.vn" target="_blank" rel="noopener noreferrer" class="gradient-text">eatwhat.io.vn</a>
-                        </div>
-                    </div>
-
-                    <!-- Freelance 2: Smart Farm -->
-                    <div class="freelance-card">
-                        <div class="freelance-top">
-                            <div class="freelance-icon">
-                                <i class="fas fa-seedling"></i>
-                            </div>
-                            <span class="freelance-date">Mar 2022 - Mar 2023</span>
-                        </div>
-                        <h3>Smart Farm - Bio Safety</h3>
-                        <p>Bio-safety evaluation platform for agricultural enterprises in the USA, delivering automated report comparisons and Excel exports.</p>
-                        <div class="freelance-subcard">
-                            <h5><i class="fas fa-tasks"></i> Scope & Execution</h5>
-                            <ul>
-                                <li>Engineered end-to-end frontend, backend, and DB architecture</li>
-                                <li>Configured automated backups, cron jobs, and GitHub pipelines</li>
-                                <li>Built customizable questionnaire evaluation engines</li>
-                            </ul>
-                        </div>
-                        <div class="freelance-tags">
-                            <span class="freelance-tag">Angular</span>
-                            <span class="freelance-tag">TypeScript</span>
-                            <span class="freelance-tag">Node.js</span>
-                            <span class="freelance-tag">MongoDB</span>
-                        </div>
-                        <div class="freelance-footer">
-                            <span>200+ Active Users</span>
-                            <span>Team: 3</span>
-                        </div>
-                    </div>
-
-                    <!-- Freelance 3: Orders Management -->
-                    <div class="freelance-card">
-                        <div class="freelance-top">
-                            <div class="freelance-icon">
-                                <i class="fas fa-cart-shopping"></i>
-                            </div>
-                            <span class="freelance-date">Jan 2022 - Mar 2022</span>
-                        </div>
-                        <h3>Orders Management CRM</h3>
-                        <p>Multi-department enterprise CRM featuring stringent role-based access control (RBAC), delivery tracking, and sales analytics.</p>
-                        <div class="freelance-subcard">
-                            <h5><i class="fas fa-tasks"></i> Scope & Execution</h5>
-                            <ul>
-                                <li>Architected strict multi-tenant department permission boundaries</li>
-                                <li>Engineered automated inventory deduction and delivery telemetry</li>
-                            </ul>
-                        </div>
-                        <div class="freelance-tags">
-                            <span class="freelance-tag">Angular 13</span>
-                            <span class="freelance-tag">NestJS</span>
-                            <span class="freelance-tag">MongoDB</span>
-                            <span class="freelance-tag">RBAC</span>
-                        </div>
-                        <div class="freelance-footer">
-                            <span>Enterprise Multi-Role</span>
-                            <span>Team: 2</span>
-                        </div>
-                    </div>
-
-                    <!-- Freelance 4: Animal Farm -->
-                    <div class="freelance-card">
-                        <div class="freelance-top">
-                            <div class="freelance-icon">
-                                <i class="fas fa-warehouse"></i>
-                            </div>
-                            <span class="freelance-date">May 2021 - Jan 2022</span>
-                        </div>
-                        <h3>Animal Farm Management</h3>
-                        <p>Comprehensive agricultural ERP for feed suppliers, tracking feed supplies, veterinary medications, stall workflows, and revenue analytics.</p>
-                        <div class="freelance-subcard">
-                            <h5><i class="fas fa-tasks"></i> Scope & Execution</h5>
-                            <ul>
-                                <li>Delivered warehouse inventory tracking and automated alerts</li>
-                                <li>Built daily & monthly revenue/expense calculation dashboards</li>
-                            </ul>
-                        </div>
-                        <div class="freelance-tags">
-                            <span class="freelance-tag">Angular 11</span>
-                            <span class="freelance-tag">TypeScript</span>
-                            <span class="freelance-tag">NestJS</span>
-                            <span class="freelance-tag">MongoDB</span>
-                        </div>
-                        <div class="freelance-footer">
-                            <span>100+ Active Users</span>
-                            <span>Team: 3</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Freelance CTA -->
-                <div class="freelance-cta-banner">
-                    <h3>Have an Ambitious Project in Mind?</h3>
-                    <p>Whether you require architectural consulting, full-stack product development, or an immersive 3D digital experience, let's turn your vision into reality.</p>
-                    <a href="#epilogue" class="btn btn-primary">
-                        <i class="fas fa-comments"></i> Start a Conversation
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================================================================
-             EPILOGUE: CONTACT NEXUS
-             ================================================================ -->
-        <section id="epilogue" class="story-chapter" data-chapter="06">
-            <div class="container">
-                <div class="chapter-header">
-                    <div class="chapter-badge">
-                        <i class="fas fa-paper-plane"></i>
-                        <span>Epilogue // Let's Connect</span>
-                    </div>
-                    <h2 class="chapter-title">Start the Next <span class="gradient-text">Chapter Together</span></h2>
-                    <p class="chapter-subtitle">
-                        I am currently open to exciting leadership roles, technical consulting, and groundbreaking web/3D ventures.
-                    </p>
-                </div>
-
-                <div class="epilogue-grid">
-                    <!-- Contact Info Panel -->
-                    <div class="contact-card-info">
-                        <h3>Let's Collaborate</h3>
-                        <p>
-                            Have an opportunity, an idea, or just want to discuss modern architectures, 3D scrollytelling, or distributed systems? Feel free to reach out directly.
-                        </p>
-
-                        <div class="contact-items-list">
-                            <div class="contact-item-row">
-                                <div class="contact-icon-bubble">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="contact-item-content">
-                                    <h4>Email Address</h4>
-                                    <a href="mailto:fxanhkhoa@gmail.com">fxanhkhoa@gmail.com</a>
-                                </div>
-                            </div>
-
-                            <div class="contact-item-row">
-                                <div class="contact-icon-bubble">
-                                    <i class="fas fa-phone"></i>
-                                </div>
-                                <div class="contact-item-content">
-                                    <h4>Direct Phone</h4>
-                                    <a href="tel:+84772912970">+84 772 912 970</a>
-                                </div>
-                            </div>
-
-                            <div class="contact-item-row">
-                                <div class="contact-icon-bubble">
-                                    <i class="fas fa-location-dot"></i>
-                                </div>
-                                <div class="contact-item-content">
-                                    <h4>Location</h4>
-                                    <span>Ho Chi Minh City, Vietnam</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <a href="files/khoa-bui-28-02-2025.pdf" class="btn btn-secondary" style="width: 100%; justify-content: center;" download>
-                            <i class="fas fa-download"></i> Download Full Resume
-                        </a>
-                    </div>
-
-                    <!-- Interactive Form Console -->
-                    <div class="contact-form-console">
-                        <form id="contact-form">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="from_name">Your Name</label>
-                                    <input type="text" id="from_name" name="from_name" class="form-input" placeholder="e.g. John Doe" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="from_email">Your Email</label>
-                                    <input type="email" id="from_email" name="from_email" class="form-input" placeholder="e.g. john@example.com" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="subject">Subject</label>
-                                <input type="text" id="subject" name="subject" class="form-input" placeholder="e.g. Project Opportunity / Collaboration">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea id="message" name="message" class="form-textarea" placeholder="Tell me about your project, timeline, or requirements..." required></textarea>
-                            </div>
-
-                            <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">
-                                <i id="submit-icon" class="fas fa-paper-plane"></i>
-                                <span id="submit-text">Send Transmission</span>
-                            </button>
-
-                            <div id="success-message" class="form-status-alert success">
-                                <i class="fas fa-circle-check"></i> Transmission received! I'll get back to you shortly.
-                            </div>
-                            <div id="fail-message" class="form-status-alert error">
-                                <i class="fas fa-triangle-exclamation"></i> Transmission failed. Please email me directly at fxanhkhoa@gmail.com.
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container footer-content">
-            <div class="footer-brand">
-                <img src="images/logo.png" alt="Kevin Bui Logo">
-                <span class="footer-copy">&copy; 2025 Kevin Bui (Bùi Anh Khoa). All rights reserved.</span>
-            </div>
-
-            <div class="footer-socials">
-                <a href="https://github.com/fxanhkhoa" target="_blank" class="social-btn" title="GitHub" rel="noopener noreferrer">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/khoa-bui-anh-698ab2173" target="_blank" class="social-btn" title="LinkedIn" rel="noopener noreferrer">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="https://twitter.com/BuiAnhK49302949" target="_blank" class="social-btn" title="Twitter" rel="noopener noreferrer">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="https://www.facebook.com/bui.a.khoa.1" target="_blank" class="social-btn" title="Facebook" rel="noopener noreferrer">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-            </div>
+        <div class="hint-3d-pill">
+          <i class="fa-solid fa-hand-pointer"></i>
+          <span>Drag 3D Hypercar speed ring and extruded 'A' letter</span>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <!-- Scripts -->
-    <script src="vendor/typed/typed.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>
-        (function () {
-            emailjs.init('v97mjOJU0VaG6C-Yw');
-        })();
-    </script>
-    <script src="scripts/portfolio.js"></script>
+    <!-- ================================================================
+         CHAPTER 04: ODYSSEY // CAREER TIMELINE & DOSSIERS
+         3D Object: 4 Floating Milestone Monoliths with Laser Spline
+         ================================================================ -->
+    <section class="story-chapter" id="odyssey" data-chapter="04">
+      <div class="story-card" style="max-width: 620px;">
+        <div class="chapter-badge-marker">
+          <i class="fa-solid fa-timeline"></i>
+          <span>Chapter 04 // Career Odyssey</span>
+        </div>
+        <h2 class="card-title">Enterprise <span class="gradient-text">Leadership</span></h2>
 
-    <!-- Google Analytics (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-02X4LNR5SF"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-02X4LNR5SF');
-    </script>
+        <!-- Company Select Navigation -->
+        <div class="company-select-nav">
+          <button class="company-pill-btn active" data-company="comp-st">ST Engineering (2023–Now)</button>
+          <button class="company-pill-btn" data-company="comp-bloom">Bloom (2022–2023)</button>
+          <button class="company-pill-btn" data-company="comp-nash">NashTech (2020–2021)</button>
+          <button class="company-pill-btn" data-company="comp-hitachi">Hitachi (2019–2020)</button>
+        </div>
+
+        <!-- ST Engineering -->
+        <div class="company-pane active" id="comp-st">
+          <div class="company-dossier-box">
+            <h4 style="color: #fff; margin-bottom: 0.25rem;">Full Stack Developer & Technical Lead</h4>
+            <p style="font-size: 0.82rem; color: var(--cyan-neon); margin-bottom: 0.75rem;">Nov 2023 – Present • Ho Chi Minh City</p>
+            
+            <div class="dossier-subtabs">
+              <button class="subtab-btn active" data-sub="st-hosp">Healthcare Center</button>
+              <button class="subtab-btn" data-sub="st-crm">CRM & Livestream</button>
+              <button class="subtab-btn" data-sub="st-ssre">SSRE</button>
+              <button class="subtab-btn" data-sub="st-manga">Manga Sahara</button>
+            </div>
+
+            <div class="subtab-content active" id="st-hosp">
+              <div class="dossier-item"><strong>Mission:</strong> Major Singapore hospital system modernization.</div>
+              <div class="dossier-item"><strong>Tech:</strong> SvelteKit, NestJS, PostgreSQL, Kubernetes, Keycloak, Hasura, GraphQL.</div>
+              <div class="dossier-item"><strong>Impact:</strong> Led 10-person cross-functional squad; built real-time WebSocket pipelines.</div>
+            </div>
+
+            <div class="subtab-content" id="st-crm">
+              <div class="dossier-item"><strong>Mission:</strong> Low-latency CRM & interactive livestream broadcasting.</div>
+              <div class="dossier-item"><strong>Tech:</strong> Golang, Next.js, NestJS, Angular 19, WebRTC, Socket.io.</div>
+              <div class="dossier-item"><strong>Impact:</strong> Glass-to-glass sub-second streaming for concurrent audience.</div>
+            </div>
+
+            <div class="subtab-content" id="st-ssre">
+              <div class="dossier-item"><strong>Mission:</strong> Full-cycle engineering portal development.</div>
+              <div class="dossier-item"><strong>Tech:</strong> Golang, Next.js, Socket.io (<a href="https://ssrengineering.tech" target="_blank" class="gradient-text">ssrengineering.tech</a>).</div>
+            </div>
+
+            <div class="subtab-content" id="st-manga">
+              <div class="dossier-item"><strong>Mission:</strong> High-performance comic reader engine with image optimization.</div>
+              <div class="dossier-item"><strong>Tech:</strong> Golang, NestJS, Flutter, Next.js.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bloom -->
+        <div class="company-pane" id="comp-bloom">
+          <div class="company-dossier-box">
+            <h4 style="color: #fff; margin-bottom: 0.25rem;">Full Stack Developer & Technical Architect</h4>
+            <p style="font-size: 0.82rem; color: var(--purple-neon); margin-bottom: 0.75rem;">Mar 2022 – Nov 2023 • Ho Chi Minh City</p>
+            
+            <div class="dossier-subtabs">
+              <button class="subtab-btn active" data-sub="bloom-dolce">The Dolce Diet</button>
+              <button class="subtab-btn" data-sub="bloom-producer">D-Producer</button>
+            </div>
+
+            <div class="subtab-content active" id="bloom-dolce">
+              <div class="dossier-item"><strong>Mission:</strong> Prominent US SaaS diet rebuild for 10,000+ users.</div>
+              <div class="dossier-item"><strong>Tech:</strong> Next.js, NestJS, MongoDB, Kubernetes auto-scaling.</div>
+            </div>
+
+            <div class="subtab-content" id="bloom-producer">
+              <div class="dossier-item"><strong>Mission:</strong> Water fountain musical show software-hardware valve sync.</div>
+              <div class="dossier-item"><strong>Tech:</strong> Angular, NestJS, Python, gRPC, Embedded systems.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NashTech -->
+        <div class="company-pane" id="comp-nash">
+          <div class="company-dossier-box">
+            <h4 style="color: #fff; margin-bottom: 0.25rem;">Full Stack Developer</h4>
+            <p style="font-size: 0.82rem; color: var(--cyan-neon); margin-bottom: 0.75rem;">June 2020 – Nov 2021 • Ho Chi Minh City</p>
+            
+            <div class="dossier-subtabs">
+              <button class="subtab-btn active" data-sub="nash-cnc">CNC Software</button>
+              <button class="subtab-btn" data-sub="nash-smart">Smart Manufacturing</button>
+              <button class="subtab-btn" data-sub="nash-wealth">Wealth Management</button>
+            </div>
+
+            <div class="subtab-content active" id="nash-cnc">
+              <div class="dossier-item"><strong>Client:</strong> German Manufacturing. Micro-frontend touch remote access (RDP/VNC).</div>
+              <div class="dossier-item"><strong>Tech:</strong> Angular 9, Electron, Golang.</div>
+            </div>
+
+            <div class="subtab-content" id="nash-smart">
+              <div class="dossier-item"><strong>Mission:</strong> Industrial PC (IPC) shop-floor real-time production tracking.</div>
+              <div class="dossier-item"><strong>Tech:</strong> Angular 11, Java, SQL.</div>
+            </div>
+
+            <div class="subtab-content" id="nash-wealth">
+              <div class="dossier-item"><strong>Client:</strong> Italian/US Financial Corporation serving 10,000,000+ accounts.</div>
+              <div class="dossier-item"><strong>Tech:</strong> Angular 11, Java, SQL, JBPM workflow engine.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hitachi Vantara -->
+        <div class="company-pane" id="comp-hitachi">
+          <div class="company-dossier-box">
+            <h4 style="color: #fff; margin-bottom: 0.25rem;">Full Stack Developer</h4>
+            <p style="font-size: 0.82rem; color: var(--cyan-neon); margin-bottom: 0.75rem;">Feb 2019 – Jun 2020 • Ho Chi Minh City</p>
+            
+            <div class="dossier-item"><strong>Projects:</strong> Vidole (Enterprise video platform), Polymate (Data analytics & D3.js visualization), IoT Telemetry (MQTT & WebSockets).</div>
+            <div class="dossier-item"><strong>Tech:</strong> Angular, Node.js, D3.js, MQTT, WebSockets.</div>
+          </div>
+        </div>
+
+        <div class="hint-3d-pill">
+          <i class="fa-solid fa-hand-pointer"></i>
+          <span>Drag 3D Milestone obelisks and laser pathway</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CHAPTER 05: EXPEDITIONS // FREELANCE VENTURES
+         3D Object: 5 Equilibrium Diamond Crystals in Anti-Gravity
+         ================================================================ -->
+    <section class="story-chapter" id="expeditions" data-chapter="05">
+      <div class="story-card">
+        <div class="chapter-badge-marker">
+          <i class="fa-solid fa-briefcase"></i>
+          <span>Chapter 05 // Freelance Expeditions</span>
+        </div>
+        <h2 class="card-title">Specialized <span class="gradient-text">Consulting</span></h2>
+
+        <div class="freelance-items-col">
+          <div class="freelance-mini-card">
+            <h5>Smart Farm - Bio Safety Evaluation</h5>
+            <p>Automated evaluation reporting system for USA smart farms with Excel report comparisons. Angular, TypeScript, Node.js, MongoDB (200+ users).</p>
+          </div>
+
+          <div class="freelance-mini-card">
+            <h5>Orders Management Enterprise CRM</h5>
+            <p>Complex multi-department CRM with stringent role-based access control (RBAC) and automated inventory tracking. Angular 13, NestJS, MongoDB.</p>
+          </div>
+
+          <div class="freelance-mini-card">
+            <h5>Animal Farm Supply ERP</h5>
+            <p>End-to-end feed and medication supply warehouse tracking, stall workflow management, and revenue analytics. Angular 11, NestJS, MongoDB.</p>
+          </div>
+        </div>
+
+        <div class="btn-group" style="margin-bottom: 0;">
+          <a href="#epilogue" class="btn btn-primary">
+            <i class="fa-solid fa-comments"></i> Consult on a Project
+          </a>
+        </div>
+
+        <div class="hint-3d-pill">
+          <i class="fa-solid fa-hand-pointer"></i>
+          <span>Drag 3D Polyhedral Crystals floating in equilibrium</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CHAPTER 06: EPILOGUE // CONNECT NEXUS
+         3D Object: Quantum Transmission Beacon with Pulsing Radar Rings
+         ================================================================ -->
+    <section class="story-chapter" id="epilogue" data-chapter="06">
+      <div class="story-card">
+        <div class="chapter-badge-marker">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>Epilogue // Let's Connect</span>
+        </div>
+        <h2 class="card-title">Initiate <span class="gradient-text">Transmission</span></h2>
+        
+        <p class="card-narrative">
+          Currently open to engineering leadership opportunities, architectural consulting, and groundbreaking interactive web ventures.
+        </p>
+
+        <div style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+          <div><i class="fa-solid fa-envelope" style="color: var(--cyan-neon); margin-right: 8px;"></i> <a href="mailto:fxanhkhoa@gmail.com" class="gradient-text">fxanhkhoa@gmail.com</a></div>
+          <div style="margin-top: 4px;"><i class="fa-solid fa-phone" style="color: var(--purple-neon); margin-right: 8px;"></i> <a href="tel:+84772912970">+84 772 912 970</a></div>
+          <div style="margin-top: 4px;"><i class="fa-solid fa-location-dot" style="color: var(--pink-neon); margin-right: 8px;"></i> Ho Chi Minh City, Vietnam</div>
+        </div>
+
+        <!-- Interactive EmailJS Contact Console Form -->
+        <form id="contact-form-3d" class="contact-console-form">
+          <input type="text" name="from_name" class="form-input-3d" placeholder="Your Name" required>
+          <input type="email" name="from_email" class="form-input-3d" placeholder="Your Email Address" required>
+          <input type="text" name="subject" class="form-input-3d" placeholder="Subject / Project Scope">
+          <textarea name="message" class="form-textarea-3d" placeholder="Your Message..." required></textarea>
+
+          <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">
+            <i id="submit-icon" class="fa-solid fa-paper-plane"></i>
+            <span id="submit-text">Send Transmission</span>
+          </button>
+
+          <div id="form-success" class="form-feedback success">
+            <i class="fa-solid fa-circle-check"></i> Transmission sent successfully! I'll be in touch soon.
+          </div>
+          <div id="form-error" class="form-feedback error">
+            <i class="fa-solid fa-triangle-exclamation"></i> Transmission failed. Please email fxanhkhoa@gmail.com directly.
+          </div>
+        </form>
+
+        <div class="hint-3d-pill">
+          <i class="fa-solid fa-hand-pointer"></i>
+          <span>Drag 3D Quantum Beacon tower and pulsating radar rings</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Storytelling Footer -->
+  <footer class="story-footer">
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <img src="images/logo.png" alt="Kevin Bui Logo" style="height: 28px;">
+      <span class="footer-copy-text">&copy; 2025 Kevin Bui (Bùi Anh Khoa). Built with Three.js WebGL & Scrollytelling.</span>
+    </div>
+
+    <div class="social-links">
+      <a href="https://github.com/fxanhkhoa" target="_blank" class="social-btn" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-brands fa-github"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/khoa-bui-anh-698ab2173" target="_blank" class="social-btn" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+      <a href="https://twitter.com/BuiAnhK49302949" target="_blank" class="social-btn" title="Twitter" rel="noopener noreferrer">
+        <i class="fa-brands fa-twitter"></i>
+      </a>
+      <a href="https://www.facebook.com/bui.a.khoa.1" target="_blank" class="social-btn" title="Facebook" rel="noopener noreferrer">
+        <i class="fa-brands fa-facebook-f"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="vendor/typed/typed.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init('v97mjOJU0VaG6C-Yw');
+    })();
+  </script>
+
+  <!-- Main 3D Scrollytelling ES Module -->
+  <script type="module" src="scripts/portfolio.js"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-02X4LNR5SF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-02X4LNR5SF');
+  </script>
 </body>
 
 </html>
