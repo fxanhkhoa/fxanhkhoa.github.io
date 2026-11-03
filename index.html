@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kevin Bui | Full Stack Architect & 3D Scrollytelling Portfolio</title>
-  <meta name="description" content="Explore the interactive 3D scrollytelling portfolio of Kevin Bui (Bùi Anh Khoa) - Full Stack Architect and Creative Technologist specializing in Angular, React, SvelteKit, Golang, Node.js, and Three.js WebGL experiences.">
+  <title>Kevin Bui | Full Stack Architect & 3D Interactive Book Portfolio</title>
+  <meta name="description" content="Explore the interactive 3D book portfolio of Kevin Bui (Bùi Anh Khoa) - Full Stack Architect and Creative Technologist specializing in Angular, React, SvelteKit, Golang, Node.js, and Three.js WebGL experiences.">
   <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 
   <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono -->
@@ -16,7 +16,7 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Redesigned 3D Portfolio Stylesheet -->
+  <!-- 3D Book Portfolio Stylesheet -->
   <link rel="stylesheet" href="styles/portfolio.css">
 
   <!-- ES Module Import Map for Three.js -->
@@ -31,11 +31,11 @@
 
 <body>
 
-  <!-- Cosmic Atmosphere Gradient Backdrop -->
+  <!-- Atmospheric Cosmic Backdrop -->
   <div class="cosmic-backdrop"></div>
 
   <!-- Interactive 3D WebGL Canvas Layer -->
-  <div id="webgl-container" aria-hidden="true"></div>
+  <div id="webgl-container" aria-hidden="true" title="Drag to orbit book • Click left/right page to flip"></div>
 
   <!-- Global Top Scroll Progress Meter -->
   <div class="scroll-progress-bar" id="scroll-progress"></div>
@@ -54,7 +54,7 @@
       <li><a href="#prologue" class="header-nav-link active">Prologue</a></li>
       <li><a href="#origin" class="header-nav-link">Origin</a></li>
       <li><a href="#arsenal" class="header-nav-link">Arsenal</a></li>
-      <li><a href="#creations" class="header-nav-link">Creations</a></li>
+      <li><a href="#creations" class="header-nav-link">Masterpieces</a></li>
       <li><a href="#odyssey" class="header-nav-link">Odyssey</a></li>
       <li><a href="#expeditions" class="header-nav-link">Expeditions</a></li>
       <li><a href="#epilogue" class="header-nav-link">Connect</a></li>
@@ -62,20 +62,25 @@
 
     <!-- Header Action Controls -->
     <div class="header-controls">
-      <button class="ctrl-btn" id="tour-toggle-btn" title="Automated camera tour through the 3D rig">
+      <button class="ctrl-btn" id="tour-toggle-btn" title="Automated page flip tour through the book">
         <i class="fa-solid fa-play"></i>
-        <span>Auto Tour</span>
+        <span>Auto Flip</span>
       </button>
 
-      <button class="ctrl-btn" id="sound-toggle-btn" title="Toggle audio synth notes">
+      <button class="ctrl-btn" id="sound-toggle-btn" title="Toggle realistic paper flip sound">
         <i class="fa-solid fa-volume-xmark"></i>
         <span>Muted</span>
       </button>
 
-      <a href="files/khoa-bui-28-02-2025.pdf" class="ctrl-btn" download title="Download Resume (PDF)">
+      <a href="files/khoa-bui-28-02-2025.pdf" class="ctrl-btn" download title="Download Official Resume (PDF)">
         <i class="fa-solid fa-file-arrow-down"></i>
         <span>CV</span>
       </a>
+
+      <button class="ctrl-btn open-contact-drawer-btn" title="Open Contact & Dossier Panel">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>Transmit</span>
+      </button>
 
       <button class="hamburger" aria-label="Toggle mobile menu">
         <span></span>
@@ -117,329 +122,218 @@
     </a>
   </nav>
 
-  <!-- Scrollytelling Story Track -->
+  <!-- 7 Scrollytelling Stages (Scroll waypoints driving page flips) -->
   <main class="story-scroll-container">
+    <section class="story-stage" id="prologue" data-index="0"></section>
+    <section class="story-stage" id="origin" data-index="1"></section>
+    <section class="story-stage" id="arsenal" data-index="2"></section>
+    <section class="story-stage" id="creations" data-index="3"></section>
+    <section class="story-stage" id="odyssey" data-index="4"></section>
+    <section class="story-stage" id="expeditions" data-index="5"></section>
+    <section class="story-stage" id="epilogue" data-index="6"></section>
+  </main>
 
-    <!-- ================================================================
-         STAGE 00: PROLOGUE // MAJESTIC CENTERED HERO
-         3D Camera: Wide 3/4 Stance of the Cybernetic Rig
-         ================================================================ -->
-    <section class="story-stage stage-center active" id="prologue" data-index="0">
-      <div class="story-card hero-card">
-        <div class="hero-avatar-center">
-          <div class="avatar-ring-glow">
-            <img src="images/avatar.png" alt="Kevin Bui profile photo">
-          </div>
-          <div class="stage-badge">
-            <i class="fa-solid fa-sparkles"></i>
-            <span>Prologue // Full-Cycle Architect & 3D Technologist</span>
-          </div>
-          <h1 class="stage-title">Hi, I'm <span class="gradient-text">Kevin Bui</span></h1>
+  <!-- Floating 3D Book Reader HUD (Bottom Controls) -->
+  <aside class="book-reader-hud" aria-label="Book Reader Controls">
+    <div class="reader-hud-capsule">
+      <button class="hud-nav-arrow" id="prev-page-btn" aria-label="Previous Page" title="Turn to Previous Page (Left Arrow)">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <div class="hud-info-stack">
+        <div class="hud-chapter-row">
+          <span class="hud-chapter-badge" id="hud-chapter-title">Prologue // Book of Creation</span>
+          <span class="hud-page-count" id="hud-page-indicator">Page 1 of 7</span>
         </div>
-
-        <div class="stage-subtitle">
-          <span id="typed-text"></span>
-        </div>
-
-        <p class="stage-desc">
-          Over 6 years designing robust distributed systems, high-concurrency microservices, and interactive 3D WebGL experiences with Angular, SvelteKit, React, Golang, Node.js, Kubernetes, and Three.js.
-        </p>
-
-        <!-- Live Telemetry Readout -->
-        <div class="telemetry-strip-chips">
-          <div class="telemetry-chip">
-            <div class="telemetry-val">6+</div>
-            <div class="telemetry-label">Years Exp</div>
-          </div>
-          <div class="telemetry-chip">
-            <div class="telemetry-val">50+</div>
-            <div class="telemetry-label">Shipped</div>
-          </div>
-          <div class="telemetry-chip">
-            <div class="telemetry-val">30+</div>
-            <div class="telemetry-label">Clients</div>
-          </div>
-          <div class="telemetry-chip">
-            <div class="telemetry-val">10M+</div>
-            <div class="telemetry-label">Users</div>
-          </div>
-        </div>
-
-        <div class="btn-group" style="justify-content: center;">
-          <a href="#creations" class="btn btn-primary">
-            <i class="fa-solid fa-cube"></i> Explore Creations
-          </a>
-          <a href="storytelling/" class="btn btn-glow">
-            <i class="fa-solid fa-compass"></i> Storytelling Hub
-          </a>
-          <a href="files/khoa-bui-28-02-2025.pdf" class="btn btn-secondary" download>
-            <i class="fa-solid fa-download"></i> Download CV
-          </a>
-        </div>
-
-        <div class="social-links" style="justify-content: center;">
-          <a href="https://github.com/fxanhkhoa" target="_blank" class="social-btn" title="GitHub" rel="noopener noreferrer">
-            <i class="fa-brands fa-github"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/khoa-bui-anh-698ab2173" target="_blank" class="social-btn" title="LinkedIn" rel="noopener noreferrer">
-            <i class="fa-brands fa-linkedin-in"></i>
-          </a>
-          <a href="https://twitter.com/BuiAnhK49302949" target="_blank" class="social-btn" title="Twitter" rel="noopener noreferrer">
-            <i class="fa-brands fa-twitter"></i>
-          </a>
-          <a href="https://www.facebook.com/bui.a.khoa.1" target="_blank" class="social-btn" title="Facebook" rel="noopener noreferrer">
-            <i class="fa-brands fa-facebook-f"></i>
-          </a>
-        </div>
-
-        <div class="hint-3d-pill" style="justify-content: center;">
-          <i class="fa-solid fa-hand-pointer"></i>
-          <span>Drag 3D Rig in space to orbit • Scroll down to fly camera</span>
+        <div class="hud-actions-strip" id="hud-quick-actions">
+          <!-- Dynamic Action Pills injected via JS -->
         </div>
       </div>
-    </section>
 
-    <!-- ================================================================
-         STAGE 01: ORIGIN // PHILOSOPHY & CORE PILLARS (LEFT ALIGNED)
-         3D Camera: Macro Zoom into Exploded Quantum Core
-         ================================================================ -->
-    <section class="story-stage stage-left" id="origin" data-index="1">
-      <div class="story-card origin-card">
-        <div class="stage-badge">
-          <i class="fa-solid fa-compass"></i>
-          <span>Stage 01 // The Origin Story</span>
+      <button class="hud-nav-arrow" id="next-page-btn" aria-label="Next Page" title="Turn to Next Page (Right Arrow)">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="reader-interaction-hints">
+      <span><i class="fa-solid fa-arrow-left"></i> <i class="fa-solid fa-arrow-right"></i> Arrow Keys</span>
+      <span>•</span>
+      <span>Click Page Spread</span>
+      <span>•</span>
+      <span>Scroll to Turn</span>
+      <span>•</span>
+      <span>Drag to Orbit 3D</span>
+    </div>
+  </aside>
+
+  <!-- Slide-Over Action Drawer (Transmission Form & Detailed Career Dossier) -->
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+  <aside class="action-drawer" id="action-drawer" aria-label="Career Dossier and Transmission Drawer">
+    <div class="drawer-header">
+      <div class="drawer-nav-tabs">
+        <button class="drawer-tab-btn active" data-tab="transmission">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>Send Transmission</span>
+        </button>
+        <button class="drawer-tab-btn" data-tab="dossier">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Career Dossier</span>
+        </button>
+      </div>
+      <button class="drawer-close-btn" id="close-drawer-btn" aria-label="Close Drawer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="drawer-body">
+      <!-- TAB 1: SEND TRANSMISSION (EMAILJS) -->
+      <div class="drawer-tab-pane active" id="drawer-tab-transmission">
+        <div class="drawer-pane-intro">
+          <h3>Initiate <span class="gradient-text">Transmission</span></h3>
+          <p>Send an encrypted direct dispatch to Kevin Bui. Response typically within 24 hours.</p>
         </div>
-        <h2 class="stage-title">Architecting <span class="gradient-text">Systems & Worlds</span></h2>
 
-        <p class="stage-desc">
-          From an enthusiastic engineering college graduate to a Lead Architect delivering high-stakes solutions for Singapore major hospitals, German manufacturing IPC lines, and US SaaS platforms.
-        </p>
-
-        <div class="pillar-grid">
-          <div class="pillar-box">
-            <div class="pillar-icon">
-              <i class="fa-solid fa-layer-group"></i>
-            </div>
+        <div class="contact-meta-list">
+          <div class="contact-meta-row">
+            <div class="contact-meta-icon"><i class="fa-solid fa-envelope"></i></div>
             <div>
-              <h5>Full-Cycle Systems Mastery</h5>
-              <p>End-to-end stewardship from database design, gRPC/GraphQL microservices, and cloud infrastructure to reactive user interfaces.</p>
+              <div class="meta-label">Direct Email</div>
+              <a href="mailto:fxanhkhoa@gmail.com" class="gradient-text" style="font-weight: 700;">fxanhkhoa@gmail.com</a>
             </div>
           </div>
-
-          <div class="pillar-box">
-            <div class="pillar-icon">
-              <i class="fa-solid fa-bolt"></i>
-            </div>
+          <div class="contact-meta-row">
+            <div class="contact-meta-icon"><i class="fa-solid fa-phone"></i></div>
             <div>
-              <h5>Low Latency & High Concurrency</h5>
-              <p>Engineering real-time video streaming, WebSocket synchronization, and hardware-software valve control with millisecond response times.</p>
+              <div class="meta-label">Phone / WhatsApp</div>
+              <a href="tel:+84772912970" style="font-weight: 700; color: #fff;">+84 772 912 970</a>
             </div>
           </div>
-
-          <div class="pillar-box">
-            <div class="pillar-icon">
-              <i class="fa-solid fa-vr-cardboard"></i>
-            </div>
+          <div class="contact-meta-row">
+            <div class="contact-meta-icon"><i class="fa-solid fa-location-dot"></i></div>
             <div>
-              <h5>3D Scrollytelling Frontiers</h5>
-              <p>Blending Three.js WebGL, procedural typography, and camera choreography to transform static portfolios into narrative journeys.</p>
+              <div class="meta-label">Location</div>
+              <span style="font-weight: 500; color: #fff;">Ho Chi Minh City, Vietnam</span>
             </div>
           </div>
         </div>
 
-        <div class="btn-group">
-          <a href="files/khoa-bui-28-02-2025.pdf" class="btn btn-primary" download>
-            <i class="fa-solid fa-download"></i> Download Full CV (PDF)
-          </a>
-          <a href="#odyssey" class="btn btn-secondary">
-            <i class="fa-solid fa-timeline"></i> View Career Timeline
-          </a>
-        </div>
+        <form class="contact-form-3d" id="contact-form-3d">
+          <div>
+            <label class="form-label" for="from_name">Your Name</label>
+            <input type="text" id="from_name" name="from_name" class="form-input-box" placeholder="e.g. Alex Morgan" required>
+          </div>
+          <div>
+            <label class="form-label" for="from_email">Your Email</label>
+            <input type="email" id="from_email" name="from_email" class="form-input-box" placeholder="alex@company.com" required>
+          </div>
+          <div>
+            <label class="form-label" for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" class="form-input-box" placeholder="Project collaboration / Tech Leadership" required>
+          </div>
+          <div>
+            <label class="form-label" for="message">Message</label>
+            <textarea id="message" name="message" class="form-textarea-box" rows="4" placeholder="Tell me about your architectural challenge or project vision..." required></textarea>
+          </div>
 
-        <div class="hint-3d-pill">
-          <i class="fa-solid fa-hand-pointer"></i>
-          <span>Exploded Core: Outer shield panels slide open on scroll</span>
+          <div class="form-toast success" id="form-success">
+            <i class="fa-solid fa-circle-check"></i> Transmission received! I will reply shortly.
+          </div>
+          <div class="form-toast error" id="form-error">
+            <i class="fa-solid fa-triangle-exclamation"></i> Transmission error. Please email directly to fxanhkhoa@gmail.com.
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="submit-btn" style="width: 100%; justify-content: center;">
+            <i class="fa-solid fa-paper-plane" id="submit-icon"></i>
+            <span id="submit-text">Send Transmission</span>
+          </button>
+        </form>
+
+        <div class="drawer-socials">
+          <a href="https://github.com/fxanhkhoa" target="_blank" class="social-btn" title="GitHub" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/khoa-bui-anh-698ab2173" target="_blank" class="social-btn" title="LinkedIn" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://twitter.com/BuiAnhK49302949" target="_blank" class="social-btn" title="Twitter" rel="noopener noreferrer"><i class="fa-brands fa-twitter"></i></a>
+          <a href="https://www.facebook.com/bui.a.khoa.1" target="_blank" class="social-btn" title="Facebook" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
         </div>
       </div>
-    </section>
 
-    <!-- ================================================================
-         STAGE 02: ARSENAL // TECHNICAL CAPABILITIES (RIGHT ALIGNED)
-         3D Camera: High-Angle Isometric Orbit over Gimbal Rings
-         ================================================================ -->
-    <section class="story-stage stage-right" id="arsenal" data-index="2">
-      <div class="story-card arsenal-card">
-        <div class="stage-badge">
-          <i class="fa-solid fa-microchip"></i>
-          <span>Stage 02 // Technical Arsenal</span>
-        </div>
-        <h2 class="stage-title">Battle-Tested <span class="gradient-text">Arsenal</span></h2>
-
-        <!-- Frontend -->
-        <div class="arsenal-category-group">
-          <div class="category-label">
-            <i class="fa-solid fa-code"></i>
-            <span>Frontend & Interactive UI</span>
-          </div>
-          <div class="tech-tag-cloud">
-            <span class="tag-item"><img src="images/icons/angular.png" alt="Angular">Angular (2–19)</span>
-            <span class="tag-item"><img src="images/icons/reactjs.png" alt="React">React.js</span>
-            <span class="tag-item"><img src="images/icons/nextjs.png" alt="Next.js">Next.js</span>
-            <span class="tag-item"><i class="fa-solid fa-fire" style="color: #ff3e00;"></i> SvelteKit</span>
-            <span class="tag-item"><i class="fa-brands fa-js" style="color: #3178c6;"></i> TypeScript</span>
-            <span class="tag-item"><img src="images/icons/tailwind.png" alt="Tailwind">Tailwind CSS</span>
-            <span class="tag-item"><i class="fa-brands fa-sass" style="color: #cf649a;"></i> SASS</span>
-          </div>
+      <!-- TAB 2: DETAILED CAREER & PROJECT DOSSIER -->
+      <div class="drawer-tab-pane" id="drawer-tab-dossier">
+        <div class="drawer-pane-intro">
+          <h3>Career & Project <span class="gradient-text">Dossier</span></h3>
+          <p>Deep-dive breakdown into leadership roles, systems architecture, and live flagships.</p>
         </div>
 
-        <!-- Backend -->
-        <div class="arsenal-category-group">
-          <div class="category-label">
-            <i class="fa-solid fa-server"></i>
-            <span>Backend & Distributed Systems</span>
+        <!-- Featured Flagships Quick Launch -->
+        <div class="dossier-flagships-block">
+          <div class="dossier-block-header">
+            <i class="fa-solid fa-cube"></i> Live Flagship Creations
           </div>
-          <div class="tech-tag-cloud">
-            <span class="tag-item"><img src="images/icons/golang.png" alt="Golang">Golang</span>
-            <span class="tag-item"><img src="images/icons/nodejs.png" alt="Node.js">Node.js</span>
-            <span class="tag-item"><img src="images/icons/nestjs.png" alt="NestJS">NestJS</span>
-            <span class="tag-item"><img src="images/icons/graphql.png" alt="GraphQL">GraphQL & Hasura</span>
-            <span class="tag-item"><img src="images/icons/grpc.png" alt="gRPC">gRPC & Microservices</span>
-            <span class="tag-item"><i class="fa-solid fa-broadcast-tower"></i> WebSockets & WebRTC</span>
-          </div>
-        </div>
+          <div class="drawer-flagship-list">
+            <div class="drawer-flagship-card">
+              <div class="flagship-top">
+                <h5>🏎️ AETHER GT</h5>
+                <span class="badge-pill">3D Exploded Tour</span>
+              </div>
+              <p>7-stage choreographed hypercar flythrough with parts disassembly.</p>
+              <a href="storytelling/car/" class="btn btn-primary btn-sm"><i class="fa-solid fa-play"></i> Launch AETHER GT</a>
+            </div>
 
-        <!-- Cloud & 3D -->
-        <div class="arsenal-category-group">
-          <div class="category-label">
-            <i class="fa-solid fa-cloud"></i>
-            <span>Cloud, DevOps & 3D WebGL</span>
-          </div>
-          <div class="tech-tag-cloud">
-            <span class="tag-item"><img src="images/icons/docker.png" alt="Docker">Docker</span>
-            <span class="tag-item"><i class="fa-solid fa-dharmachakra" style="color: #326ce5;"></i> Kubernetes (K8s)</span>
-            <span class="tag-item"><img src="images/icons/azure.png" alt="Azure">Azure</span>
-            <span class="tag-item"><img src="images/icons/aws.png" alt="AWS">AWS</span>
-            <span class="tag-item"><i class="fa-solid fa-cube" style="color: #00f0ff;"></i> Three.js & WebGL</span>
-            <span class="tag-item"><img src="images/icons/rxjs.png" alt="RxJS">RxJS / NgRx</span>
-          </div>
-        </div>
+            <div class="drawer-flagship-card">
+              <div class="flagship-top">
+                <h5>🪐 Alphabet Odyssey</h5>
+                <span class="badge-pill">Bilingual 3D</span>
+              </div>
+              <p>Interactive 3D educational adventure with extruded typography.</p>
+              <div class="btn-group-sm">
+                <a href="storytelling/alphabet/en/" class="btn btn-secondary btn-sm">English</a>
+                <a href="storytelling/alphabet/vi/" class="btn btn-glow btn-sm">Tiếng Việt</a>
+              </div>
+            </div>
 
-        <div class="hint-3d-pill">
-          <i class="fa-solid fa-hand-pointer"></i>
-          <span>Gimbal Rings: Concentric rings rotate on 3 axes as you scroll</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         STAGE 03: MASTERPIECES // FLAGSHIP CREATIONS (WIDE SHOWCASE)
-         3D Camera: Low-Angle Perspective of Emitter Pedestal
-         ================================================================ -->
-    <section class="story-stage stage-center" id="creations" data-index="3">
-      <div class="story-card masterpieces-stage-card">
-        <div class="stage-badge">
-          <i class="fa-solid fa-cube"></i>
-          <span>Stage 03 // Flagship Masterpieces</span>
-        </div>
-        <h2 class="stage-title">Where Code Meets <span class="gradient-text">Interactive Magic</span></h2>
-        <p class="stage-desc">
-          Explore featured live platforms and interactive 3D scrollytelling experiments designed to push web boundaries.
-        </p>
-
-        <div class="showcase-grid-3">
-          <!-- AETHER GT -->
-          <div class="showcase-item">
-            <span class="showcase-badge-pill">3D Exploded Product Tour</span>
-            <h4>🏎️ AETHER GT</h4>
-            <p>Scroll-driven 3D product tour of an electric hypercar. Camera executes a 7-stage choreographed flythrough, disassembling body panels, dual motors, and cockpit.</p>
-            <div class="btn-group" style="margin-bottom: 0;">
-              <a href="storytelling/car/" class="btn btn-primary" style="font-size: 0.82rem; padding: 0.5rem 1rem;">
-                <i class="fa-solid fa-play"></i> Launch Hypercar Tour
-              </a>
-              <a href="storytelling/" class="btn btn-secondary" style="font-size: 0.82rem; padding: 0.5rem 1rem;">
-                Story Hub
-              </a>
+            <div class="drawer-flagship-card">
+              <div class="flagship-top">
+                <h5>🍳 What To Eat</h5>
+                <span class="badge-pill">Live Food Platform</span>
+              </div>
+              <p>Community recipes and flavor wheel games on K8s & Golang.</p>
+              <a href="https://eatwhat.io.vn" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> eatwhat.io.vn</a>
             </div>
           </div>
-
-          <!-- Alphabet Odyssey -->
-          <div class="showcase-item">
-            <span class="showcase-badge-pill">Bilingual 3D Scrollytelling</span>
-            <h4>🪐 Alphabet Odyssey</h4>
-            <p>Interactive 3D educational adventure in English (A–Z) & Vietnamese (29 chữ cái). Features extruded 3D typography, procedural diacritics, and Web Audio synth.</p>
-            <div class="btn-group" style="margin-bottom: 0;">
-              <a href="storytelling/alphabet/en/" class="btn btn-primary" style="font-size: 0.82rem; padding: 0.5rem 1rem;">
-                English (A–Z)
-              </a>
-              <a href="storytelling/alphabet/vi/" class="btn btn-glow" style="font-size: 0.82rem; padding: 0.5rem 1rem;">
-                Tiếng Việt (29 chữ)
-              </a>
-            </div>
-          </div>
-
-          <!-- What to Eat -->
-          <div class="showcase-item">
-            <span class="showcase-badge-pill">Live Food Platform</span>
-            <h4>🍳 What To Eat</h4>
-            <p>Interactive culinary platform for indecisive foodies. Features thousands of recipes, ingredient profiles, and dish-based games (Flavor Wheel, Community Voting) built with SvelteKit & Golang.</p>
-            <a href="https://eatwhat.io.vn" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size: 0.82rem; padding: 0.5rem 1rem; width: fit-content;">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit eatwhat.io.vn
-            </a>
-          </div>
         </div>
 
-        <div class="hint-3d-pill">
-          <i class="fa-solid fa-hand-pointer"></i>
-          <span>Pedestal Stage: 3D showcase beam illuminates the base</span>
+        <!-- Company Tabs Navigation -->
+        <div class="dossier-block-header" style="margin-top: 1.5rem;">
+          <i class="fa-solid fa-timeline"></i> Enterprise Career History
         </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         STAGE 04: ODYSSEY // CAREER TIMELINE & DOSSIERS (EXECUTIVE CONTAINER)
-         3D Camera: Gliding along Milestone Towers Spline
-         ================================================================ -->
-    <section class="story-stage stage-center" id="odyssey" data-index="4">
-      <div class="story-card odyssey-stage-card">
-        <div class="stage-badge">
-          <i class="fa-solid fa-timeline"></i>
-          <span>Stage 04 // Career Odyssey</span>
-        </div>
-        <h2 class="stage-title">Professional Milestones & <span class="gradient-text">Leadership</span></h2>
-
-        <!-- Company Select Pills -->
         <div class="company-tabs-nav">
-          <button class="company-tab-btn active" data-company="comp-st">ST Engineering (2023–Now)</button>
-          <button class="company-tab-btn" data-company="comp-bloom">Bloom (2022–2023)</button>
-          <button class="company-tab-btn" data-company="comp-nash">NashTech (2020–2021)</button>
-          <button class="company-tab-btn" data-company="comp-hitachi">Hitachi Vantara (2019–2020)</button>
+          <button class="company-tab-btn active" data-company="comp-st">ST Engineering</button>
+          <button class="company-tab-btn" data-company="comp-bloom">Bloom</button>
+          <button class="company-tab-btn" data-company="comp-nash">NashTech</button>
+          <button class="company-tab-btn" data-company="comp-hitachi">Hitachi</button>
         </div>
 
         <!-- ST Engineering Pane -->
         <div class="company-section-pane active" id="comp-st">
           <div class="dossier-company-header">
-            <div class="company-logo-frame">
-              <img src="images/logo/st-engineering.png" alt="ST Engineering Logo">
-            </div>
+            <div class="company-logo-frame"><img src="images/logo/st-engineering.png" alt="ST Engineering Logo"></div>
             <div>
-              <h4 style="font-size: 1.2rem; color: #fff;">Full Stack Developer & Technical Lead</h4>
-              <p style="font-size: 0.85rem; color: var(--cyan-neon);">Nov 2023 – Present • Ho Chi Minh City</p>
+              <h4 style="font-size: 1.1rem; color: #fff;">Full Stack Developer & Technical Lead</h4>
+              <p style="font-size: 0.8rem; color: var(--cyan-neon);">Nov 2023 – Present • Ho Chi Minh City</p>
             </div>
           </div>
 
           <div class="project-subtabs-row">
-            <button class="subtab-pill active" data-sub="st-hosp">Healthcare Operations</button>
+            <button class="subtab-pill active" data-sub="st-hosp">Healthcare Ops</button>
             <button class="subtab-pill" data-sub="st-crm">CRM & Livestream</button>
             <button class="subtab-pill" data-sub="st-ssre">SSRE</button>
             <button class="subtab-pill" data-sub="st-manga">Manga Sahara</button>
-            <button class="subtab-pill" data-sub="st-g2b">G2B Advertising</button>
           </div>
 
           <div class="project-dossier-card active" id="st-hosp">
             <div class="dossier-detail-grid">
               <div class="dossier-box">
                 <h5>Mission & Scope</h5>
-                <p>Major Singapore hospital system modernization, replacing legacy software with real-time reactive architecture and automated pipelines.</p>
+                <p>Major Singapore hospital system modernization, replacing legacy software with real-time reactive architecture.</p>
               </div>
               <div class="dossier-box">
                 <h5>Tech Stack</h5>
@@ -447,7 +341,7 @@
               </div>
               <div class="dossier-box">
                 <h5>Leadership Impact</h5>
-                <p>Led 10-person cross-functional squad; built CI/CD with Kubernetes and sub-second real-time subscription services.</p>
+                <p>Led 10-person squad; built sub-second real-time subscription services.</p>
               </div>
             </div>
           </div>
@@ -462,10 +356,6 @@
                 <h5>Tech Stack</h5>
                 <p>Golang, Next.js, NestJS, Angular 19, WebRTC, Socket.io, Microservices.</p>
               </div>
-              <div class="dossier-box">
-                <h5>Architecture</h5>
-                <p>Designed end-to-end streaming channels ensuring lowest latency for concurrent active audiences.</p>
-              </div>
             </div>
           </div>
 
@@ -477,7 +367,7 @@
               </div>
               <div class="dossier-box">
                 <h5>Tech Stack</h5>
-                <p>Golang, Next.js, Socket.io (<a href="https://ssrengineering.tech" target="_blank" class="gradient-text">ssrengineering.tech</a>).</p>
+                <p>Golang, Next.js, Socket.io (ssrengineering.tech).</p>
               </div>
             </div>
           </div>
@@ -494,30 +384,15 @@
               </div>
             </div>
           </div>
-
-          <div class="project-dossier-card" id="st-g2b">
-            <div class="dossier-detail-grid">
-              <div class="dossier-box">
-                <h5>Mission & Scope</h5>
-                <p>Billboard & LED commercial advertising quotation system with dynamic pricing calculators.</p>
-              </div>
-              <div class="dossier-box">
-                <h5>Tech Stack</h5>
-                <p>Next.js 14, NestJS, PostgreSQL, Kubernetes.</p>
-              </div>
-            </div>
-          </div>
         </div>
 
         <!-- Bloom Pane -->
         <div class="company-section-pane" id="comp-bloom">
           <div class="dossier-company-header">
-            <div class="company-logo-frame">
-              <img src="images/logo/bloom.png" alt="Bloom Logo">
-            </div>
+            <div class="company-logo-frame"><img src="images/logo/bloom.png" alt="Bloom Logo"></div>
             <div>
-              <h4 style="font-size: 1.2rem; color: #fff;">Full Stack Developer & Technical Architect</h4>
-              <p style="font-size: 0.85rem; color: var(--purple-neon);">Mar 2022 – Nov 2023 • Ho Chi Minh City</p>
+              <h4 style="font-size: 1.1rem; color: #fff;">Full Stack Developer & Technical Architect</h4>
+              <p style="font-size: 0.8rem; color: var(--purple-neon);">Mar 2022 – Nov 2023 • Ho Chi Minh City</p>
             </div>
           </div>
 
@@ -530,11 +405,11 @@
             <div class="dossier-detail-grid">
               <div class="dossier-box">
                 <h5>Mission & Scale</h5>
-                <p>Complete rebuild of prominent US SaaS fitness & meal plan platform serving 10,000+ users and ~1,000 concurrent sessions.</p>
+                <p>Complete rebuild of US SaaS fitness platform serving 10,000+ users and ~1,000 concurrent sessions.</p>
               </div>
               <div class="dossier-box">
-                <h5>Tech Stack & DevOps</h5>
-                <p>Next.js, NestJS, MongoDB, Kubernetes auto-scaling templates, automated cron jobs and backups.</p>
+                <h5>Tech Stack</h5>
+                <p>Next.js, NestJS, MongoDB, Kubernetes auto-scaling templates.</p>
               </div>
             </div>
           </div>
@@ -542,12 +417,8 @@
           <div class="project-dossier-card" id="bloom-producer">
             <div class="dossier-detail-grid">
               <div class="dossier-box">
-                <h5>Mission & Scope</h5>
-                <p>Choreographed LED lighting and high-speed hydraulic valve control system for synchronized musical water fountain shows.</p>
-              </div>
-              <div class="dossier-box">
-                <h5>Latency & Tech</h5>
-                <p>Millisecond response execution. Angular, NestJS, Python, gRPC microservices, GraphQL, Embedded Firmware.</p>
+                <h5>Mission & Latency</h5>
+                <p>Millisecond synchronized water fountain lighting and valve control. Angular, NestJS, Python, gRPC microservices.</p>
               </div>
             </div>
           </div>
@@ -556,30 +427,24 @@
         <!-- NashTech Pane -->
         <div class="company-section-pane" id="comp-nash">
           <div class="dossier-company-header">
-            <div class="company-logo-frame">
-              <img src="images/logo/nashtech.webp" alt="NashTech Logo">
-            </div>
+            <div class="company-logo-frame"><img src="images/logo/nashtech.webp" alt="NashTech Logo"></div>
             <div>
-              <h4 style="font-size: 1.2rem; color: #fff;">Full Stack Developer</h4>
-              <p style="font-size: 0.85rem; color: var(--cyan-neon);">June 2020 – Nov 2021 • Ho Chi Minh City</p>
+              <h4 style="font-size: 1.1rem; color: #fff;">Full Stack Developer</h4>
+              <p style="font-size: 0.8rem; color: var(--cyan-neon);">June 2020 – Nov 2021 • Ho Chi Minh City</p>
             </div>
           </div>
 
           <div class="project-subtabs-row">
-            <button class="subtab-pill active" data-sub="nash-cnc">CNC Control Software</button>
+            <button class="subtab-pill active" data-sub="nash-cnc">CNC Control</button>
             <button class="subtab-pill" data-sub="nash-smart">Smart Manufacturing</button>
-            <button class="subtab-pill" data-sub="nash-wealth">Wealth Management</button>
+            <button class="subtab-pill" data-sub="nash-wealth">Wealth Mgmt</button>
           </div>
 
           <div class="project-dossier-card active" id="nash-cnc">
             <div class="dossier-detail-grid">
               <div class="dossier-box">
                 <h5>German Client Project</h5>
-                <p>Industrial CNC machine touch-optimized remote desktop access (RDP, VNC, SSH) using micro-frontend architecture.</p>
-              </div>
-              <div class="dossier-box">
-                <h5>Tech Stack</h5>
-                <p>Angular 9, Electron, Golang, Micro Frontends.</p>
+                <p>Industrial CNC touch-optimized remote desktop access (RDP, VNC, SSH) using Angular 9 and Electron.</p>
               </div>
             </div>
           </div>
@@ -587,12 +452,8 @@
           <div class="project-dossier-card" id="nash-smart">
             <div class="dossier-detail-grid">
               <div class="dossier-box">
-                <h5>Mission & Scope</h5>
-                <p>Real-time factory production line monitoring system deployed onto Industrial PCs (IPC) for 100+ active operators.</p>
-              </div>
-              <div class="dossier-box">
-                <h5>Tech Stack</h5>
-                <p>Angular 11, Java, SQL, 4-level hierarchical production data visualization.</p>
+                <h5>Production Line IPC</h5>
+                <p>Real-time factory monitoring system for 100+ active operators. Angular 11, Java, SQL.</p>
               </div>
             </div>
           </div>
@@ -601,11 +462,7 @@
             <div class="dossier-detail-grid">
               <div class="dossier-box">
                 <h5>Financial Scale</h5>
-                <p>Wealth management platform customized from Finantix serving US customers across 10,000,000+ accounts.</p>
-              </div>
-              <div class="dossier-box">
-                <h5>Tech Stack</h5>
-                <p>Angular 11, Java, SQL, JBPM workflow engine.</p>
+                <p>Wealth management platform customized from Finantix serving 10,000,000+ accounts. Angular 11, Java.</p>
               </div>
             </div>
           </div>
@@ -614,203 +471,26 @@
         <!-- Hitachi Pane -->
         <div class="company-section-pane" id="comp-hitachi">
           <div class="dossier-company-header">
-            <div class="company-logo-frame">
-              <img src="images/logo/hitachi-vantara.png" alt="Hitachi Vantara Logo">
-            </div>
+            <div class="company-logo-frame"><img src="images/logo/hitachi-vantara.png" alt="Hitachi Vantara Logo"></div>
             <div>
-              <h4 style="font-size: 1.2rem; color: #fff;">Full Stack Developer</h4>
-              <p style="font-size: 0.85rem; color: var(--cyan-neon);">Feb 2019 – Jun 2020 • Ho Chi Minh City</p>
+              <h4 style="font-size: 1.1rem; color: #fff;">Full Stack Developer</h4>
+              <p style="font-size: 0.8rem; color: var(--cyan-neon);">Feb 2019 – Jun 2020 • Ho Chi Minh City</p>
             </div>
           </div>
 
           <div class="dossier-detail-grid">
             <div class="dossier-box">
               <h5>Enterprise Platforms</h5>
-              <p>Vidole (digital video streaming archive), Polymate (data analytics with D3.js interactive charts), and IoT device telemetry management.</p>
-            </div>
-            <div class="dossier-box">
-              <h5>Tech Stack</h5>
-              <p>Angular, Node.js, D3.js, MQTT, WebSockets.</p>
+              <p>Vidole (video streaming archive), Polymate (data analytics with D3.js interactive charts), and IoT device telemetry with MQTT & WebSockets.</p>
             </div>
           </div>
         </div>
 
-        <div class="hint-3d-pill">
-          <i class="fa-solid fa-hand-pointer"></i>
-          <span>Milestone Spline: 3D towers connect in sequence along the trajectory</span>
-        </div>
       </div>
-    </section>
-
-    <!-- ================================================================
-         STAGE 05: EXPEDITIONS // FREELANCE VENTURES (BALANCED GRID)
-         3D Camera: Floating Equilibrium Satellites Vantage
-         ================================================================ -->
-    <section class="story-stage stage-center" id="expeditions" data-index="5">
-      <div class="story-card expeditions-stage-card">
-        <div class="stage-badge">
-          <i class="fa-solid fa-briefcase"></i>
-          <span>Stage 05 // Freelance Expeditions</span>
-        </div>
-        <h2 class="stage-title">Specialized Consulting & <span class="gradient-text">Client Ventures</span></h2>
-        <p class="stage-desc">
-          Delivering custom digital products, architectures, and full-cycle engineering for international clients.
-        </p>
-
-        <div class="freelance-grid-4">
-          <div class="freelance-card-item">
-            <h5>Smart Farm - Bio Safety</h5>
-            <p>Bio-safety evaluation platform for agricultural enterprises in the USA, delivering automated report comparisons and Excel exports. (200+ users).</p>
-            <span style="font-size: 0.78rem; color: var(--text-dim); font-family: var(--font-mono);">Angular • Node.js • MongoDB</span>
-          </div>
-
-          <div class="freelance-card-item">
-            <h5>Orders Management CRM</h5>
-            <p>Multi-department enterprise CRM with stringent role-based access control (RBAC), delivery tracking, and automated inventory deduction.</p>
-            <span style="font-size: 0.78rem; color: var(--text-dim); font-family: var(--font-mono);">Angular 13 • NestJS • MongoDB</span>
-          </div>
-
-          <div class="freelance-card-item">
-            <h5>Animal Farm ERP</h5>
-            <p>Agricultural ERP for feed suppliers tracking feed supplies, veterinary medications, stall workflows, and monthly revenue analytics.</p>
-            <span style="font-size: 0.78rem; color: var(--text-dim); font-family: var(--font-mono);">Angular 11 • NestJS • MongoDB</span>
-          </div>
-
-          <div class="freelance-card-item">
-            <h5>What To Eat Platform</h5>
-            <p>Full-stack recipe and dish discovery community system with voting games and ingredient masters deployed on Kubernetes.</p>
-            <span style="font-size: 0.78rem; color: var(--text-dim); font-family: var(--font-mono);">SvelteKit • Golang • Kubernetes</span>
-          </div>
-        </div>
-
-        <div class="btn-group" style="justify-content: center; margin-bottom: 0;">
-          <a href="#epilogue" class="btn btn-primary">
-            <i class="fa-solid fa-comments"></i> Consult on a Project
-          </a>
-        </div>
-
-        <div class="hint-3d-pill" style="justify-content: center;">
-          <i class="fa-solid fa-hand-pointer"></i>
-          <span>Satellites: Diamond crystals hover in anti-gravity equilibrium</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         STAGE 06: EPILOGUE // CONNECT & TRANSMISSION CONSOLE
-         3D Camera: Ascended Cosmic Broadcast Perspective of Beacon
-         ================================================================ -->
-    <section class="story-stage stage-center" id="epilogue" data-index="6">
-      <div class="story-card epilogue-stage-card">
-        <div class="stage-badge">
-          <i class="fa-solid fa-paper-plane"></i>
-          <span>Stage 06 // Initiate Transmission</span>
-        </div>
-        <h2 class="stage-title">Start the Next <span class="gradient-text">Chapter Together</span></h2>
-        
-        <p class="stage-desc">
-          Currently open to engineering leadership opportunities, architectural consulting, and groundbreaking interactive web ventures.
-        </p>
-
-        <div class="epilogue-split-grid">
-          <!-- Contact Details -->
-          <div>
-            <h4 style="font-size: 1.15rem; color: #fff; margin-bottom: 1rem;">Direct Channels</h4>
-
-            <div class="contact-meta-list">
-              <div class="contact-meta-row">
-                <div class="contact-meta-icon">
-                  <i class="fa-solid fa-envelope"></i>
-                </div>
-                <div>
-                  <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-mono);">Email</div>
-                  <a href="mailto:fxanhkhoa@gmail.com" class="gradient-text" style="font-weight: 600;">fxanhkhoa@gmail.com</a>
-                </div>
-              </div>
-
-              <div class="contact-meta-row">
-                <div class="contact-meta-icon">
-                  <i class="fa-solid fa-phone"></i>
-                </div>
-                <div>
-                  <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-mono);">Phone</div>
-                  <a href="tel:+84772912970" style="color: var(--text-main); font-weight: 600;">+84 772 912 970</a>
-                </div>
-              </div>
-
-              <div class="contact-meta-row">
-                <div class="contact-meta-icon">
-                  <i class="fa-solid fa-location-dot"></i>
-                </div>
-                <div>
-                  <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-mono);">Location</div>
-                  <span style="color: var(--text-main); font-weight: 500;">Ho Chi Minh City, Vietnam</span>
-                </div>
-              </div>
-            </div>
-
-            <a href="files/khoa-bui-28-02-2025.pdf" class="btn btn-secondary" style="width: 100%; justify-content: center;" download>
-              <i class="fa-solid fa-download"></i> Download Full CV (PDF)
-            </a>
-          </div>
-
-          <!-- EmailJS Form Console -->
-          <div>
-            <form id="contact-form-3d" class="contact-form-3d">
-              <input type="text" name="from_name" class="form-input-box" placeholder="Your Name" required>
-              <input type="email" name="from_email" class="form-input-box" placeholder="Your Email Address" required>
-              <input type="text" name="subject" class="form-input-box" placeholder="Subject / Project Scope">
-              <textarea name="message" class="form-textarea-box" placeholder="Tell me about your project, timeline, or opportunity..." required></textarea>
-
-              <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">
-                <i id="submit-icon" class="fa-solid fa-paper-plane"></i>
-                <span id="submit-text">Send Transmission</span>
-              </button>
-
-              <div id="form-success" class="form-toast success">
-                <i class="fa-solid fa-circle-check"></i> Transmission received! I'll get back to you shortly.
-              </div>
-              <div id="form-error" class="form-toast error">
-                <i class="fa-solid fa-triangle-exclamation"></i> Transmission failed. Please email fxanhkhoa@gmail.com directly.
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div class="hint-3d-pill">
-          <i class="fa-solid fa-hand-pointer"></i>
-          <span>Beacon Tower: Radar waves pulse into deep space as you reach the epilogue</span>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Site Footer -->
-  <footer class="site-footer">
-    <div style="display: flex; align-items: center; gap: 0.75rem;">
-      <img src="images/logo.png" alt="Kevin Bui Logo" style="height: 28px;">
-      <span class="footer-copy">&copy; 2025 Kevin Bui (Bùi Anh Khoa). Built with Three.js WebGL & Scrollytelling.</span>
     </div>
-
-    <div class="social-links">
-      <a href="https://github.com/fxanhkhoa" target="_blank" class="social-btn" title="GitHub" rel="noopener noreferrer">
-        <i class="fa-brands fa-github"></i>
-      </a>
-      <a href="https://www.linkedin.com/in/khoa-bui-anh-698ab2173" target="_blank" class="social-btn" title="LinkedIn" rel="noopener noreferrer">
-        <i class="fa-brands fa-linkedin-in"></i>
-      </a>
-      <a href="https://twitter.com/BuiAnhK49302949" target="_blank" class="social-btn" title="Twitter" rel="noopener noreferrer">
-        <i class="fa-brands fa-twitter"></i>
-      </a>
-      <a href="https://www.facebook.com/bui.a.khoa.1" target="_blank" class="social-btn" title="Facebook" rel="noopener noreferrer">
-        <i class="fa-brands fa-facebook-f"></i>
-      </a>
-    </div>
-  </footer>
+  </aside>
 
   <!-- Scripts -->
-  <script src="vendor/typed/typed.umd.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
     (function () {
