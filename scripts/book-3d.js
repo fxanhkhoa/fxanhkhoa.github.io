@@ -515,20 +515,6 @@ export class BookThreeScene {
       ctx.font = 'bold 24px "JetBrains Mono", monospace';
       ctx.fillText('SCROLL DOWN OR CLICK TO TURN PAGE ▹', 100, 1280);
 
-        ctx.fillStyle = '#00f0ff';
-        ctx.font = 'bold 42px "Space Grotesk", sans-serif';
-        ctx.fillText(m.val, x + 24, y + 58);
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-        ctx.font = '18px "JetBrains Mono", monospace';
-        ctx.fillText(m.lbl, x + 24, y + 96);
-      });
-
-      // Bottom flip cue
-      ctx.fillStyle = '#ffd166';
-      ctx.font = 'bold 24px "JetBrains Mono", monospace';
-      ctx.fillText('SCROLL DOWN TO TURN THE PAGE ▹', 100, 1280);
-
     } else if (sheetIndex === 0 && !isFront) {
       // 01 ORIGIN // LEFT PAGE
       ctx.fillStyle = '#00f5d4';
