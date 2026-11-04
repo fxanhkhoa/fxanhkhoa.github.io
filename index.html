@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kevin Bui | Full Stack Architect & 3D Interactive Book Portfolio</title>
-  <meta name="description" content="Explore the interactive 3D book portfolio of Kevin Bui (Bùi Anh Khoa) - Full Stack Architect and Creative Technologist specializing in Angular, React, SvelteKit, Golang, Node.js, and Three.js WebGL experiences.">
+  <title>Kevin Bui | Full Stack Architect & 3D Interactive Portfolio</title>
+  <meta name="description" content="Explore the interactive 3D portfolio of Kevin Bui (Bùi Anh Khoa) - Full Stack Architect and Creative Technologist specializing in Angular, React, SvelteKit, Golang, Node.js, and Three.js WebGL experiences.">
   <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 
   <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono -->
@@ -16,7 +16,7 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- 3D Book Portfolio Stylesheet -->
+  <!-- Redesigned 3D Portfolio Stylesheet -->
   <link rel="stylesheet" href="styles/portfolio.css">
 
   <!-- ES Module Import Map for Three.js -->
@@ -31,11 +31,11 @@
 
 <body>
 
-  <!-- Atmospheric Cosmic Backdrop -->
+  <!-- Cosmic Atmosphere Backdrop -->
   <div class="cosmic-backdrop"></div>
 
   <!-- Interactive 3D WebGL Canvas Layer -->
-  <div id="webgl-container" aria-hidden="true" title="Drag to orbit book • Click left/right page to flip"></div>
+  <div id="webgl-container" aria-hidden="true" title="Drag to orbit 3D space • Scroll to fly forward"></div>
 
   <!-- Global Top Scroll Progress Meter -->
   <div class="scroll-progress-bar" id="scroll-progress"></div>
@@ -47,6 +47,13 @@
         <img class="nav-logo" src="images/logo.png" alt="Kevin Bui Logo">
         <span class="brand-title">Kevin<span class="gradient-text">Bui</span></span>
       </a>
+    </div>
+
+    <!-- 3D Concept Switcher -->
+    <div class="concept-switcher">
+      <a href="index-warp.html" class="switcher-pill active" title="Concept 1: Fly forward through deep-space waypoints">🚀 Warp Spline</a>
+      <a href="index-monolith.html" class="switcher-pill" title="Concept 2: Minimalist dark obsidian monolith gallery">🏛️ Monoliths</a>
+      <a href="index-helix.html" class="switcher-pill" title="Concept 3: Kinetic 3D spiral carousel">🌀 Spiral Helix</a>
     </div>
 
     <!-- Navigation Menu (Desktop) -->
@@ -62,12 +69,12 @@
 
     <!-- Header Action Controls -->
     <div class="header-controls">
-      <button class="ctrl-btn" id="tour-toggle-btn" title="Automated page flip tour through the book">
+      <button class="ctrl-btn" id="tour-toggle-btn" title="Automated camera flight through space">
         <i class="fa-solid fa-play"></i>
-        <span>Auto Flip</span>
+        <span>Auto Fly</span>
       </button>
 
-      <button class="ctrl-btn" id="sound-toggle-btn" title="Toggle realistic paper flip sound">
+      <button class="ctrl-btn" id="sound-toggle-btn" title="Toggle audio synth notes">
         <i class="fa-solid fa-volume-xmark"></i>
         <span>Muted</span>
       </button>
@@ -91,7 +98,7 @@
   </header>
 
   <!-- Side Scrubber Rail (Desktop) -->
-  <nav class="story-scrubber-rail" aria-label="Chapter Scrubber Navigation">
+  <nav class="story-scrubber-rail" aria-label="Sector Navigation">
     <a href="#prologue" class="scrub-item active" title="00. Prologue">
       <span class="scrub-tooltip">00 Prologue</span>
       <div class="scrub-node">00</div>
@@ -122,7 +129,7 @@
     </a>
   </nav>
 
-  <!-- 7 Scrollytelling Stages (Scroll waypoints driving page flips) -->
+  <!-- 7 Scrollytelling Stages (Scroll waypoints driving flight) -->
   <main class="story-scroll-container">
     <section class="story-stage" id="prologue" data-index="0"></section>
     <section class="story-stage" id="origin" data-index="1"></section>
@@ -133,34 +140,32 @@
     <section class="story-stage" id="epilogue" data-index="6"></section>
   </main>
 
-  <!-- Floating 3D Book Reader HUD (Bottom Controls) -->
-  <aside class="book-reader-hud" aria-label="Book Reader Controls">
+  <!-- Floating HUD (Bottom Controls) -->
+  <aside class="book-reader-hud" aria-label="Waypoint Flight Controls">
     <div class="reader-hud-capsule">
-      <button class="hud-nav-arrow" id="prev-page-btn" aria-label="Previous Page" title="Turn to Previous Page (Left Arrow)">
+      <button class="hud-nav-arrow" id="prev-page-btn" aria-label="Previous Sector" title="Previous Sector (Left Arrow)">
         <i class="fa-solid fa-chevron-left"></i>
       </button>
 
       <div class="hud-info-stack">
         <div class="hud-chapter-row">
-          <span class="hud-chapter-badge" id="hud-chapter-title">Prologue // Book of Creation</span>
-          <span class="hud-page-count" id="hud-page-indicator">Page 1 of 7</span>
+          <span class="hud-chapter-badge" id="hud-chapter-title">Prologue // System Genesis</span>
+          <span class="hud-page-count" id="hud-page-indicator">Station 1 of 7</span>
         </div>
         <div class="hud-actions-strip" id="hud-quick-actions">
-          <!-- Dynamic Action Pills injected via JS -->
+          <!-- Injected via JS -->
         </div>
       </div>
 
-      <button class="hud-nav-arrow" id="next-page-btn" aria-label="Next Page" title="Turn to Next Page (Right Arrow)">
+      <button class="hud-nav-arrow" id="next-page-btn" aria-label="Next Sector" title="Next Sector (Right Arrow)">
         <i class="fa-solid fa-chevron-right"></i>
       </button>
     </div>
 
     <div class="reader-interaction-hints">
-      <span><i class="fa-solid fa-arrow-left"></i> <i class="fa-solid fa-arrow-right"></i> Arrow Keys</span>
+      <span><i class="fa-solid fa-arrow-left"></i> <i class="fa-solid fa-arrow-right"></i> Keys</span>
       <span>•</span>
-      <span>Click Page Spread</span>
-      <span>•</span>
-      <span>Scroll to Turn</span>
+      <span>Scroll to Fly Forward</span>
       <span>•</span>
       <span>Drag to Orbit 3D</span>
     </div>
@@ -498,8 +503,12 @@
     })();
   </script>
 
-  <!-- Main Scrollytelling Controller ES Module -->
-  <script type="module" src="scripts/portfolio.js"></script>
+  <!-- Primary Flagship Controller ES Module (Default: Concept 1 Warp Spline) -->
+  <script type="module">
+    import { WarpThreeScene } from './scripts/warp-3d.js';
+    import { initPortfolioApp } from './scripts/portfolio-controller.js';
+    initPortfolioApp(WarpThreeScene);
+  </script>
 
   <!-- Google Analytics (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-02X4LNR5SF"></script>

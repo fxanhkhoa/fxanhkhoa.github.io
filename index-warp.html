@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kevin Bui | Concept 1: Cosmic Warp Spline 3D Portfolio</title>
+  <meta name="description" content="Explore the interactive 3D cosmic warp spline portfolio of Kevin Bui (Bùi Anh Khoa) - Full Stack Architect and Creative Technologist.">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+  <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Redesigned 3D Portfolio Stylesheet -->
+  <link rel="stylesheet" href="styles/portfolio.css">
+
+  <!-- ES Module Import Map for Three.js -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./storytelling/alphabet/shared/vendor/three.module.js"
+    }
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- Cosmic Atmosphere Backdrop -->
+  <div class="cosmic-backdrop"></div>
+
+  <!-- Interactive 3D WebGL Canvas Layer -->
+  <div id="webgl-container" aria-hidden="true" title="Drag to orbit 3D space • Scroll to fly forward"></div>
+
+  <!-- Global Top Scroll Progress Meter -->
+  <div class="scroll-progress-bar" id="scroll-progress"></div>
+
+  <!-- Top HUD Header -->
+  <header class="top-header">
+    <div class="brand-wrapper">
+      <a href="#prologue" class="logo-link">
+        <img class="nav-logo" src="images/logo.png" alt="Kevin Bui Logo">
+        <span class="brand-title">Kevin<span class="gradient-text">Bui</span></span>
+      </a>
+    </div>
+
+    <!-- 3D Concept Switcher -->
+    <div class="concept-switcher">
+      <a href="index-warp.html" class="switcher-pill active" title="Fly forward through deep-space waypoints">🚀 Warp Spline</a>
+      <a href="index-monolith.html" class="switcher-pill" title="Minimalist dark obsidian monolith gallery">🏛️ Monoliths</a>
+      <a href="index-helix.html" class="switcher-pill" title="Kinetic 3D spiral carousel">🌀 Spiral Helix</a>
+    </div>
+
+    <!-- Navigation Menu (Desktop) -->
+    <ul class="header-nav-menu">
+      <li><a href="#prologue" class="header-nav-link active">Prologue</a></li>
+      <li><a href="#origin" class="header-nav-link">Origin</a></li>
+      <li><a href="#arsenal" class="header-nav-link">Arsenal</a></li>
+      <li><a href="#creations" class="header-nav-link">Masterpieces</a></li>
+      <li><a href="#odyssey" class="header-nav-link">Odyssey</a></li>
+      <li><a href="#expeditions" class="header-nav-link">Expeditions</a></li>
+      <li><a href="#epilogue" class="header-nav-link">Connect</a></li>
+    </ul>
+
+    <!-- Header Action Controls -->
+    <div class="header-controls">
+      <button class="ctrl-btn" id="tour-toggle-btn" title="Automated camera flight through space">
+        <i class="fa-solid fa-play"></i>
+        <span>Auto Fly</span>
+      </button>
+
+      <button class="ctrl-btn" id="sound-toggle-btn" title="Toggle audio synth notes">
+        <i class="fa-solid fa-volume-xmark"></i>
+        <span>Muted</span>
+      </button>
+
+      <a href="files/khoa-bui-28-02-2025.pdf" class="ctrl-btn" download title="Download Official Resume (PDF)">
+        <i class="fa-solid fa-file-arrow-down"></i>
+        <span>CV</span>
+      </a>
+
+      <button class="ctrl-btn open-contact-drawer-btn" title="Open Contact & Dossier Panel">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>Transmit</span>
+      </button>
+
+      <button class="hamburger" aria-label="Toggle mobile menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Side Scrubber Rail (Desktop) -->
+  <nav class="story-scrubber-rail" aria-label="Sector Navigation">
+    <a href="#prologue" class="scrub-item active" title="00. Prologue">
+      <span class="scrub-tooltip">00 Prologue</span>
+      <div class="scrub-node">00</div>
+    </a>
+    <a href="#origin" class="scrub-item" title="01. Origin Story">
+      <span class="scrub-tooltip">01 Origin</span>
+      <div class="scrub-node">01</div>
+    </a>
+    <a href="#arsenal" class="scrub-item" title="02. Technical Arsenal">
+      <span class="scrub-tooltip">02 Arsenal</span>
+      <div class="scrub-node">02</div>
+    </a>
+    <a href="#creations" class="scrub-item" title="03. Flagship Masterpieces">
+      <span class="scrub-tooltip">03 Creations</span>
+      <div class="scrub-node">03</div>
+    </a>
+    <a href="#odyssey" class="scrub-item" title="04. Career Odyssey">
+      <span class="scrub-tooltip">04 Odyssey</span>
+      <div class="scrub-node">04</div>
+    </a>
+    <a href="#expeditions" class="scrub-item" title="05. Freelance Expeditions">
+      <span class="scrub-tooltip">05 Expeditions</span>
+      <div class="scrub-node">05</div>
+    </a>
+    <a href="#epilogue" class="scrub-item" title="06. Epilogue & Transmission">
+      <span class="scrub-tooltip">06 Connect</span>
+      <div class="scrub-node">06</div>
+    </a>
+  </nav>
+
+  <!-- 7 Scrollytelling Stages (Scroll waypoints driving flight) -->
+  <main class="story-scroll-container">
+    <section class="story-stage" id="prologue" data-index="0"></section>
+    <section class="story-stage" id="origin" data-index="1"></section>
+    <section class="story-stage" id="arsenal" data-index="2"></section>
+    <section class="story-stage" id="creations" data-index="3"></section>
+    <section class="story-stage" id="odyssey" data-index="4"></section>
+    <section class="story-stage" id="expeditions" data-index="5"></section>
+    <section class="story-stage" id="epilogue" data-index="6"></section>
+  </main>
+
+  <!-- Floating HUD (Bottom Controls) -->
+  <aside class="book-reader-hud" aria-label="Waypoint Flight Controls">
+    <div class="reader-hud-capsule">
+      <button class="hud-nav-arrow" id="prev-page-btn" aria-label="Previous Sector" title="Previous Sector (Left Arrow)">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <div class="hud-info-stack">
+        <div class="hud-chapter-row">
+          <span class="hud-chapter-badge" id="hud-chapter-title">Prologue // System Genesis</span>
+          <span class="hud-page-count" id="hud-page-indicator">Station 1 of 7</span>
+        </div>
+        <div class="hud-actions-strip" id="hud-quick-actions">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+      <button class="hud-nav-arrow" id="next-page-btn" aria-label="Next Sector" title="Next Sector (Right Arrow)">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="reader-interaction-hints">
+      <span><i class="fa-solid fa-arrow-left"></i> <i class="fa-solid fa-arrow-right"></i> Keys</span>
+      <span>•</span>
+      <span>Scroll to Fly Forward</span>
+      <span>•</span>
+      <span>Drag to Orbit 3D</span>
+    </div>
+  </aside>
+
+  <!-- Slide-Over Action Drawer (Transmission Form & Detailed Career Dossier) -->
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+  <aside class="action-drawer" id="action-drawer" aria-label="Career Dossier and Transmission Drawer">
+    <div class="drawer-header">
+      <div class="drawer-nav-tabs">
+        <button class="drawer-tab-btn active" data-tab="transmission">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>Send Transmission</span>
+        </button>
+        <button class="drawer-tab-btn" data-tab="dossier">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Career Dossier</span>
+        </button>
+      </div>
+      <button class="drawer-close-btn" id="close-drawer-btn" aria-label="Close Drawer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="drawer-body">
+      <!-- TAB 1: SEND TRANSMISSION (EMAILJS) -->
+      <div class="drawer-tab-pane active" id="drawer-tab-transmission">
+        <div class="drawer-pane-intro">
+          <h3>Initiate <span class="gradient-text">Transmission</span></h3>
+          <p>Send an encrypted direct dispatch to Kevin Bui. Response typically within 24 hours.</p>
+        </div>
+
+        <div class="contact-meta-list">
+          <div class="contact-meta-row">
+            <div class="contact-meta-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <div class="meta-label">Direct Email</div>
+              <a href="mailto:fxanhkhoa@gmail.com" class="gradient-text" style="font-weight: 700;">fxanhkhoa@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-meta-row">
+            <div class="contact-meta-icon"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <div class="meta-label">Phone / WhatsApp</div>
+              <a href="tel:+84772912970" style="font-weight: 700; color: #fff;">+84 772 912 970</a>
+            </div>
+          </div>
+          <div class="contact-meta-row">
+            <div class="contact-meta-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <div class="meta-label">Location</div>
+              <span style="font-weight: 500; color: #fff;">Ho Chi Minh City, Vietnam</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form-3d" id="contact-form-3d">
+          <div>
+            <label class="form-label" for="from_name">Your Name</label>
+            <input type="text" id="from_name" name="from_name" class="form-input-box" placeholder="e.g. Alex Morgan" required>
+          </div>
+          <div>
+            <label class="form-label" for="from_email">Your Email</label>
+            <input type="email" id="from_email" name="from_email" class="form-input-box" placeholder="alex@company.com" required>
+          </div>
+          <div>
+            <label class="form-label" for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" class="form-input-box" placeholder="Project collaboration / Tech Leadership" required>
+          </div>
+          <div>
+            <label class="form-label" for="message">Message</label>
+            <textarea id="message" name="message" class="form-textarea-box" rows="4" placeholder="Tell me about your architectural challenge or project vision..." required></textarea>
+          </div>
+
+          <div class="form-toast success" id="form-success">
+            <i class="fa-solid fa-circle-check"></i> Transmission received! I will reply shortly.
+          </div>
+          <div class="form-toast error" id="form-error">
+            <i class="fa-solid fa-triangle-exclamation"></i> Transmission error. Please email directly to fxanhkhoa@gmail.com.
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="submit-btn" style="width: 100%; justify-content: center;">
+            <i class="fa-solid fa-paper-plane" id="submit-icon"></i>
+            <span id="submit-text">Send Transmission</span>
+          </button>
+        </form>
+
+        <div class="drawer-socials">
+          <a href="https://github.com/fxanhkhoa" target="_blank" class="social-btn" title="GitHub" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/khoa-bui-anh-698ab2173" target="_blank" class="social-btn" title="LinkedIn" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://twitter.com/BuiAnhK49302949" target="_blank" class="social-btn" title="Twitter" rel="noopener noreferrer"><i class="fa-brands fa-twitter"></i></a>
+          <a href="https://www.facebook.com/bui.a.khoa.1" target="_blank" class="social-btn" title="Facebook" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+
+      <!-- TAB 2: DETAILED CAREER & PROJECT DOSSIER -->
+      <div class="drawer-tab-pane" id="drawer-tab-dossier">
+        <div class="drawer-pane-intro">
+          <h3>Career & Project <span class="gradient-text">Dossier</span></h3>
+          <p>Deep-dive breakdown into leadership roles, systems architecture, and live flagships.</p>
+        </div>
+
+        <!-- Featured Flagships Quick Launch -->
+        <div class="dossier-flagships-block">
+          <div class="dossier-block-header">
+            <i class="fa-solid fa-cube"></i> Live Flagship Creations
+          </div>
+          <div class="drawer-flagship-list">
+            <div class="drawer-flagship-card">
+              <div class="flagship-top">
+                <h5>🏎️ AETHER GT</h5>
+                <span class="badge-pill">3D Exploded Tour</span>
+              </div>
+              <p>7-stage choreographed hypercar flythrough with parts disassembly.</p>
+              <a href="storytelling/car/" class="btn btn-primary btn-sm"><i class="fa-solid fa-play"></i> Launch AETHER GT</a>
+            </div>
+
+            <div class="drawer-flagship-card">
+              <div class="flagship-top">
+                <h5>🪐 Alphabet Odyssey</h5>
+                <span class="badge-pill">Bilingual 3D</span>
+              </div>
+              <p>Interactive 3D educational adventure with extruded typography.</p>
+              <div class="btn-group-sm">
+                <a href="storytelling/alphabet/en/" class="btn btn-secondary btn-sm">English</a>
+                <a href="storytelling/alphabet/vi/" class="btn btn-glow btn-sm">Tiếng Việt</a>
+              </div>
+            </div>
+
+            <div class="drawer-flagship-card">
+              <div class="flagship-top">
+                <h5>🍳 What To Eat</h5>
+                <span class="badge-pill">Live Food Platform</span>
+              </div>
+              <p>Community recipes and flavor wheel games on K8s & Golang.</p>
+              <a href="https://eatwhat.io.vn" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> eatwhat.io.vn</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Company Tabs Navigation -->
+        <div class="dossier-block-header" style="margin-top: 1.5rem;">
+          <i class="fa-solid fa-timeline"></i> Enterprise Career History
+        </div>
+        <div class="company-tabs-nav">
+          <button class="company-tab-btn active" data-company="comp-st">ST Engineering</button>
+          <button class="company-tab-btn" data-company="comp-bloom">Bloom</button>
+          <button class="company-tab-btn" data-company="comp-nash">NashTech</button>
+          <button class="company-tab-btn" data-company="comp-hitachi">Hitachi</button>
+        </div>
+
+        <!-- ST Engineering Pane -->
+        <div class="company-section-pane active" id="comp-st">
+          <div class="dossier-company-header">
+            <div class="company-logo-frame"><img src="images/logo/st-engineering.png" alt="ST Engineering Logo"></div>
+            <div>
+              <h4 style="font-size: 1.1rem; color: #fff;">Full Stack Developer & Technical Lead</h4>
+              <p style="font-size: 0.8rem; color: var(--cyan-neon);">Nov 2023 – Present • Ho Chi Minh City</p>
+            </div>
+          </div>
+
+          <div class="project-subtabs-row">
+            <button class="subtab-pill active" data-sub="st-hosp">Healthcare Ops</button>
+            <button class="subtab-pill" data-sub="st-crm">CRM & Livestream</button>
+            <button class="subtab-pill" data-sub="st-ssre">SSRE</button>
+            <button class="subtab-pill" data-sub="st-manga">Manga Sahara</button>
+          </div>
+
+          <div class="project-dossier-card active" id="st-hosp">
+            <div class="dossier-detail-grid">
+              <div class="dossier-box">
+                <h5>Mission & Scope</h5>
+                <p>Major Singapore hospital system modernization, replacing legacy software with real-time reactive architecture.</p>
+              </div>
+              <div class="dossier-box">
+                <h5>Tech Stack</h5>
+                <p>SvelteKit, NestJS, PostgreSQL, Kubernetes, Keycloak, Hasura, GraphQL, WebSockets.</p>
+              </div>
+              <div class="dossier-box">
+                <h5>Leadership Impact</h5>
+                <p>Led 10-person squad; built sub-second real-time subscription services.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-dossier-card" id="st-crm">
+            <div class="dossier-detail-grid">
+              <div class="dossier-box">
+                <h5>Mission & Scope</h5>
+                <p>Ultra-low-latency CRM and interactive livestream broadcasting system with real-time video and chat.</p>
+              </div>
+              <div class="dossier-box">
+                <h5>Tech Stack</h5>
+                <p>Golang, Next.js, NestJS, Angular 19, WebRTC, Socket.io, Microservices.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-dossier-card" id="st-ssre">
+            <div class="dossier-detail-grid">
+              <div class="dossier-box">
+                <h5>Mission & Scope</h5>
+                <p>Full-cycle engineering portal delivery with automated deployment and client dashboards.</p>
+              </div>
+              <div class="dossier-box">
+                <h5>Tech Stack</h5>
+                <p>Golang, Next.js, Socket.io (ssrengineering.tech).</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-dossier-card" id="st-manga">
+            <div class="dossier-detail-grid">
+              <div class="dossier-box">
+                <h5>Mission & Scope</h5>
+                <p>Digital comic reader engine engineered for instant image prefetching and minimal bandwidth consumption.</p>
+              </div>
+              <div class="dossier-box">
+                <h5>Tech Stack</h5>
+                <p>Golang, NestJS, Next.js, Flutter, Socket.io.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bloom Pane -->
+        <div class="company-section-pane" id="comp-bloom">
+          <div class="dossier-company-header">
+            <div class="company-logo-frame"><img src="images/logo/bloom.png" alt="Bloom Logo"></div>
+            <div>
+              <h4 style="font-size: 1.1rem; color: #fff;">Full Stack Developer & Technical Architect</h4>
+              <p style="font-size: 0.8rem; color: var(--purple-neon);">Mar 2022 – Nov 2023 • Ho Chi Minh City</p>
+            </div>
+          </div>
+
+          <div class="project-subtabs-row">
+            <button class="subtab-pill active" data-sub="bloom-dolce">The Dolce Diet</button>
+            <button class="subtab-pill" data-sub="bloom-producer">D-Producer</button>
+          </div>
+
+          <div class="project-dossier-card active" id="bloom-dolce">
+            <div class="dossier-detail-grid">
+              <div class="dossier-box">
+                <h5>Mission & Scale</h5>
+                <p>Complete rebuild of US SaaS fitness platform serving 10,000+ users and ~1,000 concurrent sessions.</p>
+              </div>
+              <div class="dossier-box">
+                <h5>Tech Stack</h5>
+                <p>Next.js, NestJS, MongoDB, Kubernetes auto-scaling templates.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-dossier-card" id="bloom-producer">
+            <div class="dossier-detail-grid">
+              <div class="dossier-box">
+                <h5>Mission & Latency</h5>
+                <p>Millisecond synchronized water fountain lighting and valve control. Angular, NestJS, Python, gRPC microservices.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NashTech Pane -->
+        <div class="company-section-pane" id="comp-nash">
+          <div class="dossier-company-header">
+            <div class="company-logo-frame"><img src="images/logo/nashtech.webp" alt="NashTech Logo"></div>
+            <div>
+              <h4 style="font-size: 1.1rem; color: #fff;">Full Stack Developer</h4>
+              <p style="font-size: 0.8rem; color: var(--cyan-neon);">June 2020 – Nov 2021 • Ho Chi Minh City</p>
+            </div>
+          </div>
+
+          <div class="project-subtabs-row">
+            <button class="subtab-pill active" data-sub="nash-cnc">CNC Control</button>
+            <button class="subtab-pill" data-sub="nash-smart">Smart Manufacturing</button>
+            <button class="subtab-pill" data-sub="nash-wealth">Wealth Mgmt</button>
+          </div>
+
+          <div class="project-dossier-card active" id="nash-cnc">
+            <div class="dossier-detail-grid">
+              <div class="dossier-box">
+                <h5>German Client Project</h5>
+                <p>Industrial CNC touch-optimized remote desktop access (RDP, VNC, SSH) using Angular 9 and Electron.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-dossier-card" id="nash-smart">
+            <div class="dossier-detail-grid">
+              <div class="dossier-box">
+                <h5>Production Line IPC</h5>
+                <p>Real-time factory monitoring system for 100+ active operators. Angular 11, Java, SQL.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-dossier-card" id="nash-wealth">
+            <div class="dossier-detail-grid">
+              <div class="dossier-box">
+                <h5>Financial Scale</h5>
+                <p>Wealth management platform customized from Finantix serving 10,000,000+ accounts. Angular 11, Java.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hitachi Pane -->
+        <div class="company-section-pane" id="comp-hitachi">
+          <div class="dossier-company-header">
+            <div class="company-logo-frame"><img src="images/logo/hitachi-vantara.png" alt="Hitachi Vantara Logo"></div>
+            <div>
+              <h4 style="font-size: 1.1rem; color: #fff;">Full Stack Developer</h4>
+              <p style="font-size: 0.8rem; color: var(--cyan-neon);">Feb 2019 – Jun 2020 • Ho Chi Minh City</p>
+            </div>
+          </div>
+
+          <div class="dossier-detail-grid">
+            <div class="dossier-box">
+              <h5>Enterprise Platforms</h5>
+              <p>Vidole (video streaming archive), Polymate (data analytics with D3.js interactive charts), and IoT device telemetry with MQTT & WebSockets.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </aside>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init('v97mjOJU0VaG6C-Yw');
+    })();
+  </script>
+
+  <!-- Controller ES Module for Concept 1 -->
+  <script type="module">
+    import { WarpThreeScene } from './scripts/warp-3d.js';
+    import { initPortfolioApp } from './scripts/portfolio-controller.js';
+    initPortfolioApp(WarpThreeScene);
+  </script>
+
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-02X4LNR5SF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-02X4LNR5SF');
+  </script>
+</body>
+
+</html>
