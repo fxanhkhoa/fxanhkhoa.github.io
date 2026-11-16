@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles/portfolio.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 </head>
 
 <body>
@@ -219,8 +220,95 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="project-card p-0">
+                    <div class="project-model">
+                        <model-viewer
+                            src="blender/house.glb"
+                            alt="3D House modeled in Blender"
+                            camera-controls
+                            auto-rotate
+                            shadow-intensity="1"
+                            touch-action="pan-y">
+                        </model-viewer>
+                        <span class="model-hint"><i class="fas fa-cube"></i> Drag to rotate</span>
+                        <button type="button" class="model-expand-btn" data-model-src="blender/house.glb" data-model-title="3D House Study" aria-label="Expand 3D view">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                    <div class="project-content">
+                        <h3>3D House Study</h3>
+                        <p>An interactive 3D house model built while learning Blender. Drag to orbit, scroll to zoom, or expand for a closer inspection directly in the browser.</p>
+                        <div class="project-tags">
+                            <span>Blender</span>
+                            <span>3D Modeling</span>
+                            <span>glTF / GLB</span>
+                            <span>model-viewer</span>
+                        </div>
+                        <button type="button" class="project-detail-btn" data-model-src="blender/house.glb" data-model-title="3D House Study">
+                            <i class="fas fa-expand-alt"></i> View Details &amp; Larger 3D
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <dialog id="model-modal" class="model-modal" aria-labelledby="model-modal-title">
+            <div class="model-modal-header">
+                <div class="model-modal-heading">
+                    <span class="model-modal-badge"><i class="fas fa-cube"></i> Interactive 3D</span>
+                    <h3 id="model-modal-title">3D Model Viewer</h3>
+                </div>
+                <button type="button" class="model-modal-close" aria-label="Close 3D viewer">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="model-modal-content">
+                <div class="model-modal-viewer">
+                    <model-viewer
+                        id="modal-model-viewer"
+                        src=""
+                        alt="Interactive 3D Model"
+                        camera-controls
+                        auto-rotate
+                        shadow-intensity="1">
+                    </model-viewer>
+                    <div class="model-modal-toolbar">
+                        <button type="button" id="model-toggle-rotate" class="model-tool-btn active">
+                            <i class="fas fa-sync-alt"></i> Auto-Rotate
+                        </button>
+                        <button type="button" id="model-reset-camera" class="model-tool-btn">
+                            <i class="fas fa-crosshairs"></i> Reset View
+                        </button>
+                    </div>
+                </div>
+                <aside class="model-modal-info">
+                    <h4>About This Study</h4>
+                    <p>An interactive 3D house model built in Blender as part of my 3D modeling learning journey, exported to glTF Binary (<code>.glb</code>) for real-time web rendering.</p>
+
+                    <h4>Highlights</h4>
+                    <ul class="model-highlights">
+                        <li>Modeled architectural structure &amp; proportions in Blender</li>
+                        <li>Applied materials and lighting for real-time PBR rendering</li>
+                        <li>Optimized and exported from <code>.blend</code> to web-ready <code>.glb</code></li>
+                    </ul>
+
+                    <h4>Controls</h4>
+                    <ul class="model-controls-list">
+                        <li><strong>Left-drag / 1-finger:</strong> Orbit</li>
+                        <li><strong>Scroll / Pinch:</strong> Zoom</li>
+                        <li><strong>Right-drag / 2-finger:</strong> Pan</li>
+                    </ul>
+
+                    <div class="project-tags">
+                        <span>Blender</span>
+                        <span>3D Modeling</span>
+                        <span>glTF / GLB</span>
+                        <span>model-viewer</span>
+                    </div>
+                </aside>
+            </div>
+        </dialog>
     </section>
 
     <!-- Experience Section -->

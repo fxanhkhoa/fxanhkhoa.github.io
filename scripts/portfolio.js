@@ -437,4 +437,57 @@ window.addEventListener('load', () => {
     document.head.appendChild(loadingStyle);
 });
 
+// ===========================
+// 3D Model Modal Viewer
+// ===========================
+const modelModal = document.getElementById('model-modal');
+const modalModelViewer = document.getElementById('modal-model-viewer');
+const modalModelTitle = document.getElementById('model-modal-title');
+
+if (modelModal && modalModelViewer) {
+    const toggleRotateBtn = document.getElementById('model-toggle-rotate');
+    const resetCameraBtn = document.getElementById('model-reset-camera');
+
+    document.querySelectorAll('[data-model-src]').forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const src = trigger.getAttribute('data-model-src');
+            const title = trigger.getAttribute('data-model-title') || '3D Model Viewer';
+            modalModelViewer.setAttribute('src', src);
+            modalModelTitle.textContent = title;
+            modelModal.showModal();
+        });
+    });
+
+    if (toggleRotateBtn) {
+        toggleRotateBtn.addEventListener('click', () => {
+            const isRotating = modalModelViewer.hasAttribute('auto-rotate');
+            if (isRotating) {
+                modalModelViewer.removeAttribute('auto-rotate');
+                toggleRotateBtn.classList.remove('active');
+            } else {
+                modalModelViewer.setAttribute('auto-rotate', '');
+                toggleRotateBtn.classList.add('active');
+            }
+        });
+    }
+
+    if (resetCameraBtn) {
+        resetCameraBtn.addEventListener('click', () => {
+            modalModelViewer.cameraOrbit = 'auto auto auto';
+            modalModelViewer.fieldOfView = 'auto';
+        });
+    }
+
+    const closeBtn = modelModal.querySelector('.model-modal-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => modelModal.close());
+    }
+
+    modelModal.addEventListener('click', (e) => {
+        if (e.target === modelModal) {
+            modelModal.close();
+        }
+    });
+}
+
 console.log('Portfolio website loaded successfully! 🚀');
