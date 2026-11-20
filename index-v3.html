@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>Kevin Bui — Full Stack Developer &amp; Software Architect (Obsidian v3)</title>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles/v3-obsidian.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+</head>
+
+<body>
+  <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand-link" href="#home" aria-label="Kevin Bui home">
+        <img class="brand-logo" src="images/logo.png" alt="Kevin Bui Logo">
+        <span class="brand-badge">v3 / OBSIDIAN</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <button
+          class="menu-button"
+          type="button"
+          popovertarget="site-menu"
+          popovertargetaction="toggle"
+          aria-controls="site-menu"
+        >
+          <i class="fas fa-bars" aria-hidden="true"></i>
+          <span>Menu</span>
+        </button>
+
+        <ul id="site-menu" class="site-menu" popover="auto">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#freelance">Freelance</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <a href="files/khoa-bui-28-02-2025.pdf" class="header-cta" download>
+          <i class="fas fa-download" aria-hidden="true"></i>
+          <span>Resume</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero & About Bento -->
+    <section id="home" class="hero-section">
+      <div class="container">
+        <div class="hero-bento">
+          <div class="bento-card spotlight-card hero-main-card">
+            <div class="status-strip">
+              <span class="status-pill">
+                <span class="status-dot" aria-hidden="true"></span>
+                Available for Architecture &amp; Full-Stack Consulting
+              </span>
+              <span class="location-time">
+                <i class="fas fa-location-dot" aria-hidden="true"></i>
+                Ho Chi Minh City, Vietnam · <span data-hcmc-time>15:00 ICT</span>
+              </span>
+            </div>
+
+            <div>
+              <span class="mono-kicker">// 01. Engineering Studio</span>
+              <h1 class="hero-title">
+                Hi, I'm <span class="hero-gradient">Kevin Bui</span>.
+              </h1>
+              <p class="hero-role"><span id="typed-text">Full Stack Developer</span></p>
+              <p class="hero-lead">
+                I'm a passionate Full Stack Developer with over 6 years of experience in building exceptional
+                digital experiences — from 10M+ user enterprise platforms to real-time WebRTC/IoT systems and
+                Kubernetes cloud infrastructure.
+              </p>
+            </div>
+
+            <div class="hero-footer-bar">
+              <div class="hero-actions">
+                <a href="#projects" class="btn btn-primary">
+                  <span>View My Work</span>
+                  <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                <a href="files/khoa-bui-28-02-2025.pdf" class="btn btn-ghost" download>
+                  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                  <span>Download CV</span>
+                </a>
+              </div>
+
+              <div class="social-row" aria-label="Social profiles">
+                <a class="social-icon-btn" href="https://github.com/fxanhkhoa" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                  <i class="fab fa-github" aria-hidden="true"></i>
+                </a>
+                <a class="social-icon-btn" href="https://www.linkedin.com/in/khoa-bui-anh-698ab2173" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <i class="fab fa-linkedin" aria-hidden="true"></i>
+                </a>
+                <a class="social-icon-btn" href="https://twitter.com/BuiAnhK49302949" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                  <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+                <a class="social-icon-btn" href="https://www.facebook.com/bui.a.khoa.1" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-side-column">
+            <div class="bento-card spotlight-card portrait-card">
+              <div class="avatar-frame">
+                <img src="images/avatar.png" alt="Kevin Bui portrait">
+              </div>
+              <div class="portrait-meta">
+                <span class="mono-kicker">Full Stack · Tech Lead</span>
+                <h2>Kevin Bui (Khoa Bui Anh)</h2>
+                <p>
+                  Designing clean, resilient, full-cycle architectures across Frontend, Backend, Embedded Sync, and DevOps pipelines.
+                </p>
+              </div>
+            </div>
+
+            <div class="metrics-grid">
+              <div class="bento-card spotlight-card metric-tile">
+                <span class="metric-value">6+</span>
+                <span class="metric-label">Years Experience</span>
+              </div>
+              <div class="bento-card spotlight-card metric-tile">
+                <span class="metric-value">50+</span>
+                <span class="metric-label">Projects Completed</span>
+              </div>
+              <div class="bento-card spotlight-card metric-tile">
+                <span class="metric-value">10M+</span>
+                <span class="metric-label">Platform Users Reached</span>
+              </div>
+              <div class="bento-card spotlight-card metric-tile">
+                <span class="metric-value">30+</span>
+                <span class="metric-label">Happy Clients</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="about" class="about-bento">
+          <div class="bento-card spotlight-card about-story" data-reveal>
+            <span class="mono-kicker">// 02. About Me</span>
+            <h3>Full-cycle engineering from UI craft to Kubernetes orchestration.</h3>
+            <p>
+              With over 6 years of experience in web development, I specialize in creating scalable, user-friendly
+              applications that solve real-world problems. My passion lies in writing clean, maintainable code and
+              delivering exceptional user experiences.
+            </p>
+            <p>
+              Enthusiastic engineering college graduate with freelance experience. Completed several client projects,
+              including small consulting, product and research jobs. I'm passionate about building full cycle systems
+              including Front-end, Back-end and infrastructures.
+            </p>
+          </div>
+
+          <div class="bento-card spotlight-card about-principles" data-reveal>
+            <div>
+              <span class="mono-kicker">Core Focus</span>
+              <ul class="principle-list">
+                <li><i class="fas fa-check-circle" aria-hidden="true"></i> Technical Lead &amp; Software Architecture</li>
+                <li><i class="fas fa-check-circle" aria-hidden="true"></i> Microservices, GraphQL &amp; Low-Latency Streaming</li>
+                <li><i class="fas fa-check-circle" aria-hidden="true"></i> CI/CD Automation &amp; Kubernetes Clusters</li>
+                <li><i class="fas fa-check-circle" aria-hidden="true"></i> Interactive 3D &amp; Creative WebGL Experiences</li>
+              </ul>
+            </div>
+            <a href="files/khoa-bui-28-02-2025.pdf" class="btn btn-secondary" download>
+              <i class="fas fa-download" aria-hidden="true"></i>
+              <span>Download Full Resume (PDF)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <div>
+            <span class="mono-kicker">// 03. Selected Showcase</span>
+            <h2 class="section-title">Featured Projects</h2>
+          </div>
+          <p class="section-subtitle">
+            Flagship production web platforms, interactive 3D educational scrollytelling, and real-time Blender glTF studies.
+          </p>
+        </div>
+
+        <div class="projects-bento">
+          <!-- Featured 1: What to eat -->
+          <article class="bento-card spotlight-card project-bento-card is-featured-wide" data-reveal>
+            <div class="project-visual">
+              <img src="images/projects/eatwhat-thumbnail.png" alt="What to eat application thumbnail">
+            </div>
+            <div class="project-body">
+              <div>
+                <span class="mono-kicker">Consumer Web &amp; Mobile Ecosystem</span>
+                <h3>What to eat</h3>
+                <p>
+                  The interactive food platform designed for the indecisive foodie. Explore thousands of recipes, master
+                  your ingredients, and play dish-based games like the Flavor Wheel and Community Voting. Stop searching,
+                  start playing, and get cooking!
+                </p>
+              </div>
+              <div class="tag-row">
+                <span class="tech-chip">Angular</span>
+                <span class="tech-chip">Golang</span>
+                <span class="tech-chip">Angular Material</span>
+                <span class="tech-chip">Kotlin</span>
+                <span class="tech-chip">Swift</span>
+              </div>
+              <div class="project-links">
+                <a href="https://eatwhat.io.vn" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                  <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                  <span>Launch eatwhat.io.vn</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Featured 2: Alphabet Odyssey -->
+          <article class="bento-card spotlight-card project-bento-card" data-reveal>
+            <div class="project-visual">
+              <div class="cosmic-preview">
+                <span class="cosmic-glyph" aria-hidden="true">🪐✨</span>
+                <span class="cosmic-wordmark">ALPHABET ODYSSEY</span>
+                <span class="cosmic-caption">English (A–Z) &amp; Tiếng Việt (29 chữ cái)</span>
+              </div>
+            </div>
+            <div class="project-body">
+              <div>
+                <span class="mono-kicker">Three.js · Web Audio · Choreography</span>
+                <h3>Alphabet Odyssey (3D Scrollytelling)</h3>
+                <p>
+                  An interactive 3D scrollytelling educational experience in English (A–Z) &amp; Vietnamese (29 chữ cái).
+                  Narrative, 3D extruded letters, thematic worlds, Web Audio synthesis, and camera choreography are directly
+                  synchronized with user scroll progress.
+                </p>
+              </div>
+              <div class="tag-row">
+                <span class="tech-chip">English (A–Z)</span>
+                <span class="tech-chip">Tiếng Việt (29 chữ)</span>
+                <span class="tech-chip">Three.js 3D</span>
+                <span class="tech-chip">Scrollytelling</span>
+                <span class="tech-chip">Web Audio</span>
+              </div>
+              <div class="project-links">
+                <a href="storytelling/" class="btn btn-primary">
+                  <i class="fas fa-cube" aria-hidden="true"></i>
+                  <span>Explore 3D Scrollytelling</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Featured 3: 3D Studio -->
+          <article class="bento-card spotlight-card project-bento-card" data-reveal>
+            <div class="project-visual">
+              <model-viewer
+                data-studio-inline-viewer
+                src="blender/house.glb"
+                alt="3D House modeled in Blender"
+                camera-controls
+                auto-rotate
+                shadow-intensity="1"
+                touch-action="pan-y"
+              ></model-viewer>
+              <span class="model-count-pill" data-model-count>1 Object</span>
+              <span class="model-pill"><i class="fas fa-cube" aria-hidden="true"></i> Drag to orbit</span>
+              <div class="inline-model-switcher" data-inline-model-switcher hidden></div>
+              <button
+                type="button"
+                class="model-expand-btn"
+                data-open-3d-modal
+                aria-label="Expand 3D view"
+              >
+                <i class="fas fa-expand" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="project-body">
+              <div>
+                <span class="mono-kicker">Blender · Interactive 3D Collection</span>
+                <h3>3D Studio</h3>
+                <p>
+                  A growing interactive 3D modeling collection built in Blender and exported to glTF Binary (.glb). Currently
+                  featuring 3D House Study, with more objects added over time.
+                </p>
+              </div>
+              <div class="tag-row">
+                <span class="tech-chip">Blender</span>
+                <span class="tech-chip">3D Modeling</span>
+                <span class="tech-chip">glTF / GLB</span>
+                <span class="tech-chip">model-viewer</span>
+              </div>
+              <div class="project-links">
+                <a href="3d-studio/" class="btn btn-primary">
+                  <i class="fas fa-cubes" aria-hidden="true"></i>
+                  <span>Open 3D Studio</span>
+                </a>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-open-3d-modal
+                >
+                  <i class="fas fa-expand-alt" aria-hidden="true"></i>
+                  <span>Quick 3D Preview</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills & Architecture -->
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <div>
+            <span class="mono-kicker">// 04. Technical Stack</span>
+            <h2 class="section-title">Skills &amp; Expertise</h2>
+          </div>
+          <p class="section-subtitle">
+            Production-proven technologies spanning reactive web UIs, distributed backends, cloud clusters, and state systems.
+          </p>
+        </div>
+
+        <div class="skills-bento">
+          <div class="bento-card spotlight-card" data-reveal>
+            <div class="skill-head">
+              <div class="skill-icon-box"><i class="fas fa-code" aria-hidden="true"></i></div>
+              <h3>Frontend Development</h3>
+            </div>
+            <div class="skill-logo-grid">
+              <span class="skill-badge"><img src="images/icons/angular.png" alt=""> Angular (2–19)</span>
+              <span class="skill-badge"><img src="images/icons/reactjs.png" alt=""> React.js</span>
+              <span class="skill-badge"><img src="images/icons/nextjs.png" alt=""> Next.js</span>
+              <span class="skill-badge"><img src="images/icons/tailwind.png" alt=""> Tailwind CSS</span>
+              <span class="skill-badge"><img src="images/icons/angular-material.svg" alt=""> Angular Material</span>
+              <span class="skill-badge">Svelte</span>
+              <span class="skill-badge">SvelteKit</span>
+              <span class="skill-badge">JavaScript</span>
+              <span class="skill-badge">TypeScript</span>
+              <span class="skill-badge">HTML/CSS</span>
+              <span class="skill-badge">SASS</span>
+            </div>
+          </div>
+
+          <div class="bento-card spotlight-card" data-reveal>
+            <div class="skill-head">
+              <div class="skill-icon-box"><i class="fas fa-server" aria-hidden="true"></i></div>
+              <h3>Backend Development</h3>
+            </div>
+            <div class="skill-logo-grid">
+              <span class="skill-badge"><img src="images/icons/nodejs.png" alt=""> Node.js</span>
+              <span class="skill-badge"><img src="images/icons/nestjs.png" alt=""> NestJS</span>
+              <span class="skill-badge"><img src="images/icons/golang.png" alt=""> Golang</span>
+              <span class="skill-badge"><img src="images/icons/graphql.png" alt=""> GraphQL</span>
+              <span class="skill-badge"><img src="images/icons/grpc.png" alt=""> gRPC</span>
+              <span class="skill-badge"><img src="images/icons/rabbitmq.png" alt=""> Message Queues</span>
+              <span class="skill-badge">Hasura</span>
+              <span class="skill-badge">REST APIs</span>
+              <span class="skill-badge">Microservices</span>
+            </div>
+          </div>
+
+          <div class="bento-card spotlight-card" data-reveal>
+            <div class="skill-head">
+              <div class="skill-icon-box"><i class="fas fa-database" aria-hidden="true"></i></div>
+              <h3>Cloud &amp; DevOps</h3>
+            </div>
+            <div class="skill-logo-grid">
+              <span class="skill-badge"><img src="images/icons/azure.png" alt=""> Azure Cloud</span>
+              <span class="skill-badge"><img src="images/icons/aws.png" alt=""> AWS</span>
+              <span class="skill-badge"><img src="images/icons/docker.png" alt=""> Docker</span>
+              <span class="skill-badge">Kubernetes</span>
+              <span class="skill-badge">MongoDB</span>
+              <span class="skill-badge">PostgreSQL</span>
+              <span class="skill-badge">Redis</span>
+            </div>
+          </div>
+
+          <div class="bento-card spotlight-card" data-reveal>
+            <div class="skill-head">
+              <div class="skill-icon-box"><i class="fas fa-layer-group" aria-hidden="true"></i></div>
+              <h3>State Management &amp; Others</h3>
+            </div>
+            <div class="skill-logo-grid">
+              <span class="skill-badge"><img src="images/icons/rxjs.png" alt=""> RxJS</span>
+              <span class="skill-badge"><img src="images/icons/ngrx.png" alt=""> NgRx</span>
+              <span class="skill-badge"><img src="images/icons/redux.png" alt=""> Redux</span>
+              <span class="skill-badge"><img src="images/icons/akita.svg" alt=""> Akita</span>
+              <span class="skill-badge">Flutter</span>
+              <span class="skill-badge">Git</span>
+              <span class="skill-badge">Agile/Scrum</span>
+              <span class="skill-badge">CI/CD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work Experience (Split-Pane Accessible Explorer) -->
+    <section id="experience" class="section">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <div>
+            <span class="mono-kicker">// 05. Career Timeline</span>
+            <h2 class="section-title">Work Experience</h2>
+          </div>
+          <p class="section-subtitle">
+            My professional journey across healthcare, real-time media, smart manufacturing, and global fintech.
+          </p>
+        </div>
+
+        <div class="experience-explorer" data-tabs-root>
+          <div class="company-tablist" role="tablist" focusgroup="tablist nomemory" aria-orientation="vertical" aria-label="Companies">
+            <button type="button" class="company-tab" role="tab" id="tab-comp-st" aria-selected="true" focusgroupstart>
+              <span class="company-logo-pill"><img src="images/logo/st-engineering.png" alt="ST Engineering"></span>
+              <span class="company-tab-meta">
+                <span class="company-tab-name">ST Engineering</span>
+                <span class="company-tab-period">Nov 2023 – Present · 5 Projects</span>
+              </span>
+            </button>
+
+            <button type="button" class="company-tab" role="tab" id="tab-comp-bloom" aria-selected="false">
+              <span class="company-logo-pill"><img src="images/logo/bloom.png" alt="Bloom"></span>
+              <span class="company-tab-meta">
+                <span class="company-tab-name">Bloom</span>
+                <span class="company-tab-period">Mar 2022 – Nov 2023 · 2 Projects</span>
+              </span>
+            </button>
+
+            <button type="button" class="company-tab" role="tab" id="tab-comp-nash" aria-selected="false">
+              <span class="company-logo-pill"><img src="images/logo/nashtech.webp" alt="NashTech"></span>
+              <span class="company-tab-meta">
+                <span class="company-tab-name">NashTech</span>
+                <span class="company-tab-period">Jun 2020 – Nov 2021 · 3 Projects</span>
+              </span>
+            </button>
+
+            <button type="button" class="company-tab" role="tab" id="tab-comp-hitachi" aria-selected="false">
+              <span class="company-logo-pill"><img src="images/logo/hitachi-vantara.png" alt="Hitachi Vantara"></span>
+              <span class="company-tab-meta">
+                <span class="company-tab-name">Hitachi Vantara</span>
+                <span class="company-tab-period">Feb 2019 – Jun 2020 · 3 Projects</span>
+              </span>
+            </button>
+          </div>
+
+          <div class="company-panels-stack">
+            <!-- ST Engineering Panel -->
+            <div role="tabpanel" id="panel-comp-st" aria-labelledby="tab-comp-st" tabindex="0">
+              <div class="company-panel-inner" data-tabs-root>
+                <div class="company-banner">
+                  <div>
+                    <h3>Full Stack Developer — ST Engineering</h3>
+                    <p><i class="fas fa-calendar" aria-hidden="true"></i> Nov 2023 - Present · <i class="fas fa-map-marker-alt" aria-hidden="true"></i> Ho Chi Minh, Vietnam</p>
+                  </div>
+                  <span class="kpi-pill">Technical Lead &amp; Architect</span>
+                </div>
+
+                <div class="project-tablist" role="tablist" focusgroup="tablist nomemory" aria-label="ST Engineering projects">
+                  <button type="button" class="project-tab-btn" role="tab" id="tab-st-1" aria-selected="true" focusgroupstart>Health Care Operation Center</button>
+                  <button type="button" class="project-tab-btn" role="tab" id="tab-st-2" aria-selected="false">CRM &amp; Livestream System</button>
+                  <button type="button" class="project-tab-btn" role="tab" id="tab-st-3" aria-selected="false">SSRE</button>
+                  <button type="button" class="project-tab-btn" role="tab" id="tab-st-4" aria-selected="false">Manga Sahara</button>
+                  <button type="button" class="project-tab-btn" role="tab" id="tab-st-5" aria-selected="false">G2B Advertising</button>
+                </div>
+
+                <div class="project-panels-stack">
+                  <div role="tabpanel" id="panel-st-1" aria-labelledby="tab-st-1" tabindex="0">
+                    <div class="project-panel-inner">
+                      <div class="kpi-strip">
+                        <span class="kpi-pill">Team Size: 10</span>
+                        <span class="kpi-pill">Position: Full Stack Developer, Technical Lead</span>
+                        <span class="kpi-pill">4 Collaborating Teams</span>
+                      </div>
+                      <div class="detail-grid">
+                        <div class="detail-box">
+                          <h4><i class="fas fa-file-alt" aria-hidden="true"></i> Project Description</h4>
+                          <p>Client from a major Singapore hospital required a comprehensive redesign of their legacy system using modern technological solutions.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-tasks" aria-hidden="true"></i> My Responsibilities</h4>
+                          <ul>
+                            <li>Implement critical requirements based on core source code</li>
+                            <li>Consultant for FE and BE solutions to client</li>
+                            <li>Build CI/CD with VPS, GitHub pipeline and Kubernetes</li>
+                            <li>Code review and team guidance</li>
+                            <li>BA and PM roles when needed</li>
+                          </ul>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Challenges</h4>
+                          <p>Multi-team collaboration (4 teams), ETL processes for data migration, real-time data subscription services, and robust data update mechanisms.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> Technologies</h4>
+                          <div class="tag-row">
+                            <span class="tech-chip">SvelteKit</span>
+                            <span class="tech-chip">NestJS</span>
+                            <span class="tech-chip">PostgreSQL</span>
+                            <span class="tech-chip">Kubernetes</span>
+                            <span class="tech-chip">Keycloak</span>
+                            <span class="tech-chip">Hasura</span>
+                            <span class="tech-chip">GraphQL</span>
+                            <span class="tech-chip">Socket</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="panel-st-2" aria-labelledby="tab-st-2" hidden="until-found">
+                    <div class="project-panel-inner">
+                      <div class="kpi-strip">
+                        <span class="kpi-pill">Team Size: 2</span>
+                        <span class="kpi-pill">Position: Full Stack Developer, Software Architect</span>
+                        <span class="kpi-pill">Low-Latency WebRTC</span>
+                      </div>
+                      <div class="detail-grid">
+                        <div class="detail-box">
+                          <h4><i class="fas fa-file-alt" aria-hidden="true"></i> Project Description</h4>
+                          <p>Scalable CRM and Livestream system with real-time video streaming, interactive chat, customer data management, automated workflows, and comprehensive analytics.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-tasks" aria-hidden="true"></i> My Responsibilities</h4>
+                          <ul>
+                            <li>System design based on business requirements</li>
+                            <li>Full stack development (FE &amp; BE)</li>
+                            <li>DevOps process support</li>
+                          </ul>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Challenges</h4>
+                          <p>Achieving lowest possible latency for real-time video streaming and interactive features.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> Technologies</h4>
+                          <div class="tag-row">
+                            <span class="tech-chip">Golang</span>
+                            <span class="tech-chip">Next.js</span>
+                            <span class="tech-chip">NestJS</span>
+                            <span class="tech-chip">Angular 19</span>
+                            <span class="tech-chip">Microservices</span>
+                            <span class="tech-chip">Socket.io</span>
+                            <span class="tech-chip">WebRTC</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="panel-st-3" aria-labelledby="tab-st-3" hidden="until-found">
+                    <div class="project-panel-inner">
+                      <div class="kpi-strip">
+                        <span class="kpi-pill">Team Size: 2</span>
+                        <span class="kpi-pill">Position: Full Stack Developer</span>
+                      </div>
+                      <div class="detail-grid">
+                        <div class="detail-box">
+                          <h4><i class="fas fa-file-alt" aria-hidden="true"></i> Project Description</h4>
+                          <p>Small-scale project with full-cycle implementation.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-tasks" aria-hidden="true"></i> My Responsibilities</h4>
+                          <ul>
+                            <li>Full-cycle implementation (FE, BE, DevOps)</li>
+                          </ul>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> Summary &amp; Link</h4>
+                          <div class="tag-row" style="margin-bottom: 0.75rem;">
+                            <span class="tech-chip">Golang</span>
+                            <span class="tech-chip">Next.js</span>
+                            <span class="tech-chip">Socket.io</span>
+                          </div>
+                          <a href="https://ssrengineering.tech" target="_blank" rel="noopener noreferrer" class="detail-link">
+                            <i class="fas fa-external-link-alt" aria-hidden="true"></i> Visit ssrengineering.tech
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="panel-st-4" aria-labelledby="tab-st-4" hidden="until-found">
+                    <div class="project-panel-inner">
+                      <div class="kpi-strip">
+                        <span class="kpi-pill">Team Size: 3</span>
+                        <span class="kpi-pill">Position: Full Stack Developer</span>
+                      </div>
+                      <div class="detail-grid">
+                        <div class="detail-box">
+                          <h4><i class="fas fa-file-alt" aria-hidden="true"></i> Project Description</h4>
+                          <p>Comic reading engine with focus on performance optimization.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-tasks" aria-hidden="true"></i> My Responsibilities</h4>
+                          <ul>
+                            <li>Full-cycle implementation (FE, BE, DevOps)</li>
+                            <li>Backend and mobile features development</li>
+                          </ul>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Challenges</h4>
+                          <p>Performance optimization for image loading, network requests, API efficiency, and user experience.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> Technologies</h4>
+                          <div class="tag-row">
+                            <span class="tech-chip">Golang</span>
+                            <span class="tech-chip">NestJS</span>
+                            <span class="tech-chip">Next.js</span>
+                            <span class="tech-chip">Flutter</span>
+                            <span class="tech-chip">Socket.io</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="panel-st-5" aria-labelledby="tab-st-5" hidden="until-found">
+                    <div class="project-panel-inner">
+                      <div class="kpi-strip">
+                        <span class="kpi-pill">Team Size: 2</span>
+                        <span class="kpi-pill">Position: Full Stack Developer</span>
+                      </div>
+                      <div class="detail-grid">
+                        <div class="detail-box">
+                          <h4><i class="fas fa-file-alt" aria-hidden="true"></i> Project Description</h4>
+                          <p>Quotation system for billboards and advertising LED products with comprehensive dashboard solutions.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-tasks" aria-hidden="true"></i> My Responsibilities</h4>
+                          <ul>
+                            <li>Full-cycle implementation (FE, BE, DevOps)</li>
+                            <li>Dashboard solution proposal and implementation</li>
+                          </ul>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> Technologies</h4>
+                          <div class="tag-row">
+                            <span class="tech-chip">Next.js 14</span>
+                            <span class="tech-chip">NestJS</span>
+                            <span class="tech-chip">PostgreSQL</span>
+                            <span class="tech-chip">Kubernetes</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bloom Panel -->
+            <div role="tabpanel" id="panel-comp-bloom" aria-labelledby="tab-comp-bloom" hidden="until-found">
+              <div class="company-panel-inner" data-tabs-root>
+                <div class="company-banner">
+                  <div>
+                    <h3>Full Stack Developer — Bloom</h3>
+                    <p><i class="fas fa-calendar" aria-hidden="true"></i> March 2022 - Nov 2023 · <i class="fas fa-map-marker-alt" aria-hidden="true"></i> Ho Chi Minh, Vietnam</p>
+                  </div>
+                  <span class="kpi-pill">Technical Architect &amp; DevOps</span>
+                </div>
+
+                <div class="project-tablist" role="tablist" focusgroup="tablist nomemory" aria-label="Bloom projects">
+                  <button type="button" class="project-tab-btn" role="tab" id="tab-bloom-1" aria-selected="true" focusgroupstart>The Dolce Diet</button>
+                  <button type="button" class="project-tab-btn" role="tab" id="tab-bloom-2" aria-selected="false">D-Producer</button>
+                </div>
+
+                <div class="project-panels-stack">
+                  <div role="tabpanel" id="panel-bloom-1" aria-labelledby="tab-bloom-1" tabindex="0">
+                    <div class="project-panel-inner">
+                      <div class="kpi-strip">
+                        <span class="kpi-pill">10,000+ users · ~1,000 concurrent</span>
+                        <span class="kpi-pill">Team Size: 7</span>
+                        <span class="kpi-pill">Technical Architect (Backend), DevOps</span>
+                      </div>
+                      <div class="detail-grid">
+                        <div class="detail-box">
+                          <h4><i class="fas fa-file-alt" aria-hidden="true"></i> Project Description</h4>
+                          <p>US client's diet program website rebuild. Generates professional exercise and menu plans based on user information. Maintained legacy Drupal/PHP/AngularJS system and built SaaS infrastructure using Kubernetes.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-tasks" aria-hidden="true"></i> My Responsibilities</h4>
+                          <ul>
+                            <li>Solution and tech stack selection</li>
+                            <li>Backend and database architecture design</li>
+                            <li>Complex FE &amp; BE feature implementation</li>
+                            <li>Deployment, backup, cron job setup</li>
+                            <li>Code review and team guidance</li>
+                            <li>Kubernetes template creation</li>
+                          </ul>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Challenges</h4>
+                          <p>Data structure migration from Drupal, managing user programs with history, and building auto-create/update/delete infrastructure using Kubernetes.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> Technologies</h4>
+                          <div class="tag-row">
+                            <span class="tech-chip">Next.js</span>
+                            <span class="tech-chip">NestJS</span>
+                            <span class="tech-chip">MongoDB</span>
+                            <span class="tech-chip">Kubernetes</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="panel-bloom-2" aria-labelledby="tab-bloom-2" hidden="until-found">
+                    <div class="project-panel-inner">
+                      <div class="kpi-strip">
+                        <span class="kpi-pill">Performance: Millisecond response</span>
+                        <span class="kpi-pill">Team Size: 1 Developer, 1 Tester</span>
+                        <span class="kpi-pill">Software Architect</span>
+                      </div>
+                      <div class="detail-grid">
+                        <div class="detail-box">
+                          <h4><i class="fas fa-file-alt" aria-hidden="true"></i> Project Description</h4>
+                          <p>Vietnamese client's product to create scripts for LED and electronic valves to create water fountain shows synchronized with music. Built from scratch including backend, frontend, and firmware.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-tasks" aria-hidden="true"></i> My Responsibilities</h4>
+                          <ul>
+                            <li>Build complete system based on requirements</li>
+                            <li>Bug fixing and optimization</li>
+                          </ul>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Challenges</h4>
+                          <p>Software-hardware integration requiring continuous R&amp;D and testing to achieve optimal quality.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> Technologies</h4>
+                          <div class="tag-row">
+                            <span class="tech-chip">Angular</span>
+                            <span class="tech-chip">NestJS</span>
+                            <span class="tech-chip">MongoDB</span>
+                            <span class="tech-chip">Python</span>
+                            <span class="tech-chip">Microservices (gRPC)</span>
+                            <span class="tech-chip">GraphQL</span>
+                            <span class="tech-chip">Socket.io</span>
+                            <span class="tech-chip">Embedded System</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- NashTech Panel -->
+            <div role="tabpanel" id="panel-comp-nash" aria-labelledby="tab-comp-nash" hidden="until-found">
+              <div class="company-panel-inner" data-tabs-root>
+                <div class="company-banner">
+                  <div>
+                    <h3>Full Stack Developer — NashTech</h3>
+                    <p><i class="fas fa-calendar" aria-hidden="true"></i> June 2020 - Nov 2021 · <i class="fas fa-map-marker-alt" aria-hidden="true"></i> Ho Chi Minh, Vietnam</p>
+                  </div>
+                  <span class="kpi-pill">10M+ Users FinTech &amp; Industrial CNC</span>
+                </div>
+
+                <div class="project-tablist" role="tablist" focusgroup="tablist nomemory" aria-label="NashTech projects">
+                  <button type="button" class="project-tab-btn" role="tab" id="tab-nash-1" aria-selected="true" focusgroupstart>CNC Machine Software</button>
+                  <button type="button" class="project-tab-btn" role="tab" id="tab-nash-2" aria-selected="false">Smart Manufacturing</button>
+                  <button type="button" class="project-tab-btn" role="tab" id="tab-nash-3" aria-selected="false">Wealth Management</button>
+                </div>
+
+                <div class="project-panels-stack">
+                  <div role="tabpanel" id="panel-nash-1" aria-labelledby="tab-nash-1" tabindex="0">
+                    <div class="project-panel-inner">
+                      <div class="kpi-strip">
+                        <span class="kpi-pill">Team Size: 5</span>
+                        <span class="kpi-pill">Position: Frontend Developer</span>
+                        <span class="kpi-pill">Micro Frontend</span>
+                      </div>
+                      <div class="detail-grid">
+                        <div class="detail-box">
+                          <h4><i class="fas fa-file-alt" aria-hidden="true"></i> Project Description</h4>
+                          <p>German manufacturing client's CNC machine control software. Built remote computer access page (RDP, VNC, SSH) optimized for touch screen. Micro frontend architecture.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-tasks" aria-hidden="true"></i> My Responsibilities</h4>
+                          <ul>
+                            <li>Code development based on specifications</li>
+                            <li>App architecture design</li>
+                            <li>Deployment support</li>
+                            <li>Bug fixing and technical support</li>
+                            <li>Mentoring junior frontend developer</li>
+                          </ul>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Challenges</h4>
+                          <p>Touch screen gesture implementation and controlling remote computers via touch interface.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> Technologies</h4>
+                          <div class="tag-row">
+                            <span class="tech-chip">Angular 9</span>
+                            <span class="tech-chip">Electron</span>
+                            <span class="tech-chip">Golang</span>
+                            <span class="tech-chip">Micro Frontend</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="panel-nash-2" aria-labelledby="tab-nash-2" hidden="until-found">
+                    <div class="project-panel-inner">
+                      <div class="kpi-strip">
+                        <span class="kpi-pill">Users: 100+ active users</span>
+                        <span class="kpi-pill">Team Size: 10</span>
+                        <span class="kpi-pill">Position: Frontend Developer</span>
+                      </div>
+                      <div class="detail-grid">
+                        <div class="detail-box">
+                          <h4><i class="fas fa-file-alt" aria-hidden="true"></i> Project Description</h4>
+                          <p>German manufacturing client's production line monitoring system. Near real-time production status tracking deployed to IPC.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-tasks" aria-hidden="true"></i> My Responsibilities</h4>
+                          <ul>
+                            <li>Code development based on specifications</li>
+                            <li>Module architecture design</li>
+                            <li>Requirement gathering and UI/UX solutions</li>
+                            <li>Bug fixing and technical support</li>
+                          </ul>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Challenges</h4>
+                          <p>Managing hierarchical data structure with 4 levels for frontend display.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> Technologies</h4>
+                          <div class="tag-row">
+                            <span class="tech-chip">Angular 11</span>
+                            <span class="tech-chip">Java</span>
+                            <span class="tech-chip">SQL</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="panel-nash-3" aria-labelledby="tab-nash-3" hidden="until-found">
+                    <div class="project-panel-inner">
+                      <div class="kpi-strip">
+                        <span class="kpi-pill">Users: 10M+</span>
+                        <span class="kpi-pill">Team Size: 14</span>
+                        <span class="kpi-pill">Position: Frontend Developer</span>
+                      </div>
+                      <div class="detail-grid">
+                        <div class="detail-box">
+                          <h4><i class="fas fa-file-alt" aria-hidden="true"></i> Project Description</h4>
+                          <p>Italian finance company's wealth management solution for US customers. Customized from Finantix product with wealth management and wire transfer features.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-tasks" aria-hidden="true"></i> My Responsibilities</h4>
+                          <ul>
+                            <li>Code development based on specifications</li>
+                            <li>Module architecture design</li>
+                            <li>Requirement gathering and UI/UX solutions</li>
+                            <li>Bug fixing and technical support</li>
+                          </ul>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Challenges</h4>
+                          <p>Performance optimization and JBPM (Java Business Process Management) integration.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> Technologies</h4>
+                          <div class="tag-row">
+                            <span class="tech-chip">Angular 11</span>
+                            <span class="tech-chip">Java</span>
+                            <span class="tech-chip">SQL</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hitachi Vantara Panel -->
+            <div role="tabpanel" id="panel-comp-hitachi" aria-labelledby="tab-comp-hitachi" hidden="until-found">
+              <div class="company-panel-inner" data-tabs-root>
+                <div class="company-banner">
+                  <div>
+                    <h3>Full Stack Developer — Hitachi Vantara</h3>
+                    <p><i class="fas fa-calendar" aria-hidden="true"></i> Feb 2019 - Jun 2020 · <i class="fas fa-map-marker-alt" aria-hidden="true"></i> Ho Chi Minh, Vietnam</p>
+                  </div>
+                  <span class="kpi-pill">Enterprise Video, Analytics &amp; IoT</span>
+                </div>
+
+                <div class="project-tablist" role="tablist" focusgroup="tablist nomemory" aria-label="Hitachi Vantara projects">
+                  <button type="button" class="project-tab-btn" role="tab" id="tab-hitachi-1" aria-selected="true" focusgroupstart>Vidole</button>
+                  <button type="button" class="project-tab-btn" role="tab" id="tab-hitachi-2" aria-selected="false">Polymate</button>
+                  <button type="button" class="project-tab-btn" role="tab" id="tab-hitachi-3" aria-selected="false">IoT Project</button>
+                </div>
+
+                <div class="project-panels-stack">
+                  <div role="tabpanel" id="panel-hitachi-1" aria-labelledby="tab-hitachi-1" tabindex="0">
+                    <div class="project-panel-inner">
+                      <div class="kpi-strip">
+                        <span class="kpi-pill">Position: Full Stack Developer</span>
+                      </div>
+                      <div class="detail-grid">
+                        <div class="detail-box">
+                          <h4><i class="fas fa-file-alt" aria-hidden="true"></i> Project Description</h4>
+                          <p>Enterprise video platform project with comprehensive video management capabilities.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-tasks" aria-hidden="true"></i> My Responsibilities</h4>
+                          <ul>
+                            <li>Full stack development</li>
+                            <li>Feature implementation and optimization</li>
+                          </ul>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> Technologies</h4>
+                          <div class="tag-row">
+                            <span class="tech-chip">Angular</span>
+                            <span class="tech-chip">Node.js</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="panel-hitachi-2" aria-labelledby="tab-hitachi-2" hidden="until-found">
+                    <div class="project-panel-inner">
+                      <div class="kpi-strip">
+                        <span class="kpi-pill">Position: Frontend Developer</span>
+                      </div>
+                      <div class="detail-grid">
+                        <div class="detail-box">
+                          <h4><i class="fas fa-file-alt" aria-hidden="true"></i> Project Description</h4>
+                          <p>Data analytics and management platform for enterprise clients.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-tasks" aria-hidden="true"></i> My Responsibilities</h4>
+                          <ul>
+                            <li>Frontend development</li>
+                            <li>Data visualization implementation</li>
+                          </ul>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> Technologies</h4>
+                          <div class="tag-row">
+                            <span class="tech-chip">Angular</span>
+                            <span class="tech-chip">D3.js</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="panel-hitachi-3" aria-labelledby="tab-hitachi-3" hidden="until-found">
+                    <div class="project-panel-inner">
+                      <div class="kpi-strip">
+                        <span class="kpi-pill">Position: Full Stack Developer</span>
+                      </div>
+                      <div class="detail-grid">
+                        <div class="detail-box">
+                          <h4><i class="fas fa-file-alt" aria-hidden="true"></i> Project Description</h4>
+                          <p>IoT device management and monitoring system.</p>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-tasks" aria-hidden="true"></i> My Responsibilities</h4>
+                          <ul>
+                            <li>System integration</li>
+                            <li>Real-time data handling</li>
+                          </ul>
+                        </div>
+                        <div class="detail-box">
+                          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> Technologies</h4>
+                          <div class="tag-row">
+                            <span class="tech-chip">Angular</span>
+                            <span class="tech-chip">MQTT</span>
+                            <span class="tech-chip">WebSocket</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Freelance Work -->
+    <section id="freelance" class="section">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <div>
+            <span class="mono-kicker">// 06. Independent Delivery</span>
+            <h2 class="section-title">Freelance Work</h2>
+          </div>
+          <p class="section-subtitle">
+            End-to-end client solutions with architecture design, CI/CD pipelines, and production operations.
+          </p>
+        </div>
+
+        <div class="freelance-grid">
+          <article class="bento-card spotlight-card freelance-card" data-reveal>
+            <div class="freelance-top">
+              <div class="freelance-icon"><i class="fas fa-utensils" aria-hidden="true"></i></div>
+              <span class="freelance-period">March 2022 - March 2023</span>
+            </div>
+            <h3>What To Eat</h3>
+            <p>
+              Community project providing ingredients and dishes recipes for all countries around the world. Features include
+              random game and voting game for recipe discovery.
+            </p>
+            <div class="tag-row">
+              <span class="tech-chip">SvelteKit</span>
+              <span class="tech-chip">TypeScript</span>
+              <span class="tech-chip">Golang</span>
+              <span class="tech-chip">MongoDB</span>
+              <span class="tech-chip">Kubernetes</span>
+              <span class="tech-chip">GraphQL</span>
+            </div>
+            <div class="freelance-meta-row">
+              <span><i class="fas fa-users" aria-hidden="true"></i> Team: 2 (1 Fullstack, 1 PO)</span>
+              <span><i class="fas fa-link" aria-hidden="true"></i> <a href="https://eatwhat.io.vn" target="_blank" rel="noopener noreferrer">eatwhat.io.vn</a></span>
+            </div>
+            <details class="freelance-details">
+              <summary>Responsibilities &amp; Delivery Scope</summary>
+              <div class="details-body">
+                <div>
+                  <strong>My Responsibilities</strong>
+                  <ul>
+                    <li>Implement Features</li>
+                    <li>Build CI/CD with VPS, github pipeline and kubernetes deployment</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </article>
+
+          <article class="bento-card spotlight-card freelance-card" data-reveal>
+            <div class="freelance-top">
+              <div class="freelance-icon"><i class="fas fa-seedling" aria-hidden="true"></i></div>
+              <span class="freelance-period">March 2022 - March 2023</span>
+            </div>
+            <h3>Smart Farm - Bio Safety Evaluation</h3>
+            <p>
+              Bio safety evaluation website for smart farms (USA client). Build question sets, generate reports, compare
+              reports, and export to Excel for farm management decisions.
+            </p>
+            <div class="tag-row">
+              <span class="tech-chip">Angular</span>
+              <span class="tech-chip">TypeScript</span>
+              <span class="tech-chip">Node.js</span>
+              <span class="tech-chip">MongoDB</span>
+            </div>
+            <div class="freelance-meta-row">
+              <span><i class="fas fa-users" aria-hidden="true"></i> 200+ active users</span>
+              <span><i class="fas fa-user-friends" aria-hidden="true"></i> Team: 3 (2 devs, 1 tester)</span>
+            </div>
+            <details class="freelance-details">
+              <summary>Responsibilities &amp; Delivery Scope</summary>
+              <div class="details-body">
+                <div>
+                  <strong>My Responsibilities</strong>
+                  <ul>
+                    <li>Provide client smart solutions for marketing problems</li>
+                    <li>Choose solution and tech to be implemented</li>
+                    <li>Build architecture of Back End, Front End and Database</li>
+                    <li>Deployment, Backup, Build cron job</li>
+                    <li>Build CI/CD with VPS and github pipeline</li>
+                    <li>Write code based on detailed design and specifications</li>
+                    <li>Incident and bug fixing</li>
+                    <li>Review other members' code and provide guidance</li>
+                    <li>Deliver to customer with defined timeline</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </article>
+
+          <article class="bento-card spotlight-card freelance-card" data-reveal>
+            <div class="freelance-top">
+              <div class="freelance-icon"><i class="fas fa-shopping-cart" aria-hidden="true"></i></div>
+              <span class="freelance-period">Jan 2022 - March 2022</span>
+            </div>
+            <h3>Orders Management System</h3>
+            <p>
+              Comprehensive CRM for managing orders, customers, and products with multiple departments and roles. Features
+              include product management, customer management, delivery tracking, and automated customer analysis.
+            </p>
+            <div class="tag-row">
+              <span class="tech-chip">Angular 13</span>
+              <span class="tech-chip">TypeScript</span>
+              <span class="tech-chip">NestJS</span>
+              <span class="tech-chip">MongoDB</span>
+            </div>
+            <div class="freelance-meta-row">
+              <span><i class="fas fa-users" aria-hidden="true"></i> 20+ active users</span>
+              <span><i class="fas fa-user-friends" aria-hidden="true"></i> Team: 2 (1 dev, 1 tester)</span>
+            </div>
+            <details class="freelance-details">
+              <summary>Responsibilities &amp; Challenges</summary>
+              <div class="details-body">
+                <div>
+                  <strong>Challenges</strong>
+                  <p>Complex multi-department system with role-based access control. Department A cannot see Department B's data unless explicitly granted. Various roles per department including leader, sale president, warehouse, etc.</p>
+                </div>
+                <div>
+                  <strong>My Responsibilities</strong>
+                  <ul>
+                    <li>Choose the solution to be implemented</li>
+                    <li>Build architecture of Front End, Back End and Database</li>
+                    <li>Deployment, Backup, Build cron job</li>
+                    <li>Build CI/CD with VPS and github Action</li>
+                    <li>Write code based on detailed design and specifications</li>
+                    <li>Collect requirements and suggest UI/UX solutions</li>
+                    <li>Incident and bug fixing</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </article>
+
+          <article class="bento-card spotlight-card freelance-card" data-reveal>
+            <div class="freelance-top">
+              <div class="freelance-icon"><i class="fas fa-warehouse" aria-hidden="true"></i></div>
+              <span class="freelance-period">May 2021 - Jan 2022</span>
+            </div>
+            <h3>Animal Farm Management System</h3>
+            <p>
+              Complete farm management solution for animal food suppliers. Manages expense and revenue tracking, warehouse
+              operations, stall management, and business analytics with flexible workflows for different pig types.
+            </p>
+            <div class="tag-row">
+              <span class="tech-chip">Angular 11</span>
+              <span class="tech-chip">TypeScript</span>
+              <span class="tech-chip">NestJS</span>
+              <span class="tech-chip">MongoDB</span>
+            </div>
+            <div class="freelance-meta-row">
+              <span><i class="fas fa-users" aria-hidden="true"></i> 100+ active users</span>
+              <span><i class="fas fa-user-friends" aria-hidden="true"></i> Team: 3 (2 devs, 1 tester)</span>
+            </div>
+            <details class="freelance-details">
+              <summary>Key Features &amp; Responsibilities</summary>
+              <div class="details-body">
+                <div>
+                  <strong>Key Features</strong>
+                  <ul>
+                    <li>Warehouse management for feed, medicine, and equipment</li>
+                    <li>Flexible stall management with multiple pig type workflows</li>
+                    <li>Daily and monthly expense/revenue reports</li>
+                    <li>Email notifications and data visualization</li>
+                    <li>Complete pig lifecycle tracking (feeding, selling, importing)</li>
+                  </ul>
+                </div>
+                <div>
+                  <strong>My Responsibilities</strong>
+                  <ul>
+                    <li>Choose the solution to be implemented</li>
+                    <li>Build architecture of Front End, Back End and Database</li>
+                    <li>Deployment, Backup, Build cron job</li>
+                    <li>Build CI/CD with VPS and github Action</li>
+                    <li>Write code based on detailed design and specifications</li>
+                    <li>Collect requirements and suggest UI/UX and workflow solutions</li>
+                    <li>Incident and bug fixing</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </article>
+        </div>
+
+        <div class="cta-banner" data-reveal>
+          <div>
+            <h3>Interested in working together?</h3>
+            <p style="color: var(--text-secondary);">I'm available for freelance projects and technical consulting opportunities.</p>
+          </div>
+          <a href="#contact" class="btn btn-primary">
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+            <span>Let's Talk</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <div>
+            <span class="mono-kicker">// 07. Direct Connection</span>
+            <h2 class="section-title">Get In Touch</h2>
+          </div>
+          <p class="section-subtitle">
+            I'm always interested in hearing about new projects and opportunities. Feel free to reach out directly.
+          </p>
+        </div>
+
+        <div class="contact-bento">
+          <div class="bento-card spotlight-card" data-reveal>
+            <h3>Let's Work Together</h3>
+            <p style="color: var(--text-secondary); margin-top: 0.45rem;">
+              Whether you need full-stack architecture, cloud DevOps automation, or consulting on a complex web product, send a message anytime.
+            </p>
+
+            <div class="contact-list">
+              <div class="contact-row">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+                <div style="flex: 1;">
+                  <div style="font-size: 0.78rem; color: var(--text-muted);">Email</div>
+                  <a href="mailto:fxanhkhoa@gmail.com">fxanhkhoa@gmail.com</a>
+                </div>
+                <button type="button" class="btn btn-ghost" style="min-height: 36px; padding: 0.35rem 0.85rem;" data-copy-email="fxanhkhoa@gmail.com">
+                  <span data-copy-label>Copy</span>
+                </button>
+              </div>
+
+              <div class="contact-row">
+                <i class="fas fa-phone" aria-hidden="true"></i>
+                <div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted);">Phone</div>
+                  <a href="tel:+84772912970">+84 772 912 970</a>
+                </div>
+              </div>
+
+              <div class="contact-row">
+                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                <div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted);">Location</div>
+                  <span>Ho Chi Minh City, Vietnam</span>
+                </div>
+              </div>
+            </div>
+            <div id="copy-status" class="visually-hidden" role="status" aria-live="polite"></div>
+          </div>
+
+          <div class="bento-card spotlight-card" data-reveal>
+            <form class="contact-form" id="contact-form" novalidate aria-label="Contact Kevin Bui">
+              <div class="field-group">
+                <label for="contact-name">Your Name <span aria-hidden="true">*</span></label>
+                <input id="contact-name" type="text" name="from_name" autocomplete="name" enterkeyhint="next" required aria-describedby="err-name" placeholder="Jane Doe">
+                <span id="err-name" class="field-error" aria-live="polite"></span>
+              </div>
+
+              <div class="field-group">
+                <label for="contact-email">Your Email <span aria-hidden="true">*</span></label>
+                <input id="contact-email" type="email" name="from_email" autocomplete="email" autocorrect="off" autocapitalize="none" spellcheck="false" enterkeyhint="next" required aria-describedby="err-email" placeholder="jane@company.com">
+                <span id="err-email" class="field-error" aria-live="polite"></span>
+              </div>
+
+              <div class="field-group">
+                <label for="contact-subject">Subject</label>
+                <input id="contact-subject" type="text" name="subject" enterkeyhint="next" placeholder="Architecture consulting / Full-stack project">
+              </div>
+
+              <div class="field-group">
+                <label for="contact-message">Your Message <span aria-hidden="true">*</span></label>
+                <textarea id="contact-message" name="message" rows="5" enterkeyhint="send" required aria-describedby="err-message" placeholder="Tell me about your timeline, scope, and goals..."></textarea>
+                <span id="err-message" class="field-error" aria-live="polite"></span>
+              </div>
+
+              <button type="submit" class="btn btn-primary">
+                <i id="loading-spinner" class="fas fa-paper-plane" aria-hidden="true"></i>
+                <span id="submit-text">Send Message</span>
+              </button>
+
+              <div id="success-message" class="form-feedback is-success" role="status" aria-live="polite" hidden>
+                <i class="fas fa-check-circle" aria-hidden="true"></i> Message sent successfully! I'll get back to you soon.
+              </div>
+              <div id="fail-message" class="form-feedback is-error" role="status" aria-live="polite" hidden>
+                <i class="fas fa-exclamation-circle" aria-hidden="true"></i> Failed to send message. Please try again or email me directly.
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-copy">&copy; 2026 Kevin Bui. All rights reserved.</p>
+
+        <nav class="variant-switcher" aria-label="Portfolio design variants">
+          <span class="variant-label">Design:</span>
+          <a class="variant-pill" href="index-v3.html" aria-current="page">Obsidian</a>
+          <a class="variant-pill" href="index-v3-editorial.html">Editorial</a>
+          <a class="variant-pill" href="index.html">Spatial</a>
+          <a class="variant-pill" href="index-backup.html">Classic</a>
+        </nav>
+
+        <div class="social-row">
+          <a class="social-icon-btn" href="https://github.com/fxanhkhoa" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <i class="fab fa-github" aria-hidden="true"></i>
+          </a>
+          <a class="social-icon-btn" href="https://www.linkedin.com/in/khoa-bui-anh-698ab2173" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <i class="fab fa-linkedin" aria-hidden="true"></i>
+          </a>
+          <a class="social-icon-btn" href="https://twitter.com/BuiAnhK49302949" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+            <i class="fab fa-twitter" aria-hidden="true"></i>
+          </a>
+          <a class="social-icon-btn" href="https://www.facebook.com/fxanhkhoa" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <i class="fab fa-facebook" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Native 3D Inspector Dialog -->
+  <dialog id="model-modal" class="model-modal" closedby="any" aria-labelledby="model-modal-title">
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <span class="modal-badge" id="model-modal-category"><i class="fas fa-cube" aria-hidden="true"></i> Architecture</span>
+        <h3 id="model-modal-title">3D House Study</h3>
+      </div>
+      <button type="button" class="modal-close" data-dialog-close autofocus aria-label="Close 3D viewer">
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="modal-grid">
+      <div class="modal-stage">
+        <model-viewer
+          id="modal-model-viewer"
+          src=""
+          alt="Interactive 3D Model"
+          camera-controls
+          auto-rotate
+          shadow-intensity="1"
+        ></model-viewer>
+        <div class="modal-toolbar">
+          <button type="button" id="model-toggle-rotate" class="tool-btn active" aria-pressed="true">
+            <i class="fas fa-sync-alt" aria-hidden="true"></i> Auto-Rotate
+          </button>
+          <button type="button" id="model-reset-camera" class="tool-btn">
+            <i class="fas fa-crosshairs" aria-hidden="true"></i> Reset View
+          </button>
+        </div>
+      </div>
+      <aside class="modal-aside">
+        <div>
+          <h4>3D Collection</h4>
+          <div id="model-modal-switcher" class="model-switcher"></div>
+        </div>
+        <div>
+          <h4>About This Study</h4>
+          <p id="model-modal-description">An interactive 3D house model built in Blender as part of my 3D modeling learning journey, exported to glTF Binary (<code>.glb</code>) for real-time web rendering.</p>
+        </div>
+        <div>
+          <h4>Highlights</h4>
+          <ul id="model-modal-highlights">
+            <li>Modeled architectural structure &amp; proportions in Blender</li>
+            <li>Applied materials and lighting for real-time PBR rendering</li>
+            <li>Optimized and exported from <code>.blend</code> to web-ready <code>.glb</code></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Controls</h4>
+          <ul>
+            <li><strong>Left-drag / 1-finger:</strong> Orbit</li>
+            <li><strong>Scroll / Pinch:</strong> Zoom</li>
+            <li><strong>Right-drag / 2-finger:</strong> Pan</li>
+          </ul>
+        </div>
+        <div id="model-modal-tags" class="tag-row" data-tag-class="tech-chip">
+          <span class="tech-chip">Blender</span>
+          <span class="tech-chip">3D Modeling</span>
+          <span class="tech-chip">glTF / GLB</span>
+          <span class="tech-chip">model-viewer</span>
+        </div>
+        <a id="model-modal-studio-link" href="3d-studio/" class="btn btn-primary" style="width: 100%;">
+          <i class="fas fa-cubes" aria-hidden="true"></i>
+          <span>Launch Full 3D Studio</span>
+        </a>
+      </aside>
+    </div>
+  </dialog>
+
+  <script src="vendor/typed/typed.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    (function () {
+      if (typeof emailjs !== 'undefined') {
+        emailjs.init('v97mjOJU0VaG6C-Yw');
+      }
+    })();
+  </script>
+  <script src="scripts/models-3d.js"></script>
+  <script src="scripts/portfolio-v3.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-02X4LNR5SF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-02X4LNR5SF');
+  </script>
+</body>
+
+</html>

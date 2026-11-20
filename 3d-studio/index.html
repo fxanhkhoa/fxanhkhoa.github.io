@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>3D Studio — Interactive Blender Showcase | Kevin Bui</title>
+  <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="studio.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+</head>
+
+<body>
+  <header class="studio-header">
+    <div class="studio-header-inner">
+      <a class="studio-brand" href="../index.html" aria-label="Back to Kevin Bui portfolio">
+        <img src="../images/logo.png" alt="Kevin Bui Logo">
+        <span class="studio-badge"><i class="fas fa-cubes" aria-hidden="true"></i> 3D Studio</span>
+        <span class="count-pill" id="studio-count">1 Model</span>
+      </a>
+
+      <nav class="studio-nav" aria-label="Portfolio navigation">
+        <a class="nav-pill" href="../index.html"><i class="fas fa-arrow-left" aria-hidden="true"></i> Portfolio</a>
+        <a class="nav-pill" href="../index-v3.html">Obsidian</a>
+        <a class="nav-pill" href="../index-v3-editorial.html">Editorial</a>
+        <a class="nav-pill" href="../index-backup.html">Classic</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="studio-main">
+    <!-- Interactive WebGL Stage -->
+    <section class="stage-card" aria-label="Interactive 3D Viewport">
+      <div class="stage-topbar">
+        <div class="stage-title-group">
+          <h1 id="stage-model-title">3D House Study</h1>
+          <span class="stage-file" id="stage-model-file">blender/house.glb</span>
+        </div>
+        <div class="backdrop-switcher" role="group" aria-label="Studio backdrop">
+          <button type="button" class="studio-btn active" data-backdrop-opt="obsidian" aria-pressed="true">Obsidian</button>
+          <button type="button" class="studio-btn" data-backdrop-opt="light" aria-pressed="false">Studio Light</button>
+          <button type="button" class="studio-btn" data-backdrop-opt="blueprint" aria-pressed="false">Blueprint</button>
+        </div>
+      </div>
+
+      <div id="viewer-canvas" class="viewer-canvas" data-backdrop="obsidian">
+        <model-viewer
+          id="studio-viewer"
+          src="../blender/house.glb"
+          alt="3D House modeled in Blender"
+          camera-controls
+          auto-rotate
+          shadow-intensity="1"
+          exposure="1"
+          touch-action="pan-y"
+        ></model-viewer>
+      </div>
+
+      <div class="stage-controls">
+        <div class="control-group" role="group" aria-label="Camera presets">
+          <button type="button" class="studio-btn active" data-orbit="45deg 65deg auto" aria-pressed="true">Iso</button>
+          <button type="button" class="studio-btn" data-orbit="0deg 78deg auto" aria-pressed="false">Front</button>
+          <button type="button" class="studio-btn" data-orbit="90deg 75deg auto" aria-pressed="false">Side</button>
+          <button type="button" class="studio-btn" data-orbit="0deg 15deg auto" aria-pressed="false">Top</button>
+          <button type="button" class="studio-btn" id="studio-reset"><i class="fas fa-crosshairs" aria-hidden="true"></i> Reset</button>
+          <button type="button" class="studio-btn active" id="studio-rotate" aria-pressed="true"><i class="fas fa-sync-alt" aria-hidden="true"></i> Auto-Rotate</button>
+        </div>
+
+        <div class="exposure-control">
+          <label for="studio-exposure">Exposure</label>
+          <input id="studio-exposure" type="range" min="0.5" max="1.8" step="0.05" value="1">
+          <span id="studio-exposure-val">1.00</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Collection & Inspector Panel -->
+    <aside class="inspector-column">
+      <section class="panel-card" aria-labelledby="collection-heading">
+        <div class="panel-heading-row">
+          <span class="panel-kicker" id="collection-heading">3D Collection</span>
+          <div id="category-filters" class="category-pills" hidden></div>
+        </div>
+        <div id="collection-list" class="collection-list" role="group" aria-label="Select 3D object"></div>
+        <div id="coming-soon-note" class="coming-soon-note" hidden>
+          <i class="fas fa-plus-circle" aria-hidden="true"></i> More Blender objects coming soon — this workspace grows automatically as new <code>.glb</code> models are added.
+        </div>
+      </section>
+
+      <section class="panel-card detail-section" aria-labelledby="detail-title">
+        <div>
+          <span class="panel-kicker" id="detail-category">Architecture</span>
+          <h2 id="detail-title">3D House Study</h2>
+          <p id="detail-summary"></p>
+        </div>
+
+        <div class="detail-block">
+          <h3>Highlights</h3>
+          <ul id="detail-highlights"></ul>
+        </div>
+
+        <div class="detail-block">
+          <h3>Controls</h3>
+          <ul>
+            <li><strong>Left-drag / 1-finger:</strong> Orbit around object</li>
+            <li><strong>Scroll / Pinch:</strong> Zoom in &amp; out</li>
+            <li><strong>Right-drag / 2-finger:</strong> Pan camera target</li>
+          </ul>
+        </div>
+
+        <div class="detail-block">
+          <h3>Stack &amp; Format</h3>
+          <div id="detail-tags" class="tag-row"></div>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <script src="../scripts/models-3d.js"></script>
+  <script>
+    (() => {
+      'use strict';
+
+      const models =
+        Array.isArray(window.PORTFOLIO_3D_MODELS) && window.PORTFOLIO_3D_MODELS.length > 0
+          ? window.PORTFOLIO_3D_MODELS
+          : [
+              {
+                id: 'house-study',
+                title: '3D House Study',
+                category: 'Architecture',
+                src: 'blender/house.glb',
+                alt: '3D House modeled in Blender',
+                summary:
+                  'An interactive 3D house model built in Blender as part of my 3D modeling learning journey, exported to glTF Binary (.glb) for real-time web rendering.',
+                highlights: [
+                  'Modeled architectural structure & proportions in Blender',
+                  'Applied materials and lighting for real-time PBR rendering',
+                  'Optimized and exported from .blend to web-ready .glb'
+                ],
+                tags: ['Blender', '3D Modeling', 'glTF / GLB', 'model-viewer'],
+                cameraOrbit: '45deg 65deg auto'
+              }
+            ];
+
+      const resolveAssetPath = (src) => {
+        if (/^(https?:|\/|\.\.\/)/.test(src)) return src;
+        return `../${src}`;
+      };
+
+      const viewer = document.getElementById('studio-viewer');
+      const canvas = document.getElementById('viewer-canvas');
+      const stageTitle = document.getElementById('stage-model-title');
+      const stageFile = document.getElementById('stage-model-file');
+      const countEl = document.getElementById('studio-count');
+      const categoryFiltersEl = document.getElementById('category-filters');
+      const collectionListEl = document.getElementById('collection-list');
+      const comingSoonEl = document.getElementById('coming-soon-note');
+
+      const detailCategory = document.getElementById('detail-category');
+      const detailTitle = document.getElementById('detail-title');
+      const detailSummary = document.getElementById('detail-summary');
+      const detailHighlights = document.getElementById('detail-highlights');
+      const detailTags = document.getElementById('detail-tags');
+
+      const rotateBtn = document.getElementById('studio-rotate');
+      const resetBtn = document.getElementById('studio-reset');
+      const exposureInput = document.getElementById('studio-exposure');
+      const exposureVal = document.getElementById('studio-exposure-val');
+      const orbitBtns = Array.from(document.querySelectorAll('[data-orbit]'));
+      const backdropBtns = Array.from(document.querySelectorAll('[data-backdrop-opt]'));
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches && viewer) {
+        viewer.removeAttribute('auto-rotate');
+        if (rotateBtn) {
+          rotateBtn.classList.remove('active');
+          rotateBtn.setAttribute('aria-pressed', 'false');
+        }
+      }
+
+      if (countEl) {
+        countEl.textContent = `${models.length} ${models.length === 1 ? 'Model' : 'Models'}`;
+      }
+      if (comingSoonEl) {
+        comingSoonEl.hidden = models.length >= 3;
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const requestedId = params.get('model');
+      let activeCategory = 'All';
+      let activeModel = models.find((m) => m.id === requestedId) || models[0];
+
+      const categories = Array.from(new Set(models.map((m) => m.category).filter(Boolean)));
+      if (categories.length > 1 && categoryFiltersEl) {
+        categoryFiltersEl.hidden = false;
+        ['All', ...categories].forEach((cat) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `studio-btn${cat === activeCategory ? ' active' : ''}`;
+          btn.textContent = cat;
+          btn.setAttribute('aria-pressed', String(cat === activeCategory));
+          btn.addEventListener('click', () => {
+            activeCategory = cat;
+            categoryFiltersEl.querySelectorAll('button').forEach((b) => {
+              const isCurrent = b === btn;
+              b.classList.toggle('active', isCurrent);
+              b.setAttribute('aria-pressed', String(isCurrent));
+            });
+            renderCollection();
+          });
+          categoryFiltersEl.appendChild(btn);
+        });
+      }
+
+      function selectModel(model, updateUrl = true) {
+        activeModel = model;
+        if (viewer) {
+          viewer.setAttribute('src', resolveAssetPath(model.src));
+          viewer.setAttribute('alt', model.alt || model.title);
+          viewer.cameraOrbit = model.cameraOrbit || 'auto auto auto';
+        }
+        if (stageTitle) stageTitle.textContent = model.title;
+        if (stageFile) stageFile.textContent = model.src;
+        if (detailCategory) detailCategory.textContent = model.category || '3D Object';
+        if (detailTitle) detailTitle.textContent = model.title;
+        if (detailSummary) detailSummary.textContent = model.summary || '';
+
+        if (detailHighlights) {
+          detailHighlights.replaceChildren();
+          (model.highlights || []).forEach((item) => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            detailHighlights.appendChild(li);
+          });
+        }
+
+        if (detailTags) {
+          detailTags.replaceChildren();
+          (model.tags || []).forEach((tag) => {
+            const span = document.createElement('span');
+            span.className = 'tag-chip';
+            span.textContent = tag;
+            detailTags.appendChild(span);
+          });
+        }
+
+        if (updateUrl && window.history?.replaceState) {
+          const nextUrl = new URL(window.location.href);
+          nextUrl.searchParams.set('model', model.id);
+          window.history.replaceState(null, '', nextUrl);
+        }
+
+        renderCollection();
+      }
+
+      function renderCollection() {
+        if (!collectionListEl) return;
+        collectionListEl.replaceChildren();
+        const visible =
+          activeCategory === 'All' ? models : models.filter((m) => m.category === activeCategory);
+
+        visible.forEach((model, index) => {
+          const isActive = model.id === activeModel.id;
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'collection-item';
+          btn.setAttribute('aria-pressed', String(isActive));
+
+          const left = document.createElement('span');
+          left.className = 'collection-item-left';
+
+          const idx = document.createElement('span');
+          idx.className = 'collection-idx';
+          idx.textContent = String(index + 1).padStart(2, '0');
+
+          const textWrap = document.createElement('span');
+          const titleSpan = document.createElement('span');
+          titleSpan.className = 'collection-title';
+          titleSpan.textContent = model.title;
+
+          const metaSpan = document.createElement('span');
+          metaSpan.className = 'collection-meta';
+          metaSpan.textContent = `${model.category} · ${model.src.split('/').pop()}`;
+
+          textWrap.append(titleSpan, metaSpan);
+          left.append(idx, textWrap);
+
+          const icon = document.createElement('i');
+          icon.className = isActive ? 'fas fa-cube' : 'fas fa-chevron-right';
+          icon.setAttribute('aria-hidden', 'true');
+
+          btn.append(left, icon);
+          btn.addEventListener('click', () => selectModel(model));
+          collectionListEl.appendChild(btn);
+        });
+      }
+
+      orbitBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          if (!viewer) return;
+          viewer.cameraOrbit = btn.getAttribute('data-orbit');
+          orbitBtns.forEach((b) => {
+            const active = b === btn;
+            b.classList.toggle('active', active);
+            b.setAttribute('aria-pressed', String(active));
+          });
+        });
+      });
+
+      if (resetBtn && viewer) {
+        resetBtn.addEventListener('click', () => {
+          viewer.cameraOrbit = activeModel.cameraOrbit || 'auto auto auto';
+          viewer.fieldOfView = 'auto';
+        });
+      }
+
+      if (rotateBtn && viewer) {
+        rotateBtn.addEventListener('click', () => {
+          const active = viewer.hasAttribute('auto-rotate');
+          if (active) {
+            viewer.removeAttribute('auto-rotate');
+          } else {
+            viewer.setAttribute('auto-rotate', '');
+          }
+          rotateBtn.classList.toggle('active', !active);
+          rotateBtn.setAttribute('aria-pressed', String(!active));
+        });
+      }
+
+      backdropBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const mode = btn.getAttribute('data-backdrop-opt');
+          if (canvas && mode) canvas.setAttribute('data-backdrop', mode);
+          backdropBtns.forEach((b) => {
+            const active = b === btn;
+            b.classList.toggle('active', active);
+            b.setAttribute('aria-pressed', String(active));
+          });
+        });
+      });
+
+      if (exposureInput && exposureVal && viewer) {
+        exposureInput.addEventListener('input', () => {
+          const val = parseFloat(exposureInput.value);
+          viewer.exposure = val;
+          exposureVal.textContent = val.toFixed(2);
+        });
+      }
+
+      selectModel(activeModel, false);
+    })();
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-02X4LNR5SF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-02X4LNR5SF');
+  </script>
+</body>
+
+</html>

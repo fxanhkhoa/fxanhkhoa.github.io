@@ -666,9 +666,15 @@ section {
     flex-direction: column;
 }
 
+.model-modal:modal {
+    overscroll-behavior: contain;
+}
+
 .model-modal::backdrop {
     background: rgba(17, 24, 39, 0.78);
     backdrop-filter: blur(4px);
+    overflow: hidden;
+    overscroll-behavior: contain;
 }
 
 .model-modal-header {
@@ -1593,4 +1599,99 @@ section {
 
 .mb-2 {
     margin-bottom: 0.5rem;
+}
+
+.model-count-badge {
+    position: absolute;
+    top: 0.65rem;
+    left: 0.65rem;
+    padding: 0.25rem 0.65rem;
+    background: rgba(17, 24, 39, 0.78);
+    color: var(--text-light);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+.model-card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.model-card-actions .project-detail-btn {
+    margin-top: 0;
+}
+
+.model-studio-link {
+    padding: 0.65rem 1rem;
+    border-radius: 10px;
+    background: var(--gradient-primary);
+    color: #ffffff;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    transition: var(--transition);
+}
+
+.model-studio-link:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.inline-model-switcher,
+.model-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.inline-model-switcher[hidden] {
+    display: none;
+}
+
+.inline-model-switcher {
+    position: absolute;
+    bottom: 0.65rem;
+    right: 0.65rem;
+    max-width: calc(100% - 8rem);
+}
+
+.model-switch-btn {
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.model-switch-btn[aria-pressed="true"] {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.model-switcher-note {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    border: 1px dashed rgba(99, 102, 241, 0.35);
+}
+
+@media (max-width: 540px) {
+    .model-card-actions {
+        grid-template-columns: 1fr;
+    }
 }
