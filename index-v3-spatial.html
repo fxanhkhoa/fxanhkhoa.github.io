@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>Kevin Bui — Spatial Showcase &amp; Interactive Console (v3)</title>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles/v3-spatial.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+</head>
+
+<body>
+  <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand-link" href="#home" aria-label="Kevin Bui home">
+        <img class="brand-logo" src="images/logo.png" alt="Kevin Bui Logo">
+        <span class="hud-tag">SPATIAL v3</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <button
+          class="menu-button"
+          type="button"
+          popovertarget="site-menu"
+          popovertargetaction="toggle"
+          aria-controls="site-menu"
+        >
+          <i class="fas fa-bars" aria-hidden="true"></i>
+          <span>Menu</span>
+        </button>
+
+        <ul id="site-menu" class="site-menu" popover="auto">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Ecosystem</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#experience">Career</a></li>
+          <li><a href="#freelance">Freelance</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <button type="button" class="cmd-trigger" data-cmd-open aria-label="Open quick command palette">
+          <i class="fas fa-terminal" aria-hidden="true"></i>
+          <span>Commands</span>
+          <span class="kbd">⌘K</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Split-Viewport Interactive Hero -->
+    <section id="home" class="hero-spatial">
+      <div class="container">
+        <div class="hero-split">
+          <div class="glass-panel hero-pitch">
+            <div class="telemetry-bar">
+              <span class="live-badge">
+                <span class="live-dot" aria-hidden="true"></span>
+                SYSTEMS ONLINE
+              </span>
+              <span>HCMC, VIETNAM · <span data-hcmc-time>15:00 ICT</span></span>
+            </div>
+
+            <div>
+              <span class="coord-tag">LOC // 10.8231° N, 106.6297° E</span>
+              <h1 class="hero-title">
+                Hi, I'm <span>Kevin Bui</span>
+              </h1>
+              <p class="hero-typed"><span id="typed-text">Full Stack Developer</span></p>
+              <p class="hero-bio">
+                I'm a passionate Full Stack Developer with over 6 years of experience in building exceptional digital
+                experiences. Specialized in Angular, React, Node.js, Golang, and Kubernetes cloud technologies — plus
+                interactive WebGL &amp; 3D web studies.
+              </p>
+              <div class="hero-cta-row">
+                <a href="#projects" class="btn btn-primary">
+                  <span>View My Work</span>
+                  <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                <a href="files/khoa-bui-28-02-2025.pdf" class="btn btn-ghost" download>
+                  <i class="fas fa-download" aria-hidden="true"></i>
+                  <span>Resume PDF</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="telemetry-metrics">
+              <div class="tele-stat">
+                <strong>6+</strong>
+                <span>Years Exp</span>
+              </div>
+              <div class="tele-stat">
+                <strong>50+</strong>
+                <span>Projects</span>
+              </div>
+              <div class="tele-stat">
+                <strong>10M+</strong>
+                <span>End Users</span>
+              </div>
+              <div class="tele-stat">
+                <strong>30+</strong>
+                <span>Clients</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Architecture Profile Console -->
+          <div class="glass-panel hero-console">
+            <div class="console-topbar">
+              <span class="console-title">
+                <i class="fas fa-code" aria-hidden="true"></i> Architecture Spec
+              </span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">profile.json · live</span>
+            </div>
+
+            <div class="console-spec-wrap">
+              <div class="spec-profile-head">
+                <div class="avatar-frame">
+                  <img src="images/avatar.png" alt="Kevin Bui">
+                </div>
+                <div>
+                  <h2 style="font-family: var(--font-display); font-size: 1.25rem;">Kevin Bui (Khoa Bui Anh)</h2>
+                  <p style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--cyan);">Full Stack Developer · Software Architect</p>
+                </div>
+              </div>
+              <pre class="json-code"><code>{
+  <span class="json-key">"location"</span>: <span class="json-str">"Ho Chi Minh City, Vietnam"</span>,
+  <span class="json-key">"experience_years"</span>: <span class="json-num">6</span>,
+  <span class="json-key">"peak_scale"</span>: <span class="json-str">"10M+ FinTech Users / 1,000 Concurrent SaaS"</span>,
+  <span class="json-key">"frontend"</span>: [<span class="json-str">"Angular 2-19"</span>, <span class="json-str">"React/Next.js"</span>, <span class="json-str">"SvelteKit"</span>],
+  <span class="json-key">"backend"</span>: [<span class="json-str">"Golang"</span>, <span class="json-str">"NestJS"</span>, <span class="json-str">"GraphQL"</span>, <span class="json-str">"gRPC"</span>],
+  <span class="json-key">"cloud"</span>: [<span class="json-str">"Kubernetes"</span>, <span class="json-str">"Docker"</span>, <span class="json-str">"AWS"</span>, <span class="json-str">"Azure"</span>],
+  <span class="json-key">"creative_3d"</span>: [<span class="json-str">"Three.js"</span>, <span class="json-str">"Blender"</span>, <span class="json-str">"WebRTC"</span>]
+}</code></pre>
+              <div class="hero-cta-row">
+                <button type="button" class="btn btn-secondary" style="min-height: 40px;" data-copy-email="fxanhkhoa@gmail.com">
+                  <i class="fas fa-copy" aria-hidden="true"></i>
+                  <span data-copy-label>Copy fxanhkhoa@gmail.com</span>
+                </button>
+                <a href="https://github.com/fxanhkhoa" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="min-height: 40px;">
+                  <i class="fab fa-github" aria-hidden="true"></i> GitHub
+                </a>
+                <button type="button" class="btn btn-ghost" style="min-height: 40px;" data-cmd-open>
+                  <i class="fas fa-terminal" aria-hidden="true"></i> ⌘K Commands
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- About Strip -->
+        <div id="about" class="glass-panel about-strip" data-reveal>
+          <div class="avatar-frame-lg">
+            <img src="images/avatar.png" alt="Kevin Bui portrait">
+          </div>
+          <div>
+            <span class="coord-tag">// 01. About Me</span>
+            <h2 style="font-family: var(--font-display); font-size: 1.55rem; margin-bottom: 0.65rem;">Full Stack Developer &amp; Systems Builder</h2>
+            <p style="color: var(--text-secondary);">
+              With over 6 years of experience in web development, I specialize in creating scalable, user-friendly
+              applications that solve real-world problems. My passion lies in writing clean, maintainable code and
+              delivering exceptional user experiences.
+            </p>
+          </div>
+          <div>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+              Enthusiastic engineering college graduate with freelance experience. Completed several client projects,
+              including small consulting, product and research jobs. I'm passionate about building full cycle systems
+              including Front-end, Back-end and infrastructures.
+            </p>
+            <div class="pill-row">
+              <a href="https://github.com/fxanhkhoa" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="min-height: 38px; padding: 0.4rem 0.85rem;"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a>
+              <a href="https://www.linkedin.com/in/khoa-bui-anh-698ab2173" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="min-height: 38px; padding: 0.4rem 0.85rem;"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+              <a href="https://twitter.com/BuiAnhK49302949" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="min-height: 38px; padding: 0.4rem 0.85rem;"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a>
+              <a href="https://www.facebook.com/bui.a.khoa.1" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="min-height: 38px; padding: 0.4rem 0.85rem;"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Ecosystem (Pauseable Marquee + Interactive Filter) -->
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <span class="coord-tag">// 02. Tech Ecosystem</span>
+            <h2 class="section-title">Skills &amp; Expertise</h2>
+          </div>
+          <p class="section-subtitle">
+            Pauseable stack ribbon and interactive layer filter covering frontend, backend, cloud, and state management.
+          </p>
+        </div>
+
+        <div class="marquee-bar" data-reveal>
+          <div class="tech-marquee" aria-label="Core technologies marquee">
+            <div class="marquee-track">
+              <span class="marquee-item"><img src="images/icons/angular.png" alt=""> Angular</span>
+              <span class="marquee-item"><img src="images/icons/reactjs.png" alt=""> React.js</span>
+              <span class="marquee-item"><img src="images/icons/nextjs.png" alt=""> Next.js</span>
+              <span class="marquee-item"><img src="images/icons/golang.png" alt=""> Golang</span>
+              <span class="marquee-item"><img src="images/icons/nestjs.png" alt=""> NestJS</span>
+              <span class="marquee-item"><img src="images/icons/nodejs.png" alt=""> Node.js</span>
+              <span class="marquee-item"><img src="images/icons/graphql.png" alt=""> GraphQL</span>
+              <span class="marquee-item"><img src="images/icons/grpc.png" alt=""> gRPC</span>
+              <span class="marquee-item"><img src="images/icons/docker.png" alt=""> Docker</span>
+              <span class="marquee-item"><img src="images/icons/aws.png" alt=""> AWS</span>
+              <span class="marquee-item"><img src="images/icons/azure.png" alt=""> Azure</span>
+              <span class="marquee-item"><img src="images/icons/rxjs.png" alt=""> RxJS</span>
+              <span class="marquee-item"><img src="images/icons/ngrx.png" alt=""> NgRx</span>
+              <span class="marquee-item"><img src="images/icons/redux.png" alt=""> Redux</span>
+              <span class="marquee-item"><img src="images/icons/tailwind.png" alt=""> Tailwind</span>
+              <!-- Duplicate track for seamless loop -->
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/angular.png" alt=""> Angular</span>
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/reactjs.png" alt=""> React.js</span>
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/nextjs.png" alt=""> Next.js</span>
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/golang.png" alt=""> Golang</span>
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/nestjs.png" alt=""> NestJS</span>
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/nodejs.png" alt=""> Node.js</span>
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/graphql.png" alt=""> GraphQL</span>
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/grpc.png" alt=""> gRPC</span>
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/docker.png" alt=""> Docker</span>
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/aws.png" alt=""> AWS</span>
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/azure.png" alt=""> Azure</span>
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/rxjs.png" alt=""> RxJS</span>
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/ngrx.png" alt=""> NgRx</span>
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/redux.png" alt=""> Redux</span>
+              <span class="marquee-item" aria-hidden="true"><img src="images/icons/tailwind.png" alt=""> Tailwind</span>
+            </div>
+          </div>
+          <button type="button" id="marquee-toggle" class="marquee-toggle">
+            <span data-marquee-label>Pause</span>
+          </button>
+        </div>
+
+        <div class="filter-bar" data-skill-filter role="group" aria-label="Filter skill categories">
+          <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">All Layers</button>
+          <button type="button" class="filter-btn" data-filter="frontend" aria-pressed="false">Frontend</button>
+          <button type="button" class="filter-btn" data-filter="backend" aria-pressed="false">Backend</button>
+          <button type="button" class="filter-btn" data-filter="cloud" aria-pressed="false">Cloud &amp; DevOps</button>
+          <button type="button" class="filter-btn" data-filter="state" aria-pressed="false">State &amp; Others</button>
+        </div>
+
+        <div class="skills-grid" data-skill-grid>
+          <div class="glass-panel" data-category="frontend">
+            <div class="skill-card-head">
+              <i class="fas fa-code" aria-hidden="true"></i>
+              <h3>Frontend Development</h3>
+            </div>
+            <div class="skill-badges">
+              <span class="skill-badge"><img src="images/icons/angular.png" alt=""> Angular (2–19)</span>
+              <span class="skill-badge"><img src="images/icons/reactjs.png" alt=""> React.js</span>
+              <span class="skill-badge"><img src="images/icons/nextjs.png" alt=""> Next.js</span>
+              <span class="skill-badge"><img src="images/icons/tailwind.png" alt=""> Tailwind CSS</span>
+              <span class="skill-badge"><img src="images/icons/angular-material.svg" alt=""> Angular Material</span>
+              <span class="skill-badge">Svelte</span>
+              <span class="skill-badge">SvelteKit</span>
+              <span class="skill-badge">JavaScript</span>
+              <span class="skill-badge">TypeScript</span>
+              <span class="skill-badge">HTML/CSS</span>
+              <span class="skill-badge">SASS</span>
+            </div>
+          </div>
+
+          <div class="glass-panel" data-category="backend">
+            <div class="skill-card-head">
+              <i class="fas fa-server" aria-hidden="true"></i>
+              <h3>Backend Development</h3>
+            </div>
+            <div class="skill-badges">
+              <span class="skill-badge"><img src="images/icons/nodejs.png" alt=""> Node.js</span>
+              <span class="skill-badge"><img src="images/icons/nestjs.png" alt=""> NestJS</span>
+              <span class="skill-badge"><img src="images/icons/golang.png" alt=""> Golang</span>
+              <span class="skill-badge"><img src="images/icons/graphql.png" alt=""> GraphQL</span>
+              <span class="skill-badge"><img src="images/icons/grpc.png" alt=""> gRPC</span>
+              <span class="skill-badge"><img src="images/icons/rabbitmq.png" alt=""> Message Queues</span>
+              <span class="skill-badge">Hasura</span>
+              <span class="skill-badge">REST APIs</span>
+              <span class="skill-badge">Microservices</span>
+            </div>
+          </div>
+
+          <div class="glass-panel" data-category="cloud">
+            <div class="skill-card-head">
+              <i class="fas fa-database" aria-hidden="true"></i>
+              <h3>Cloud &amp; DevOps</h3>
+            </div>
+            <div class="skill-badges">
+              <span class="skill-badge"><img src="images/icons/azure.png" alt=""> Azure Cloud</span>
+              <span class="skill-badge"><img src="images/icons/aws.png" alt=""> AWS</span>
+              <span class="skill-badge"><img src="images/icons/docker.png" alt=""> Docker</span>
+              <span class="skill-badge">Kubernetes</span>
+              <span class="skill-badge">MongoDB</span>
+              <span class="skill-badge">PostgreSQL</span>
+              <span class="skill-badge">Redis</span>
+            </div>
+          </div>
+
+          <div class="glass-panel" data-category="state">
+            <div class="skill-card-head">
+              <i class="fas fa-layer-group" aria-hidden="true"></i>
+              <h3>State Management &amp; Others</h3>
+            </div>
+            <div class="skill-badges">
+              <span class="skill-badge"><img src="images/icons/rxjs.png" alt=""> RxJS</span>
+              <span class="skill-badge"><img src="images/icons/ngrx.png" alt=""> NgRx</span>
+              <span class="skill-badge"><img src="images/icons/redux.png" alt=""> Redux</span>
+              <span class="skill-badge"><img src="images/icons/akita.svg" alt=""> Akita</span>
+              <span class="skill-badge">Flutter</span>
+              <span class="skill-badge">Git</span>
+              <span class="skill-badge">Agile/Scrum</span>
+              <span class="skill-badge">CI/CD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spatial Showcase Deck (Featured Projects) -->
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <span class="coord-tag">// 03. Spatial Showcase Deck</span>
+            <h2 class="section-title">Featured Projects</h2>
+          </div>
+          <p class="section-subtitle">
+            Interactive food discovery, 3D bilingual scrollytelling, and real-time Blender architectural modeling.
+          </p>
+        </div>
+
+        <div class="spatial-projects">
+          <article class="glass-panel spatial-project-card" data-reveal>
+            <div class="spatial-media">
+              <img src="images/projects/eatwhat-thumbnail.png" alt="What to eat application thumbnail">
+            </div>
+            <div class="spatial-project-body">
+              <div>
+                <span class="coord-tag">WEB &amp; NATIVE MOBILE</span>
+                <h3 style="font-family: var(--font-display); font-size: 1.35rem; margin-bottom: 0.45rem;">What to eat</h3>
+                <p>
+                  The interactive food platform designed for the indecisive foodie. Explore thousands of recipes, master
+                  your ingredients, and play dish-based games like the Flavor Wheel and Community Voting. Stop searching,
+                  start playing, and get cooking!
+                </p>
+              </div>
+              <div class="pill-row">
+                <span class="tech-pill">Angular</span>
+                <span class="tech-pill">Golang</span>
+                <span class="tech-pill">Angular Material</span>
+                <span class="tech-pill">Kotlin</span>
+                <span class="tech-pill">Swift</span>
+              </div>
+              <div>
+                <a href="https://eatwhat.io.vn" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%;">
+                  <i class="fas fa-external-link-alt" aria-hidden="true"></i> Visit eatwhat.io.vn
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="glass-panel spatial-project-card" data-reveal>
+            <div class="spatial-media">
+              <div class="blueprint-3d-stage" style="background: radial-gradient(circle at 50% 40%, #2e1065 0%, #090514 100%);">
+                <span style="font-size: 2.8rem;" aria-hidden="true">🪐✨</span>
+                <strong style="font-family: var(--font-mono); color: #ffd32a; letter-spacing: 0.14em;">ALPHABET ODYSSEY</strong>
+              </div>
+            </div>
+            <div class="spatial-project-body">
+              <div>
+                <span class="coord-tag">THREE.JS &amp; WEB AUDIO</span>
+                <h3 style="font-family: var(--font-display); font-size: 1.35rem; margin-bottom: 0.45rem;">Alphabet Odyssey (3D Scrollytelling)</h3>
+                <p>
+                  An interactive 3D scrollytelling educational experience in English (A–Z) &amp; Vietnamese (29 chữ cái).
+                  Narrative, 3D extruded letters, thematic worlds, Web Audio synthesis, and camera choreography are directly
+                  synchronized with user scroll progress.
+                </p>
+              </div>
+              <div class="pill-row">
+                <span class="tech-pill">English (A–Z)</span>
+                <span class="tech-pill">Tiếng Việt (29 chữ)</span>
+                <span class="tech-pill">Three.js 3D</span>
+                <span class="tech-pill">Scrollytelling</span>
+                <span class="tech-pill">Web Audio</span>
+              </div>
+              <div>
+                <a href="storytelling/" class="btn btn-primary" style="width: 100%;">
+                  <i class="fas fa-cube" aria-hidden="true"></i> Launch 3D Scrollytelling
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="glass-panel spatial-project-card" data-reveal>
+            <div class="spatial-media">
+              <model-viewer
+                data-studio-inline-viewer
+                src="blender/house.glb"
+                alt="3D House modeled in Blender"
+                camera-controls
+                auto-rotate
+                shadow-intensity="1"
+                touch-action="pan-y"
+              ></model-viewer>
+              <span class="spatial-model-count" data-model-count>1 Object</span>
+              <span class="spatial-model-hint"><i class="fas fa-cube" aria-hidden="true"></i> Drag to orbit</span>
+              <div class="inline-model-switcher spatial-inline-switcher" data-inline-model-switcher hidden></div>
+              <button
+                type="button"
+                class="spatial-expand-btn"
+                data-open-3d-modal
+                aria-label="Expand 3D view"
+              >
+                <i class="fas fa-expand" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="spatial-project-body">
+              <div>
+                <span class="coord-tag">BLENDER · INTERACTIVE 3D COLLECTION</span>
+                <h3 style="font-family: var(--font-display); font-size: 1.35rem; margin-bottom: 0.45rem;">3D Studio</h3>
+                <p>
+                  A growing interactive 3D modeling collection built in Blender and exported to glTF Binary (.glb). Currently
+                  featuring 3D House Study, with more objects added over time.
+                </p>
+              </div>
+              <div class="pill-row">
+                <span class="tech-pill">Blender</span>
+                <span class="tech-pill">3D Modeling</span>
+                <span class="tech-pill">glTF / GLB</span>
+                <span class="tech-pill">model-viewer</span>
+              </div>
+              <div style="display: grid; gap: 0.55rem;">
+                <a href="3d-studio/" class="btn btn-primary" style="width: 100%;">
+                  <i class="fas fa-cubes" aria-hidden="true"></i> Open 3D Studio
+                </a>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  style="width: 100%;"
+                  data-open-3d-modal
+                >
+                  <i class="fas fa-expand-alt" aria-hidden="true"></i> Quick 3D Modal
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Career Dock Explorer -->
+    <section id="experience" class="section">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <span class="coord-tag">// 04. Career Dock Explorer</span>
+            <h2 class="section-title">Work Experience</h2>
+          </div>
+          <p class="section-subtitle">
+            Select an organization in the dock to inspect project architectures, team scale, and engineering challenges.
+          </p>
+        </div>
+
+        <div data-tabs-root>
+          <div class="career-dock" role="tablist" focusgroup="tablist nomemory" aria-label="Employers">
+            <button type="button" class="dock-company-btn" role="tab" id="sp-comp-st" aria-selected="true" focusgroupstart>
+              <span class="dock-logo"><img src="images/logo/st-engineering.png" alt="ST Engineering"></span>
+              <span>
+                <strong style="display: block;">ST Engineering</strong>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">Nov 2023 – Present</span>
+              </span>
+            </button>
+
+            <button type="button" class="dock-company-btn" role="tab" id="sp-comp-bloom" aria-selected="false">
+              <span class="dock-logo"><img src="images/logo/bloom.png" alt="Bloom"></span>
+              <span>
+                <strong style="display: block;">Bloom</strong>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">Mar 2022 – Nov 2023</span>
+              </span>
+            </button>
+
+            <button type="button" class="dock-company-btn" role="tab" id="sp-comp-nash" aria-selected="false">
+              <span class="dock-logo"><img src="images/logo/nashtech.webp" alt="NashTech"></span>
+              <span>
+                <strong style="display: block;">NashTech</strong>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">Jun 2020 – Nov 2021</span>
+              </span>
+            </button>
+
+            <button type="button" class="dock-company-btn" role="tab" id="sp-comp-hitachi" aria-selected="false">
+              <span class="dock-logo"><img src="images/logo/hitachi-vantara.png" alt="Hitachi Vantara"></span>
+              <span>
+                <strong style="display: block;">Hitachi Vantara</strong>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">Feb 2019 – Jun 2020</span>
+              </span>
+            </button>
+          </div>
+
+          <div class="career-panels">
+            <!-- ST Engineering -->
+            <div role="tabpanel" id="sp-panel-st" aria-labelledby="sp-comp-st" tabindex="0">
+              <div class="workspace-inner" data-tabs-root>
+                <div class="workspace-header">
+                  <div>
+                    <h3 style="font-family: var(--font-display); font-size: 1.45rem;">Full Stack Developer · ST Engineering</h3>
+                    <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary);">Nov 2023 - Present · Ho Chi Minh, Vietnam</p>
+                  </div>
+                  <span class="telemetry-pill">5 Enterprise Projects</span>
+                </div>
+
+                <div class="project-dock-tabs" role="tablist" focusgroup="tablist nomemory" aria-label="ST Engineering projects">
+                  <button type="button" class="project-dock-btn" role="tab" id="sp-st-1" aria-selected="true" focusgroupstart>Health Care Operation Center</button>
+                  <button type="button" class="project-dock-btn" role="tab" id="sp-st-2" aria-selected="false">CRM &amp; Livestream System</button>
+                  <button type="button" class="project-dock-btn" role="tab" id="sp-st-3" aria-selected="false">SSRE</button>
+                  <button type="button" class="project-dock-btn" role="tab" id="sp-st-4" aria-selected="false">Manga Sahara</button>
+                  <button type="button" class="project-dock-btn" role="tab" id="sp-st-5" aria-selected="false">G2B Advertising</button>
+                </div>
+
+                <div class="career-project-panels">
+                  <div role="tabpanel" id="sp-p-st-1" aria-labelledby="sp-st-1" tabindex="0">
+                    <div class="telemetry-pills">
+                      <span class="telemetry-pill">Team Size: 10</span>
+                      <span class="telemetry-pill">Position: Full Stack Developer, Technical Lead</span>
+                    </div>
+                    <div class="workspace-grid">
+                      <div class="workspace-box">
+                        <h4>Project Description</h4>
+                        <p>Client from a major Singapore hospital required a comprehensive redesign of their legacy system using modern technological solutions.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>My Responsibilities</h4>
+                        <ul>
+                          <li>Implement critical requirements based on core source code</li>
+                          <li>Consultant for FE and BE solutions to client</li>
+                          <li>Build CI/CD with VPS, GitHub pipeline and Kubernetes</li>
+                          <li>Code review and team guidance</li>
+                          <li>BA and PM roles when needed</li>
+                        </ul>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Challenges</h4>
+                        <p>Multi-team collaboration (4 teams), ETL processes for data migration, real-time data subscription services, and robust data update mechanisms.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Technologies</h4>
+                        <p>SvelteKit, NestJS, PostgreSQL, Kubernetes, Keycloak, Hasura, GraphQL, Socket</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="sp-p-st-2" aria-labelledby="sp-st-2" hidden="until-found">
+                    <div class="telemetry-pills">
+                      <span class="telemetry-pill">Team Size: 2</span>
+                      <span class="telemetry-pill">Position: Full Stack Developer, Software Architect</span>
+                    </div>
+                    <div class="workspace-grid">
+                      <div class="workspace-box">
+                        <h4>Project Description</h4>
+                        <p>Scalable CRM and Livestream system with real-time video streaming, interactive chat, customer data management, automated workflows, and comprehensive analytics.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>My Responsibilities</h4>
+                        <ul>
+                          <li>System design based on business requirements</li>
+                          <li>Full stack development (FE &amp; BE)</li>
+                          <li>DevOps process support</li>
+                        </ul>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Challenges</h4>
+                        <p>Achieving lowest possible latency for real-time video streaming and interactive features.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Technologies</h4>
+                        <p>Golang, Next.js, NestJS, Angular 19, Microservices, Socket.io, WebRTC</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="sp-p-st-3" aria-labelledby="sp-st-3" hidden="until-found">
+                    <div class="telemetry-pills">
+                      <span class="telemetry-pill">Team Size: 2</span>
+                      <span class="telemetry-pill">Position: Full Stack Developer</span>
+                    </div>
+                    <div class="workspace-grid">
+                      <div class="workspace-box">
+                        <h4>Project Description</h4>
+                        <p>Small-scale project with full-cycle implementation.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>My Responsibilities</h4>
+                        <ul>
+                          <li>Full-cycle implementation (FE, BE, DevOps)</li>
+                        </ul>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Technologies &amp; Site</h4>
+                        <p>Golang, Next.js, Socket.io</p>
+                        <p style="margin-top: 0.5rem;"><a href="https://ssrengineering.tech" target="_blank" rel="noopener noreferrer" style="color: var(--cyan);">Visit ssrengineering.tech</a></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="sp-p-st-4" aria-labelledby="sp-st-4" hidden="until-found">
+                    <div class="telemetry-pills">
+                      <span class="telemetry-pill">Team Size: 3</span>
+                      <span class="telemetry-pill">Position: Full Stack Developer</span>
+                    </div>
+                    <div class="workspace-grid">
+                      <div class="workspace-box">
+                        <h4>Project Description</h4>
+                        <p>Comic reading engine with focus on performance optimization.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>My Responsibilities</h4>
+                        <ul>
+                          <li>Full-cycle implementation (FE, BE, DevOps)</li>
+                          <li>Backend and mobile features development</li>
+                        </ul>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Challenges</h4>
+                        <p>Performance optimization for image loading, network requests, API efficiency, and user experience.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Technologies</h4>
+                        <p>Golang, NestJS, Next.js, Flutter, Socket.io</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="sp-p-st-5" aria-labelledby="sp-st-5" hidden="until-found">
+                    <div class="telemetry-pills">
+                      <span class="telemetry-pill">Team Size: 2</span>
+                      <span class="telemetry-pill">Position: Full Stack Developer</span>
+                    </div>
+                    <div class="workspace-grid">
+                      <div class="workspace-box">
+                        <h4>Project Description</h4>
+                        <p>Quotation system for billboards and advertising LED products with comprehensive dashboard solutions.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>My Responsibilities</h4>
+                        <ul>
+                          <li>Full-cycle implementation (FE, BE, DevOps)</li>
+                          <li>Dashboard solution proposal and implementation</li>
+                        </ul>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Technologies</h4>
+                        <p>Next.js 14, NestJS, PostgreSQL, Kubernetes</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bloom -->
+            <div role="tabpanel" id="sp-panel-bloom" aria-labelledby="sp-comp-bloom" hidden="until-found">
+              <div class="workspace-inner" data-tabs-root>
+                <div class="workspace-header">
+                  <div>
+                    <h3 style="font-family: var(--font-display); font-size: 1.45rem;">Full Stack Developer · Bloom</h3>
+                    <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary);">March 2022 - Nov 2023 · Ho Chi Minh, Vietnam</p>
+                  </div>
+                  <span class="telemetry-pill">2 High-Scale Systems</span>
+                </div>
+
+                <div class="project-dock-tabs" role="tablist" focusgroup="tablist nomemory" aria-label="Bloom projects">
+                  <button type="button" class="project-dock-btn" role="tab" id="sp-bloom-1" aria-selected="true" focusgroupstart>The Dolce Diet</button>
+                  <button type="button" class="project-dock-btn" role="tab" id="sp-bloom-2" aria-selected="false">D-Producer</button>
+                </div>
+
+                <div class="career-project-panels">
+                  <div role="tabpanel" id="sp-p-bloom-1" aria-labelledby="sp-bloom-1" tabindex="0">
+                    <div class="telemetry-pills">
+                      <span class="telemetry-pill">10,000+ users, ~1,000 concurrent</span>
+                      <span class="telemetry-pill">Team Size: 7</span>
+                      <span class="telemetry-pill">Technical Architect (Backend), DevOps</span>
+                    </div>
+                    <div class="workspace-grid">
+                      <div class="workspace-box">
+                        <h4>Project Description</h4>
+                        <p>US client's diet program website rebuild. Generates professional exercise and menu plans based on user information. Maintained legacy Drupal/PHP/AngularJS system and built SaaS infrastructure using Kubernetes.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>My Responsibilities</h4>
+                        <ul>
+                          <li>Solution and tech stack selection</li>
+                          <li>Backend and database architecture design</li>
+                          <li>Complex FE &amp; BE feature implementation</li>
+                          <li>Deployment, backup, cron job setup</li>
+                          <li>Code review and team guidance</li>
+                          <li>Kubernetes template creation</li>
+                        </ul>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Challenges</h4>
+                        <p>Data structure migration from Drupal, managing user programs with history, and building auto-create/update/delete infrastructure using Kubernetes.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Technologies</h4>
+                        <p>Next.js, NestJS, MongoDB, Kubernetes</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="sp-p-bloom-2" aria-labelledby="sp-bloom-2" hidden="until-found">
+                    <div class="telemetry-pills">
+                      <span class="telemetry-pill">Performance: Millisecond response</span>
+                      <span class="telemetry-pill">Team Size: 1 Developer, 1 Tester</span>
+                      <span class="telemetry-pill">Software Architect</span>
+                    </div>
+                    <div class="workspace-grid">
+                      <div class="workspace-box">
+                        <h4>Project Description</h4>
+                        <p>Vietnamese client's product to create scripts for LED and electronic valves to create water fountain shows synchronized with music. Built from scratch including backend, frontend, and firmware.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>My Responsibilities</h4>
+                        <ul>
+                          <li>Build complete system based on requirements</li>
+                          <li>Bug fixing and optimization</li>
+                        </ul>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Challenges</h4>
+                        <p>Software-hardware integration requiring continuous R&amp;D and testing to achieve optimal quality.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Technologies</h4>
+                        <p>Angular, NestJS, MongoDB, Python, Microservices (gRPC), GraphQL, Socket.io, Embedded System</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- NashTech -->
+            <div role="tabpanel" id="sp-panel-nash" aria-labelledby="sp-comp-nash" hidden="until-found">
+              <div class="workspace-inner" data-tabs-root>
+                <div class="workspace-header">
+                  <div>
+                    <h3 style="font-family: var(--font-display); font-size: 1.45rem;">Full Stack Developer · NashTech</h3>
+                    <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary);">June 2020 - Nov 2021 · Ho Chi Minh, Vietnam</p>
+                  </div>
+                  <span class="telemetry-pill">10M+ Users FinTech &amp; CNC</span>
+                </div>
+
+                <div class="project-dock-tabs" role="tablist" focusgroup="tablist nomemory" aria-label="NashTech projects">
+                  <button type="button" class="project-dock-btn" role="tab" id="sp-nash-1" aria-selected="true" focusgroupstart>CNC Machine Software</button>
+                  <button type="button" class="project-dock-btn" role="tab" id="sp-nash-2" aria-selected="false">Smart Manufacturing</button>
+                  <button type="button" class="project-dock-btn" role="tab" id="sp-nash-3" aria-selected="false">Wealth Management</button>
+                </div>
+
+                <div class="career-project-panels">
+                  <div role="tabpanel" id="sp-p-nash-1" aria-labelledby="sp-nash-1" tabindex="0">
+                    <div class="telemetry-pills">
+                      <span class="telemetry-pill">Team Size: 5</span>
+                      <span class="telemetry-pill">Position: Frontend Developer</span>
+                    </div>
+                    <div class="workspace-grid">
+                      <div class="workspace-box">
+                        <h4>Project Description</h4>
+                        <p>German manufacturing client's CNC machine control software. Built remote computer access page (RDP, VNC, SSH) optimized for touch screen. Micro frontend architecture.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>My Responsibilities</h4>
+                        <ul>
+                          <li>Code development based on specifications</li>
+                          <li>App architecture design</li>
+                          <li>Deployment support</li>
+                          <li>Bug fixing and technical support</li>
+                          <li>Mentoring junior frontend developer</li>
+                        </ul>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Challenges</h4>
+                        <p>Touch screen gesture implementation and controlling remote computers via touch interface.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Technologies</h4>
+                        <p>Angular 9, Electron, Golang, Micro Frontend</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="sp-p-nash-2" aria-labelledby="sp-nash-2" hidden="until-found">
+                    <div class="telemetry-pills">
+                      <span class="telemetry-pill">Users: 100+ active users</span>
+                      <span class="telemetry-pill">Team Size: 10</span>
+                      <span class="telemetry-pill">Position: Frontend Developer</span>
+                    </div>
+                    <div class="workspace-grid">
+                      <div class="workspace-box">
+                        <h4>Project Description</h4>
+                        <p>German manufacturing client's production line monitoring system. Near real-time production status tracking deployed to IPC.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>My Responsibilities</h4>
+                        <ul>
+                          <li>Code development based on specifications</li>
+                          <li>Module architecture design</li>
+                          <li>Requirement gathering and UI/UX solutions</li>
+                          <li>Bug fixing and technical support</li>
+                        </ul>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Challenges</h4>
+                        <p>Managing hierarchical data structure with 4 levels for frontend display.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Technologies</h4>
+                        <p>Angular 11, Java, SQL</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="sp-p-nash-3" aria-labelledby="sp-nash-3" hidden="until-found">
+                    <div class="telemetry-pills">
+                      <span class="telemetry-pill">Users: 10M+</span>
+                      <span class="telemetry-pill">Team Size: 14</span>
+                      <span class="telemetry-pill">Position: Frontend Developer</span>
+                    </div>
+                    <div class="workspace-grid">
+                      <div class="workspace-box">
+                        <h4>Project Description</h4>
+                        <p>Italian finance company's wealth management solution for US customers. Customized from Finantix product with wealth management and wire transfer features.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>My Responsibilities</h4>
+                        <ul>
+                          <li>Code development based on specifications</li>
+                          <li>Module architecture design</li>
+                          <li>Requirement gathering and UI/UX solutions</li>
+                          <li>Bug fixing and technical support</li>
+                        </ul>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Challenges</h4>
+                        <p>Performance optimization and JBPM (Java Business Process Management) integration.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Technologies</h4>
+                        <p>Angular 11, Java, SQL</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hitachi Vantara -->
+            <div role="tabpanel" id="sp-panel-hitachi" aria-labelledby="sp-comp-hitachi" hidden="until-found">
+              <div class="workspace-inner" data-tabs-root>
+                <div class="workspace-header">
+                  <div>
+                    <h3 style="font-family: var(--font-display); font-size: 1.45rem;">Full Stack Developer · Hitachi Vantara</h3>
+                    <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary);">Feb 2019 - Jun 2020 · Ho Chi Minh, Vietnam</p>
+                  </div>
+                  <span class="telemetry-pill">3 Enterprise Platforms</span>
+                </div>
+
+                <div class="project-dock-tabs" role="tablist" focusgroup="tablist nomemory" aria-label="Hitachi Vantara projects">
+                  <button type="button" class="project-dock-btn" role="tab" id="sp-hitachi-1" aria-selected="true" focusgroupstart>Vidole</button>
+                  <button type="button" class="project-dock-btn" role="tab" id="sp-hitachi-2" aria-selected="false">Polymate</button>
+                  <button type="button" class="project-dock-btn" role="tab" id="sp-hitachi-3" aria-selected="false">IoT Project</button>
+                </div>
+
+                <div class="career-project-panels">
+                  <div role="tabpanel" id="sp-p-hitachi-1" aria-labelledby="sp-hitachi-1" tabindex="0">
+                    <div class="telemetry-pills"><span class="telemetry-pill">Full Stack Developer</span></div>
+                    <div class="workspace-grid">
+                      <div class="workspace-box">
+                        <h4>Project Description</h4>
+                        <p>Enterprise video platform project with comprehensive video management capabilities.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>My Responsibilities</h4>
+                        <ul>
+                          <li>Full stack development</li>
+                          <li>Feature implementation and optimization</li>
+                        </ul>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Technologies</h4>
+                        <p>Angular, Node.js</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="sp-p-hitachi-2" aria-labelledby="sp-hitachi-2" hidden="until-found">
+                    <div class="telemetry-pills"><span class="telemetry-pill">Frontend Developer</span></div>
+                    <div class="workspace-grid">
+                      <div class="workspace-box">
+                        <h4>Project Description</h4>
+                        <p>Data analytics and management platform for enterprise clients.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>My Responsibilities</h4>
+                        <ul>
+                          <li>Frontend development</li>
+                          <li>Data visualization implementation</li>
+                        </ul>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Technologies</h4>
+                        <p>Angular, D3.js</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="tabpanel" id="sp-p-hitachi-3" aria-labelledby="sp-hitachi-3" hidden="until-found">
+                    <div class="telemetry-pills"><span class="telemetry-pill">Full Stack Developer</span></div>
+                    <div class="workspace-grid">
+                      <div class="workspace-box">
+                        <h4>Project Description</h4>
+                        <p>IoT device management and monitoring system.</p>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>My Responsibilities</h4>
+                        <ul>
+                          <li>System integration</li>
+                          <li>Real-time data handling</li>
+                        </ul>
+                      </div>
+                      <div class="workspace-box">
+                        <h4>Technologies</h4>
+                        <p>Angular, MQTT, WebSocket</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Freelance Delivery Grid -->
+    <section id="freelance" class="section">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <span class="coord-tag">// 05. Freelance Delivery</span>
+            <h2 class="section-title">Freelance Work</h2>
+          </div>
+          <p class="section-subtitle">
+            Selected projects from my freelance portfolio — built end-to-end with CI/CD automation.
+          </p>
+        </div>
+
+        <div class="freelance-grid">
+          <article class="glass-panel freelance-card" data-reveal>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="coord-tag" style="margin: 0;"><i class="fas fa-utensils" aria-hidden="true"></i> Full Stack</span>
+              <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-muted);">March 2022 - March 2023</span>
+            </div>
+            <h3 style="font-family: var(--font-display); font-size: 1.35rem;">What To Eat</h3>
+            <p style="color: var(--text-secondary);">
+              Community project providing ingredients and dishes recipes for all countries around the world. Features include
+              random game and voting game for recipe discovery.
+            </p>
+            <div class="pill-row">
+              <span class="tech-pill">SvelteKit</span>
+              <span class="tech-pill">TypeScript</span>
+              <span class="tech-pill">Golang</span>
+              <span class="tech-pill">MongoDB</span>
+              <span class="tech-pill">Kubernetes</span>
+              <span class="tech-pill">GraphQL</span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: var(--text-secondary);">
+              <span><i class="fas fa-users" aria-hidden="true"></i> Team: 2 (1 Fullstack, 1 PO)</span>
+              <a href="https://eatwhat.io.vn" target="_blank" rel="noopener noreferrer" style="color: var(--cyan);">eatwhat.io.vn</a>
+            </div>
+            <details class="freelance-details">
+              <summary>View Responsibilities</summary>
+              <div class="details-body">
+                <div>
+                  <strong>My Responsibilities</strong>
+                  <ul>
+                    <li>Implement Features</li>
+                    <li>Build CI/CD with VPS, github pipeline and kubernetes deployment</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </article>
+
+          <article class="glass-panel freelance-card" data-reveal>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="coord-tag" style="margin: 0;"><i class="fas fa-seedling" aria-hidden="true"></i> USA Client</span>
+              <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-muted);">March 2022 - March 2023</span>
+            </div>
+            <h3 style="font-family: var(--font-display); font-size: 1.35rem;">Smart Farm - Bio Safety Evaluation</h3>
+            <p style="color: var(--text-secondary);">
+              Bio safety evaluation website for smart farms (USA client). Build question sets, generate reports, compare
+              reports, and export to Excel for farm management decisions.
+            </p>
+            <div class="pill-row">
+              <span class="tech-pill">Angular</span>
+              <span class="tech-pill">TypeScript</span>
+              <span class="tech-pill">Node.js</span>
+              <span class="tech-pill">MongoDB</span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: var(--text-secondary);">
+              <span><i class="fas fa-users" aria-hidden="true"></i> 200+ active users</span>
+              <span><i class="fas fa-user-friends" aria-hidden="true"></i> Team: 3 (2 devs, 1 tester)</span>
+            </div>
+            <details class="freelance-details">
+              <summary>View Responsibilities</summary>
+              <div class="details-body">
+                <div>
+                  <strong>My Responsibilities</strong>
+                  <ul>
+                    <li>Provide client smart solutions for marketing problems</li>
+                    <li>Choose solution and tech to be implemented</li>
+                    <li>Build architecture of Back End, Front End and Database</li>
+                    <li>Deployment, Backup, Build cron job</li>
+                    <li>Build CI/CD with VPS and github pipeline</li>
+                    <li>Write code based on detailed design and specifications</li>
+                    <li>Incident and bug fixing</li>
+                    <li>Review other members' code and provide guidance</li>
+                    <li>Deliver to customer with defined timeline</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </article>
+
+          <article class="glass-panel freelance-card" data-reveal>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="coord-tag" style="margin: 0;"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Multi-Dept CRM</span>
+              <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-muted);">Jan 2022 - March 2022</span>
+            </div>
+            <h3 style="font-family: var(--font-display); font-size: 1.35rem;">Orders Management System</h3>
+            <p style="color: var(--text-secondary);">
+              Comprehensive CRM for managing orders, customers, and products with multiple departments and roles. Features
+              include product management, customer management, delivery tracking, and automated customer analysis.
+            </p>
+            <div class="pill-row">
+              <span class="tech-pill">Angular 13</span>
+              <span class="tech-pill">TypeScript</span>
+              <span class="tech-pill">NestJS</span>
+              <span class="tech-pill">MongoDB</span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: var(--text-secondary);">
+              <span><i class="fas fa-users" aria-hidden="true"></i> 20+ active users</span>
+              <span><i class="fas fa-user-friends" aria-hidden="true"></i> Team: 2 (1 dev, 1 tester)</span>
+            </div>
+            <details class="freelance-details">
+              <summary>View Challenges &amp; Responsibilities</summary>
+              <div class="details-body">
+                <div>
+                  <strong>Challenges</strong>
+                  <p>Complex multi-department system with role-based access control. Department A cannot see Department B's data unless explicitly granted. Various roles per department including leader, sale president, warehouse, etc.</p>
+                </div>
+                <div>
+                  <strong>My Responsibilities</strong>
+                  <ul>
+                    <li>Choose the solution to be implemented</li>
+                    <li>Build architecture of Front End, Back End and Database</li>
+                    <li>Deployment, Backup, Build cron job</li>
+                    <li>Build CI/CD with VPS and github Action</li>
+                    <li>Write code based on detailed design and specifications</li>
+                    <li>Collect requirements and suggest UI/UX solutions</li>
+                    <li>Incident and bug fixing</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </article>
+
+          <article class="glass-panel freelance-card" data-reveal>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="coord-tag" style="margin: 0;"><i class="fas fa-warehouse" aria-hidden="true"></i> Operations Suite</span>
+              <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-muted);">May 2021 - Jan 2022</span>
+            </div>
+            <h3 style="font-family: var(--font-display); font-size: 1.35rem;">Animal Farm Management System</h3>
+            <p style="color: var(--text-secondary);">
+              Complete farm management solution for animal food suppliers. Manages expense and revenue tracking, warehouse
+              operations, stall management, and business analytics with flexible workflows for different pig types.
+            </p>
+            <div class="pill-row">
+              <span class="tech-pill">Angular 11</span>
+              <span class="tech-pill">TypeScript</span>
+              <span class="tech-pill">NestJS</span>
+              <span class="tech-pill">MongoDB</span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: var(--text-secondary);">
+              <span><i class="fas fa-users" aria-hidden="true"></i> 100+ active users</span>
+              <span><i class="fas fa-user-friends" aria-hidden="true"></i> Team: 3 (2 devs, 1 tester)</span>
+            </div>
+            <details class="freelance-details">
+              <summary>View Key Features &amp; Responsibilities</summary>
+              <div class="details-body">
+                <div>
+                  <strong>Key Features</strong>
+                  <ul>
+                    <li>Warehouse management for feed, medicine, and equipment</li>
+                    <li>Flexible stall management with multiple pig type workflows</li>
+                    <li>Daily and monthly expense/revenue reports</li>
+                    <li>Email notifications and data visualization</li>
+                    <li>Complete pig lifecycle tracking (feeding, selling, importing)</li>
+                  </ul>
+                </div>
+                <div>
+                  <strong>My Responsibilities</strong>
+                  <ul>
+                    <li>Choose the solution to be implemented</li>
+                    <li>Build architecture of Front End, Back End and Database</li>
+                    <li>Deployment, Backup, Build cron job</li>
+                    <li>Build CI/CD with VPS and github Action</li>
+                    <li>Write code based on detailed design and specifications</li>
+                    <li>Collect requirements and suggest UI/UX and workflow solutions</li>
+                    <li>Incident and bug fixing</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </article>
+        </div>
+
+        <div class="glass-panel" style="margin-top: 1.75rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;" data-reveal>
+          <div>
+            <h3 style="font-family: var(--font-display); font-size: 1.4rem;">Interested in working together?</h3>
+            <p style="color: var(--text-secondary);">I'm available for freelance projects and consulting opportunities.</p>
+          </div>
+          <a href="#contact" class="btn btn-primary">
+            <i class="fas fa-envelope" aria-hidden="true"></i> Let's Talk
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Console -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <span class="coord-tag">// 06. Communications</span>
+            <h2 class="section-title">Get In Touch</h2>
+          </div>
+          <p class="section-subtitle">
+            I'm always interested in hearing about new projects and opportunities.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="glass-panel" data-reveal>
+            <h3 style="font-family: var(--font-display); font-size: 1.45rem; margin-bottom: 0.5rem;">Let's Work Together</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+              Whether you have a question or want to discuss a full-stack architecture project, feel free to reach out!
+            </p>
+            <div style="display: grid; gap: 1rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.9rem; border-radius: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle);">
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">EMAIL</div>
+                  <a href="mailto:fxanhkhoa@gmail.com" style="color: var(--text-primary); text-decoration: none; font-weight: 600;">fxanhkhoa@gmail.com</a>
+                </div>
+                <button type="button" class="btn btn-ghost" style="min-height: 36px; padding: 0.35rem 0.75rem;" data-copy-email="fxanhkhoa@gmail.com">
+                  <span data-copy-label>Copy</span>
+                </button>
+              </div>
+              <div style="padding: 0.9rem; border-radius: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle);">
+                <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">PHONE</div>
+                <a href="tel:+84772912970" style="color: var(--text-primary); text-decoration: none; font-weight: 600;">+84 772 912 970</a>
+              </div>
+              <div style="padding: 0.9rem; border-radius: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle);">
+                <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">LOCATION</div>
+                <span>Ho Chi Minh City, Vietnam</span>
+              </div>
+            </div>
+            <div id="copy-status" class="visually-hidden" role="status" aria-live="polite"></div>
+          </div>
+
+          <form class="glass-panel contact-form" id="contact-form" novalidate aria-label="Contact Kevin Bui">
+            <div class="field-group">
+              <label for="sp-contact-name">YOUR NAME *</label>
+              <input id="sp-contact-name" type="text" name="from_name" autocomplete="name" enterkeyhint="next" required aria-describedby="sp-err-name" placeholder="Jane Doe">
+              <span id="sp-err-name" class="field-error" aria-live="polite"></span>
+            </div>
+            <div class="field-group">
+              <label for="sp-contact-email">YOUR EMAIL *</label>
+              <input id="sp-contact-email" type="email" name="from_email" autocomplete="email" autocorrect="off" autocapitalize="none" spellcheck="false" enterkeyhint="next" required aria-describedby="sp-err-email" placeholder="jane@company.com">
+              <span id="sp-err-email" class="field-error" aria-live="polite"></span>
+            </div>
+            <div class="field-group">
+              <label for="sp-contact-subject">SUBJECT</label>
+              <input id="sp-contact-subject" type="text" name="subject" enterkeyhint="next" placeholder="Architecture consulting">
+            </div>
+            <div class="field-group">
+              <label for="sp-contact-message">YOUR MESSAGE *</label>
+              <textarea id="sp-contact-message" name="message" rows="5" enterkeyhint="send" required aria-describedby="sp-err-message" placeholder="Tell me about your project..."></textarea>
+              <span id="sp-err-message" class="field-error" aria-live="polite"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i id="loading-spinner" class="fas fa-paper-plane" aria-hidden="true"></i>
+              <span id="submit-text">Send Message</span>
+            </button>
+            <div id="success-message" class="form-feedback is-success" role="status" aria-live="polite" hidden>
+              <i class="fas fa-check-circle" aria-hidden="true"></i> Message sent successfully! I'll get back to you soon.
+            </div>
+            <div id="fail-message" class="form-feedback is-error" role="status" aria-live="polite" hidden>
+              <i class="fas fa-exclamation-circle" aria-hidden="true"></i> Failed to send message. Please try again or email me directly.
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-row">
+        <p style="font-size: 0.9rem; color: var(--text-secondary);">&copy; 2026 Kevin Bui. All rights reserved.</p>
+
+        <nav class="variant-switcher" aria-label="Portfolio design variants">
+          <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-muted);">Design:</span>
+          <a class="variant-pill" href="index-v3.html">Obsidian</a>
+          <a class="variant-pill" href="index-v3-editorial.html">Editorial</a>
+          <a class="variant-pill" href="index-v3-spatial.html" aria-current="page">Spatial</a>
+          <a class="variant-pill" href="index-backup.html">Classic</a>
+        </nav>
+
+        <div class="pill-row">
+          <a href="https://github.com/fxanhkhoa" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="min-height: 36px; padding: 0.3rem 0.7rem;" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+          <a href="https://www.linkedin.com/in/khoa-bui-anh-698ab2173" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="min-height: 36px; padding: 0.3rem 0.7rem;" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+          <a href="https://twitter.com/BuiAnhK49302949" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="min-height: 36px; padding: 0.3rem 0.7rem;" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+          <a href="https://www.facebook.com/fxanhkhoa" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="min-height: 36px; padding: 0.3rem 0.7rem;" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Native 3D Inspector Dialog -->
+  <dialog id="model-modal" class="spatial-dialog model-modal" closedby="any" aria-labelledby="model-modal-title">
+    <div class="modal-header">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <span class="hud-tag" id="model-modal-category"><i class="fas fa-cube" aria-hidden="true"></i> Architecture</span>
+        <h3 id="model-modal-title" style="font-family: var(--font-display);">3D House Study</h3>
+      </div>
+      <button type="button" class="modal-close" data-dialog-close autofocus aria-label="Close 3D viewer">
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="modal-grid">
+      <div class="modal-stage">
+        <model-viewer
+          id="modal-model-viewer"
+          src=""
+          alt="Interactive 3D Model"
+          camera-controls
+          auto-rotate
+          shadow-intensity="1"
+        ></model-viewer>
+        <div class="modal-toolbar">
+          <button type="button" id="model-toggle-rotate" class="preset-btn active" aria-pressed="true">
+            <i class="fas fa-sync-alt" aria-hidden="true"></i> Auto-Rotate
+          </button>
+          <button type="button" id="model-reset-camera" class="preset-btn">
+            <i class="fas fa-crosshairs" aria-hidden="true"></i> Reset View
+          </button>
+        </div>
+      </div>
+      <aside class="modal-aside">
+        <div>
+          <h4>3D Collection</h4>
+          <div id="model-modal-switcher" class="model-switcher"></div>
+        </div>
+        <div>
+          <h4>About This Study</h4>
+          <p id="model-modal-description">An interactive 3D house model built in Blender as part of my 3D modeling learning journey, exported to glTF Binary (<code>.glb</code>) for real-time web rendering.</p>
+        </div>
+        <div>
+          <h4>Highlights</h4>
+          <ul id="model-modal-highlights">
+            <li>Modeled architectural structure &amp; proportions in Blender</li>
+            <li>Applied materials and lighting for real-time PBR rendering</li>
+            <li>Optimized and exported from <code>.blend</code> to web-ready <code>.glb</code></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Controls</h4>
+          <ul>
+            <li><strong>Left-drag / 1-finger:</strong> Orbit</li>
+            <li><strong>Scroll / Pinch:</strong> Zoom</li>
+            <li><strong>Right-drag / 2-finger:</strong> Pan</li>
+          </ul>
+        </div>
+        <div id="model-modal-tags" class="pill-row" data-tag-class="tech-pill">
+          <span class="tech-pill">Blender</span>
+          <span class="tech-pill">3D Modeling</span>
+          <span class="tech-pill">glTF / GLB</span>
+          <span class="tech-pill">model-viewer</span>
+        </div>
+        <a id="model-modal-studio-link" href="3d-studio/" class="btn btn-primary" style="width: 100%;">
+          <i class="fas fa-cubes" aria-hidden="true"></i> Launch Full 3D Studio
+        </a>
+      </aside>
+    </div>
+  </dialog>
+
+  <!-- Native Command Palette Dialog (Cmd/Ctrl + K) -->
+  <dialog id="cmd-modal" class="spatial-dialog cmd-modal" closedby="any" aria-labelledby="cmd-modal-title">
+    <div class="cmd-header">
+      <i class="fas fa-search" style="color: var(--cyan);" aria-hidden="true"></i>
+      <h2 id="cmd-modal-title" class="visually-hidden">Quick Command Palette</h2>
+      <input id="cmd-search" class="cmd-input" type="search" autofocus placeholder="Type a command, company, or section..." aria-label="Filter commands">
+      <button type="button" class="modal-close" data-dialog-close aria-label="Close command palette">Esc</button>
+    </div>
+    <div id="cmd-list" class="cmd-list">
+      <button type="button" class="cmd-item is-highlighted" data-cmd-item data-action="scroll" data-target="#projects" data-keywords="projects featured eat what alphabet studio 3d">
+        <span><i class="fas fa-rocket" aria-hidden="true"></i> Jump to Featured Projects</span>
+        <span>Section</span>
+      </button>
+      <button type="button" class="cmd-item" data-cmd-item data-action="scroll" data-target="#skills" data-keywords="skills ecosystem tech stack">
+        <span><i class="fas fa-layer-group" aria-hidden="true"></i> Jump to Tech Ecosystem</span>
+        <span>Section</span>
+      </button>
+      <button type="button" class="cmd-item" data-cmd-item data-action="company" data-target="sp-comp-st" data-keywords="st engineering healthcare crm ssre manga g2b">
+        <span><i class="fas fa-building" aria-hidden="true"></i> Experience: ST Engineering (5 Projects)</span>
+        <span>2023–Now</span>
+      </button>
+      <button type="button" class="cmd-item" data-cmd-item data-action="company" data-target="sp-comp-bloom" data-keywords="bloom dolce diet d-producer">
+        <span><i class="fas fa-building" aria-hidden="true"></i> Experience: Bloom (Dolce Diet, D-Producer)</span>
+        <span>2022–2023</span>
+      </button>
+      <button type="button" class="cmd-item" data-cmd-item data-action="company" data-target="sp-comp-nash" data-keywords="nashtech cnc smart manufacturing wealth 10m">
+        <span><i class="fas fa-building" aria-hidden="true"></i> Experience: NashTech (10M+ Users FinTech)</span>
+        <span>2020–2021</span>
+      </button>
+      <button type="button" class="cmd-item" data-cmd-item data-action="company" data-target="sp-comp-hitachi" data-keywords="hitachi vantara vidole polymate iot">
+        <span><i class="fas fa-building" aria-hidden="true"></i> Experience: Hitachi Vantara</span>
+        <span>2019–2020</span>
+      </button>
+      <button type="button" class="cmd-item" data-cmd-item data-action="scroll" data-target="#freelance" data-keywords="freelance smart farm orders animal farm">
+        <span><i class="fas fa-briefcase" aria-hidden="true"></i> Jump to Freelance Portfolio</span>
+        <span>Section</span>
+      </button>
+      <button type="button" class="cmd-item" data-cmd-item data-action="navigate" data-target="3d-studio/" data-keywords="3d studio showcase blender objects gallery">
+        <span><i class="fas fa-cubes" aria-hidden="true"></i> Launch 3D Studio Showcase</span>
+        <span>Project</span>
+      </button>
+      <button type="button" class="cmd-item" data-cmd-item data-action="model" data-keywords="3d house blender model modal glb">
+        <span><i class="fas fa-cube" aria-hidden="true"></i> Open 3D Inspector Modal</span>
+        <span>3D Modal</span>
+      </button>
+      <button type="button" class="cmd-item" data-cmd-item data-action="copy-email" data-keywords="copy email fxanhkhoa gmail contact">
+        <span><i class="fas fa-copy" aria-hidden="true"></i> Copy Email (fxanhkhoa@gmail.com)</span>
+        <span>Clipboard</span>
+      </button>
+      <button type="button" class="cmd-item" data-cmd-item data-action="download-cv" data-keywords="download resume cv pdf">
+        <span><i class="fas fa-download" aria-hidden="true"></i> Download Resume PDF</span>
+        <span>File</span>
+      </button>
+      <button type="button" class="cmd-item" data-cmd-item data-action="navigate" data-target="index-v3.html" data-keywords="switch theme obsidian v3">
+        <span><i class="fas fa-palette" aria-hidden="true"></i> Switch Design: Obsidian Studio</span>
+        <span>Variant 1</span>
+      </button>
+      <button type="button" class="cmd-item" data-cmd-item data-action="navigate" data-target="index-v3-editorial.html" data-keywords="switch theme editorial light dark">
+        <span><i class="fas fa-palette" aria-hidden="true"></i> Switch Design: Swiss Editorial</span>
+        <span>Variant 2</span>
+      </button>
+      <button type="button" class="cmd-item" data-cmd-item data-action="navigate" data-target="index-backup.html" data-keywords="switch classic original">
+        <span><i class="fas fa-history" aria-hidden="true"></i> Switch Design: Classic Original</span>
+        <span>Legacy</span>
+      </button>
+      <div id="cmd-empty" style="padding: 1.5rem; text-align: center; color: var(--text-muted);" hidden>
+        No matching commands found.
+      </div>
+    </div>
+  </dialog>
+
+  <script src="vendor/typed/typed.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    (function () {
+      if (typeof emailjs !== 'undefined') {
+        emailjs.init('v97mjOJU0VaG6C-Yw');
+      }
+    })();
+  </script>
+  <script src="scripts/models-3d.js"></script>
+  <script src="scripts/portfolio-v3.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-02X4LNR5SF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-02X4LNR5SF');
+  </script>
+</body>
+
+</html>

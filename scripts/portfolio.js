@@ -438,22 +438,145 @@ window.addEventListener('load', () => {
 });
 
 // ===========================
-// 3D Model Modal Viewer
+// 3D Studio Multi-Object Modal Viewer
 // ===========================
 const modelModal = document.getElementById('model-modal');
 const modalModelViewer = document.getElementById('modal-model-viewer');
 const modalModelTitle = document.getElementById('model-modal-title');
 
 if (modelModal && modalModelViewer) {
+    const models3d =
+        Array.isArray(window.PORTFOLIO_3D_MODELS) && window.PORTFOLIO_3D_MODELS.length > 0
+            ? window.PORTFOLIO_3D_MODELS
+            : [
+                  {
+                      id: 'house-study',
+                      title: '3D House Study',
+                      category: 'Architecture',
+                      src: 'blender/house.glb',
+                      alt: '3D House modeled in Blender',
+                      summary:
+                          'An interactive 3D house model built in Blender as part of my 3D modeling learning journey, exported to glTF Binary (.glb) for real-time web rendering.',
+                      highlights: [
+                          'Modeled architectural structure & proportions in Blender',
+                          'Applied materials and lighting for real-time PBR rendering',
+                          'Optimized and exported from .blend to web-ready .glb'
+                      ],
+                      tags: ['Blender', '3D Modeling', 'glTF / GLB', 'model-viewer'],
+                      cameraOrbit: '45deg 65deg auto'
+                  }
+              ];
+
+    let activeModel = models3d[0];
     const toggleRotateBtn = document.getElementById('model-toggle-rotate');
     const resetCameraBtn = document.getElementById('model-reset-camera');
+    const modalCategory = document.getElementById('model-modal-category');
+    const modalDescription = document.getElementById('model-modal-description');
+    const modalHighlights = document.getElementById('model-modal-highlights');
+    const modalTags = document.getElementById('model-modal-tags');
+    const modalSwitcher = document.getElementById('model-modal-switcher');
+    const modalStudioLink = document.getElementById('model-modal-studio-link');
+    const inlineSwitcher = document.querySelector('[data-inline-model-switcher]');
+    const inlineViewer = document.querySelector('[data-studio-inline-viewer]');
 
-    document.querySelectorAll('[data-model-src]').forEach(trigger => {
+    document.querySelectorAll('[data-model-count]').forEach(el => {
+        el.textContent = `${models3d.length} ${models3d.length === 1 ? 'Object' : 'Objects'}`;
+    });
+
+    const syncPressedState = () => {
+        document
+            .querySelectorAll('[data-inline-model-switcher] button, #model-modal-switcher button')
+            .forEach(btn => {
+                btn.setAttribute('aria-pressed', String(btn.getAttribute('data-model-id') === activeModel.id));
+            });
+    };
+
+    const applyModelToModal = model => {
+        if (modalModelViewer.getAttribute('src') !== model.src) {
+            modalModelViewer.setAttribute('src', model.src);
+        }
+        modalModelViewer.setAttribute('alt', model.alt || model.title);
+        modalModelViewer.cameraOrbit = model.cameraOrbit || 'auto auto auto';
+        if (modalModelTitle) modalModelTitle.textContent = model.title;
+        if (modalCategory) modalCategory.textContent = model.category || '3D Study';
+        if (modalDescription) modalDescription.textContent = model.summary || '';
+        if (modalStudioLink) {
+            modalStudioLink.setAttribute('href', `3d-studio/?model=${encodeURIComponent(model.id)}`);
+        }
+        if (modalHighlights) {
+            modalHighlights.replaceChildren();
+            (model.highlights || []).forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                modalHighlights.appendChild(li);
+            });
+        }
+        if (modalTags) {
+            modalTags.replaceChildren();
+            (model.tags || []).forEach(tag => {
+                const span = document.createElement('span');
+                span.textContent = tag;
+                modalTags.appendChild(span);
+            });
+        }
+    };
+
+    const selectModel = (modelId, syncInline = true) => {
+        const found = models3d.find(m => m.id === modelId);
+        if (!found) return;
+        activeModel = found;
+        if (syncInline && inlineViewer) {
+            inlineViewer.setAttribute('src', activeModel.src);
+            inlineViewer.setAttribute('alt', activeModel.alt || activeModel.title);
+            if (activeModel.cameraOrbit) {
+                inlineViewer.cameraOrbit = activeModel.cameraOrbit;
+            }
+        }
+        applyModelToModal(activeModel);
+        syncPressedState();
+    };
+
+    const renderButtons = (container, showSoonNote) => {
+        container.replaceChildren();
+        models3d.forEach(model => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'model-switch-btn';
+            btn.setAttribute('data-model-id', model.id);
+            btn.setAttribute('aria-pressed', String(model.id === activeModel.id));
+            btn.textContent = model.title;
+            btn.addEventListener('click', () => selectModel(model.id));
+            container.appendChild(btn);
+        });
+        if (showSoonNote && models3d.length === 1) {
+            const note = document.createElement('span');
+            note.className = 'model-switcher-note';
+            note.textContent = 'More 3D objects coming soon';
+            container.appendChild(note);
+        }
+    };
+
+    if (inlineSwitcher) {
+        if (models3d.length > 1) {
+            inlineSwitcher.hidden = false;
+            renderButtons(inlineSwitcher, false);
+        } else {
+            inlineSwitcher.hidden = true;
+        }
+    }
+
+    if (modalSwitcher) {
+        renderButtons(modalSwitcher, true);
+    }
+
+    document.querySelectorAll('[data-open-3d-modal], [data-model-src]').forEach(trigger => {
         trigger.addEventListener('click', () => {
-            const src = trigger.getAttribute('data-model-src');
-            const title = trigger.getAttribute('data-model-title') || '3D Model Viewer';
-            modalModelViewer.setAttribute('src', src);
-            modalModelTitle.textContent = title;
+            const requestedId = trigger.getAttribute('data-model-id');
+            if (requestedId) {
+                selectModel(requestedId, false);
+            } else {
+                applyModelToModal(activeModel);
+            }
             modelModal.showModal();
         });
     });
@@ -464,16 +587,18 @@ if (modelModal && modalModelViewer) {
             if (isRotating) {
                 modalModelViewer.removeAttribute('auto-rotate');
                 toggleRotateBtn.classList.remove('active');
+                toggleRotateBtn.setAttribute('aria-pressed', 'false');
             } else {
                 modalModelViewer.setAttribute('auto-rotate', '');
                 toggleRotateBtn.classList.add('active');
+                toggleRotateBtn.setAttribute('aria-pressed', 'true');
             }
         });
     }
 
     if (resetCameraBtn) {
         resetCameraBtn.addEventListener('click', () => {
-            modalModelViewer.cameraOrbit = 'auto auto auto';
+            modalModelViewer.cameraOrbit = activeModel.cameraOrbit || 'auto auto auto';
             modalModelViewer.fieldOfView = 'auto';
         });
     }
@@ -483,11 +608,22 @@ if (modelModal && modalModelViewer) {
         closeBtn.addEventListener('click', () => modelModal.close());
     }
 
-    modelModal.addEventListener('click', (e) => {
-        if (e.target === modelModal) {
-            modelModal.close();
-        }
-    });
+    if (!('closedBy' in HTMLDialogElement.prototype)) {
+        const outside = (e) => {
+            const r = modelModal.getBoundingClientRect();
+            return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+        };
+        let pressedOutside = false;
+        modelModal.addEventListener('pointerdown', (e) => {
+            pressedOutside = modelModal.open && outside(e);
+        });
+        modelModal.addEventListener('pointerup', (e) => {
+            if (pressedOutside && modelModal.open && outside(e)) {
+                modelModal.close();
+            }
+            pressedOutside = false;
+        });
+    }
 }
 
 console.log('Portfolio website loaded successfully! 🚀');
